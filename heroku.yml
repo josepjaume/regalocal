@@ -1,0 +1,14 @@
+setup:
+  addons:
+    - plan: heroku-postgresql
+      as: DATABASE
+    - plan: heroku-redis
+build:
+  docker:
+    web: Dockerfile
+release:
+  command:
+    - bin/regalocal eval "Regalocal.Release.migrate()"
+  image: web
+run:
+  web: bin/regalocal start

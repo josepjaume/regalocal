@@ -1,0 +1,21 @@
+{
+  "name": "Regalocal",
+  "description": "",
+  "keywords": [],
+  "success_url": "/",
+  "scripts": {
+    "postdeploy": "bin/regalocal eval \"Regalocal.Release.setup()\""
+  },
+  "stack": "container",
+  "env": {
+    "SECRET_KEY_BASE": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "generator": "secret"
+    },
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "POOL_SIZE": 2
+  },
+  "addons": ["heroku-redis", "heroku-postgresql"]
+}
