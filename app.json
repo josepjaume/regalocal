@@ -17,5 +17,5 @@
     },
     "POOL_SIZE": 2
   },
-  "addons": ["heroku-redis", "heroku-postgresql"]
+  "addons": ["heroku-postgresql"]
 }
