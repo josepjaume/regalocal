@@ -40,7 +40,7 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
-      - uses: actions/setup-elixir@v1.0.0
+      - uses: actions/setup-elixir@master
         with:
           otp-version: 22.x
           elixir-version: 1.10.x
