@@ -1,0 +1,87 @@
+<h1>Show Business</h1>
+
+<ul>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @business.email %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @business.name %>
+  </li>
+
+  <li>
+    <strong>Owner name:</strong>
+    <%= @business.owner_name %>
+  </li>
+
+  <li>
+    <strong>Story:</strong>
+    <%= @business.story %>
+  </li>
+
+  <li>
+    <strong>Phone:</strong>
+    <%= @business.phone %>
+  </li>
+
+  <li>
+    <strong>Website:</strong>
+    <%= @business.website %>
+  </li>
+
+  <li>
+    <strong>Whatsapp:</strong>
+    <%= @business.whatsapp %>
+  </li>
+
+  <li>
+    <strong>Google maps url:</strong>
+    <%= @business.google_maps_url %>
+  </li>
+
+  <li>
+    <strong>Tripadvisor url:</strong>
+    <%= @business.tripadvisor_url %>
+  </li>
+
+  <li>
+    <strong>Instagram:</strong>
+    <%= @business.instagram %>
+  </li>
+
+  <li>
+    <strong>Facebook:</strong>
+    <%= @business.facebook %>
+  </li>
+
+  <li>
+    <strong>Iban:</strong>
+    <%= @business.iban %>
+  </li>
+
+  <li>
+    <strong>Legal name:</strong>
+    <%= @business.legal_name %>
+  </li>
+
+  <li>
+    <strong>Vat number:</strong>
+    <%= @business.vat_number %>
+  </li>
+
+  <li>
+    <strong>Billing address:</strong>
+    <%= @business.billing_address %>
+  </li>
+
+  <li>
+    <strong>Bizum number:</strong>
+    <%= @business.bizum_number %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.profile_business_path(@conn, :edit) %></span>

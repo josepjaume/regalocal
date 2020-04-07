@@ -1,0 +1,5 @@
+use Mix.Config
+
+# Configure your database
+config :regalocal, Regalocal.Repo,
+  username: "YOU"

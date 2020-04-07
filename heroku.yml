@@ -3,6 +3,7 @@ setup:
     - plan: heroku-postgresql
       as: DATABASE
     - plan: heroku-redis
+    - plan: sendgrid-starter
 build:
   docker:
     web: Dockerfile

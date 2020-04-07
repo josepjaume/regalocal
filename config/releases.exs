@@ -16,6 +16,10 @@ config :regalocal, Regalocal.Repo,
   url: database_url,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
+config :regalocal, Regalocal.Veil,
+  request_salt: System.get_env("VEIL_REQUEST_SALT"),
+  session_salt: System.get_env("VEIL_SESSION_SALT")
+
 secret_key_base =
   System.get_env("SECRET_KEY_BASE") ||
     raise """
@@ -36,6 +40,18 @@ config :regalocal, RegalocalWeb.Endpoint,
 # to start each relevant endpoint:
 #
 config :regalocal, RegalocalWeb.Endpoint, server: true
+
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
+
+config :veil, RegalocalWeb.Veil.Mailer,
+  adapter: Swoosh.Adapters.SMTP,
+  relay: "smtp.sendgrid.net",
+  username: System.get_env("SENDGRID_USERNAME"),
+  password: System.get_env("SENDGRID_PASSWORD"),
+  ssl: true,
+  tls: :always,
+  auth: :always,
+  port: 465,
+  retries: 2

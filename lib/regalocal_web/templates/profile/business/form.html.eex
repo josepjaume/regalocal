@@ -1,0 +1,189 @@
+<div class="bg-white">
+  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto">
+      <%= form_for @changeset, @action, fn f -> %>
+      <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Oops, something went wrong! Please check the errors below.</p>
+        </div>
+      <% end %>
+      <div>
+        <div>
+          <div>
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+              Profile
+            </h3>
+            <p class="mt-1 text-sm leading-5 text-gray-500">
+              This information will be displayed publicly so be careful what you share.
+            </p>
+          </div>
+          <div class="mt-6 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
+            <div class="sm:col-span-4">
+              <%= label f, :name, class: "block text-sm font-medium leading-5 text-gray-700" %>
+              <div class="mt-1 sm:mt-0 sm:col-span-2">
+                <div class="max-w-lg flex rounded-md shadow-sm">
+                  <%= text_input f, :name, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                </div>
+                <%= error_tag f, :name %>
+              </div>
+            </div>
+            <div class="sm:col-span-4">
+              <%= label f, :owner_name, class: "block text-sm font-medium leading-5 text-gray-700" %>
+              <div class="mt-1 sm:mt-0 sm:col-span-2">
+                <div class="max-w-lg flex rounded-md shadow-sm">
+                  <%= text_input f, :owner_name, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                </div>
+                <%= error_tag f, :owner_name %>
+              </div>
+            </div>
+            <div class="sm:col-span-6">
+              <label for="about" class="block text-sm font-medium leading-5 text-gray-700">
+                <%= label f, :story %>
+              </label>
+              <div class="mt-1 rounded-md shadow-sm">
+                <%= textarea f, :story, class: "form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+              </div>
+              <p class="mt-2 text-sm text-gray-500">Write a few sentences about yourself.</p>
+              <%= error_tag f, :story %>
+            </div>
+            <div class="sm:col-span-4">
+              <%= label f, :phone, class: "block text-sm font-medium leading-5 text-gray-700" %>
+              <div class="mt-1 sm:mt-0 sm:col-span-2">
+                <div class="max-w-lg flex rounded-md shadow-sm">
+                  <%= text_input f, :phone, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                </div>
+                <%= error_tag f, :phone %>
+              </div>
+            </div>
+            <div class="sm:col-span-4">
+              <%= label f, :website, class: "block text-sm font-medium leading-5 text-gray-700" %>
+              <div class="mt-1 sm:mt-0 sm:col-span-2">
+                <div class="max-w-lg flex rounded-md shadow-sm">
+                  <%= text_input f, :website, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                </div>
+                <%= error_tag f, :website %>
+              </div>
+            </div>
+            <div class="sm:col-span-4">
+              <%= label f, :whatsapp, class: "block text-sm font-medium leading-5 text-gray-700" %>
+              <div class="mt-1 sm:mt-0 sm:col-span-2">
+                <div class="max-w-lg flex rounded-md shadow-sm">
+                  <%= text_input f, :whatsapp, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                </div>
+                <%= error_tag f, :whatsapp %>
+              </div>
+            </div>
+            <div class="sm:col-span-4">
+              <%= label f, :google_maps_url, class: "block text-sm font-medium leading-5 text-gray-700" %>
+              <div class="mt-1 flex rounded-md shadow-sm">
+                <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
+                  maps.google.com/
+                </span>
+                <%= text_input f, :google_maps_url, class: "flex-1 form-input block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                <%= error_tag f, :google_maps_url %>
+              </div>
+            </div>
+            <div class="sm:col-span-4">
+              <%= label f, :tripadvisor_url, class: "block text-sm font-medium leading-5 text-gray-700" %>
+              <div class="mt-1 flex rounded-md shadow-sm">
+                <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
+                  tripadvisor.com/
+                </span>
+                <%= text_input f, :tripadvisor_url, class: "flex-1 form-input block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                <%= error_tag f, :tripadvisor_url %>
+              </div>
+            </div>
+            <div class="sm:col-span-4">
+              <%= label f, :instagram, class: "block text-sm font-medium leading-5 text-gray-700" %>
+              <div class="mt-1 flex rounded-md shadow-sm">
+                <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
+                  instagram.com/
+                </span>
+                <%= text_input f, :instagram, class: "flex-1 form-input block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                <%= error_tag f, :instagram %>
+              </div>
+            </div>
+            <div class="sm:col-span-4">
+              <%= label f, :facebook, class: "block text-sm font-medium leading-5 text-gray-700" %>
+              <div class="mt-1 flex rounded-md shadow-sm">
+                <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
+                  facebook.com/
+                </span>
+                <%= text_input f, :facebook, class: "flex-1 form-input block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                <%= error_tag f, :facebook %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-8 border-t border-gray-200 pt-8">
+        <div>
+          <h3 class="text-lg leading-6 font-medium text-gray-900">
+            Informació de facturació
+          </h3>
+          <p class="mt-1 text-sm leading-5 text-gray-500">
+            Explicació sobre aquestes dades
+          </p>
+        </div>
+        <div class="mt-6 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
+          <div class="sm:col-span-4">
+            <%= label f, :iban, class: "block text-sm font-medium leading-5 text-gray-700" %>
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+              <div class="max-w-lg flex rounded-md shadow-sm">
+                <%= text_input f, :iban, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+              </div>
+              <%= error_tag f, :iban %>
+            </div>
+          </div>
+          <div class="sm:col-span-4">
+            <%= label f, :legal_name, class: "block text-sm font-medium leading-5 text-gray-700" %>
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+              <div class="max-w-lg flex rounded-md shadow-sm">
+                <%= text_input f, :legal_name, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+              </div>
+              <%= error_tag f, :legal_name %>
+            </div>
+          </div>
+          <div class="sm:col-span-4">
+            <%= label f, :vat_number, class: "block text-sm font-medium leading-5 text-gray-700" %>
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+              <div class="max-w-lg flex rounded-md shadow-sm">
+                <%= text_input f, :vat_number, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+              </div>
+              <%= error_tag f, :vat_number %>
+            </div>
+          </div>
+          <div class="sm:col-span-4">
+            <%= label f, :billing_address, class: "block text-sm font-medium leading-5 text-gray-700" %>
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+              <div class="max-w-lg flex rounded-md shadow-sm">
+                <%= text_input f, :billing_address, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+              </div>
+              <%= error_tag f, :billing_address %>
+            </div>
+          </div>
+          <div class="sm:col-span-4">
+            <%= label f, :bizum_number, class: "block text-sm font-medium leading-5 text-gray-700" %>
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+              <div class="max-w-lg flex rounded-md shadow-sm">
+                <%= text_input f, :bizum_number, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+              </div>
+              <%= error_tag f, :bizum_number %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+      </div>
+      <div class="mt-8 border-t border-gray-200 pt-5">
+        <div class="flex justify-end">
+          <span class="ml-3 inline-flex rounded-md shadow-sm">
+            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
+              Save
+            </button>
+          </span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

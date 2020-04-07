@@ -1,0 +1,7 @@
+<div class="max-w-xl mx-auto px-6 lg:px-8 py-8">
+  <h2 class="mt-6 text-3xl leading-9 font-extrabold text-gray-900">Sign In</h2>
+  <p class="mt-2 text-sm leading-5 text-gray-600 max-w">
+    Introdueix el teu e-mail per a iniciar una sessió.
+  </p>
+  <%= render "form.html", changeset: @changeset, action: Routes.veil_business_path(@conn, :create) %>
+</div>
