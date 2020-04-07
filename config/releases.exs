@@ -40,7 +40,7 @@ config :regalocal, RegalocalWeb.Endpoint,
     transport_options: [socket_opts: [:inet6]]
   ],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
-  url: [host: host, scheme: "https"],
+  url: [host: host, scheme: "https", port: nil],
   secret_key_base: secret_key_base
 
 # ## Using releases (Elixir v1.9+)
