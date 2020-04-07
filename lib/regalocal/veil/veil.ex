@@ -11,7 +11,7 @@ defmodule Regalocal.Veil do
   Gets business associated with business_id
   """
   def get_business(business_id) do
-    Cache.get_or_update(:business, business_id, &get_business_repo/1)
+    Cache.get_or_update(:veil_users, business_id, &get_business_repo/1)
   end
 
   defp get_business_repo(business_id) do
@@ -31,7 +31,7 @@ defmodule Regalocal.Veil do
   def create_business(email) do
     %Business{}
     |> Business.changeset(%{email: email})
-    |> Cache.put(:business, &Repo.insert/1)
+    |> Cache.put(:veil_users, &Repo.insert/1)
   end
 
   @doc """
@@ -64,7 +64,7 @@ defmodule Regalocal.Veil do
   defp do_update_business(%Business{} = business, attrs) do
     business
     |> Business.changeset(attrs)
-    |> Cache.put(:business, &Repo.update/1)
+    |> Cache.put(:veil_users, &Repo.update/1)
   end
 
   @doc """
