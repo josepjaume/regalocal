@@ -1,0 +1,50 @@
+h1 {
+  @apply text-2xl;
+}
+
+h2 {
+  @apply text-xl;
+}
+
+h3 {
+  @apply text-lg;
+}
+
+a {
+  @apply font-medium text-gray-500 transition duration-150 ease-in-out;
+  &:hover {
+    @apply text-gray-900;
+  }
+  &:focus {
+    @apply outline-none text-gray-900;
+  }
+}
+
+.button,
+form button {
+  @apply inline-flex rounded-md shadow flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-pink-600 transition duration-150 ease-in-out;
+
+  &:hover {
+    @apply bg-pink-500;
+  }
+
+  &:focus {
+    @apply outline-none shadow-outline-gray;
+  }
+
+  &.button-reverse {
+    @apply text-pink-600 bg-white;
+
+    &:hover {
+      @apply text-pink-500;
+    }
+
+    &:focus {
+      @apply outline-none shadow-outline-pink;
+    }
+
+    &:active {
+      @apply bg-gray-50 text-pink-700 transition;
+    }
+  }
+}

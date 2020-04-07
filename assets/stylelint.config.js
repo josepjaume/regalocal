@@ -5,10 +5,9 @@ module.exports = {
     "stylelint-config-rational-order",
     "stylelint-prettier/recommended",
   ],
-  plugins: ["stylelint-scss", "stylelint-prettier"],
+  plugins: ["stylelint-prettier"],
   rules: {
     "prettier/prettier": true,
     "at-rule-no-unknown": null,
-    "scss/at-rule-no-unknown": true,
   },
 }
