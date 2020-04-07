@@ -1,0 +1,27 @@
+name: "Assets Lint"
+on:
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  lint:
+    name: Lint JavaScript and SCSS files
+    runs-on: ubuntu-16.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "10.x"
+      - name: npm install
+        working-directory: ./assets
+        run: |
+          npm install
+      - name: Eslint checks
+        working-directory: ./assets
+        run: |
+          npm run eslint
+      - name: Stylelint checks
+        working-directory: ./assets
+        run: |
+          npm run stylelint

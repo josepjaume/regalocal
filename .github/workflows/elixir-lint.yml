@@ -1,27 +1,13 @@
-name: Test
-on: [push]
+name: Elixir Lint
+on:
+  push:
+    branches-ignore:
+      - master
 
 jobs:
-  test:
-    name: Run Elixir Tests
-    env:
-      MIX_ENV: ci
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+  lint:
+    name: Lint Elixir Code
     runs-on: ubuntu-latest
-
-    services:
-      db:
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        image: postgres:11
-        ports: ["5432:5432"]
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     steps:
       - uses: actions/checkout@v1.0.0
       - name: Recover dependency cache
@@ -46,6 +32,4 @@ jobs:
           otp-version: 22.x
           elixir-version: 1.10.x
       - run: mix deps.get
-      - run: mix compile
-      - run: mix ecto.migrate
-      - run: mix test --trace
+      - run: mix format --check-formatted
