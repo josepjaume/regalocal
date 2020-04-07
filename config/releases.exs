@@ -27,11 +27,19 @@ secret_key_base =
     You can generate one by calling: mix phx.gen.secret
     """
 
+review_app_host =
+  if System.get_env("HEROKU_APP_NAME") do
+    "#{System.get_env("HEROKU_APP_NAME")}.herokuapp.com"
+  end
+
+host = System.get_env("HOST") || review_app_host || "example.com"
+
 config :regalocal, RegalocalWeb.Endpoint,
   http: [
     port: String.to_integer(System.get_env("PORT") || "4000"),
     transport_options: [socket_opts: [:inet6]]
   ],
+  url: [host: host, scheme: "https"],
   secret_key_base: secret_key_base
 
 # ## Using releases (Elixir v1.9+)
@@ -40,6 +48,9 @@ config :regalocal, RegalocalWeb.Endpoint,
 # to start each relevant endpoint:
 #
 config :regalocal, RegalocalWeb.Endpoint, server: true
+
+config :veil,
+  email_from_address: System.get_env("EMAIL") || "regalocal@#{host}"
 
 #
 # Then you can assemble a release by calling `mix release`.
