@@ -15,8 +15,7 @@ defmodule Regalocal.Release do
 
   def seed do
     ensure_all_started()
-
-    Code.eval_file("priv/repo/seeds.exs")
+    Regalocal.Seeds.seed!()
   end
 
   def setup do
