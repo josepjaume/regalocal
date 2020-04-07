@@ -35,10 +35,7 @@ review_app_host =
 host = System.get_env("HOST") || review_app_host || "example.com"
 
 config :regalocal, RegalocalWeb.Endpoint,
-  http: [
-    port: String.to_integer(System.get_env("PORT") || "4000"),
-    transport_options: [socket_opts: [:inet6]]
-  ],
+  http: [port: {:system, "PORT"}],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   url: [host: host, scheme: "https", port: 443],
   secret_key_base: secret_key_base
