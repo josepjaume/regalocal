@@ -1,0 +1,25 @@
+name: "Assets Lint"
+on:
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-16.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "10.x"
+      - name: npm install
+        run: |
+          cd assets
+          npm install
+      - name: Eslint checks
+        run: |
+          npm run eslint
+      - name: Stylelint checks
+        run: |
+          npm run stylelint

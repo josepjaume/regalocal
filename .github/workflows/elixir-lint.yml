@@ -1,0 +1,15 @@
+name: Elixir Lint
+on:
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  lint:
+    steps:
+      - uses: actions/checkout@v1.0.0
+      - uses: actions/setup-elixir@master
+        with:
+          otp-version: 22.x
+          elixir-version: 1.10.x
+      - run: mix format --check-formatted
