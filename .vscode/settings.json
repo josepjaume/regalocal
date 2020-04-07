@@ -1,0 +1,4 @@
+{
+  "eslint.workingDirectories": ["assets"],
+  "editor.formatOnSave": true
+}
