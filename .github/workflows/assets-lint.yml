@@ -14,12 +14,14 @@ jobs:
         with:
           node-version: "10.x"
       - name: npm install
+        working-directory: ./assets
         run: |
-          cd assets
           npm install
       - name: Eslint checks
+        working-directory: ./assets
         run: |
           npm run eslint
       - name: Stylelint checks
+        working-directory: ./assets
         run: |
           npm run stylelint
