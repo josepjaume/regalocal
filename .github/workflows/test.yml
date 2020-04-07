@@ -3,6 +3,7 @@ on: [push]
 
 jobs:
   test:
+    name: Run Elixir Tests
     env:
       MIX_ENV: ci
       DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
