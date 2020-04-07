@@ -51,7 +51,6 @@ config :veil, RegalocalWeb.Veil.Mailer,
   username: System.get_env("SENDGRID_USERNAME"),
   password: System.get_env("SENDGRID_PASSWORD"),
   ssl: true,
-  tls: :always,
   auth: :always,
   port: 465,
   retries: 2
