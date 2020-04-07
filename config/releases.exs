@@ -39,7 +39,7 @@ config :regalocal, RegalocalWeb.Endpoint,
     port: String.to_integer(System.get_env("PORT") || "4000"),
     transport_options: [socket_opts: [:inet6]]
   ],
-  force_ssl: [hsts: true],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
   url: [host: host, scheme: "https"],
   secret_key_base: secret_key_base
 
