@@ -44,7 +44,8 @@ defmodule Regalocal.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:veil, "~> 0.2"}
+      {:veil, "~> 0.2"},
+      {:gen_smtp, "~> 0.15.0"}
     ]
   end
 
