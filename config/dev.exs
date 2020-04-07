@@ -77,6 +77,6 @@ config :veil, RegalocalWeb.Veil.Mailer, adapter: Swoosh.Adapters.Local
 
 config :swoosh, serve_mailbox: true, preview_port: 4001
 
-if File.exists?("dev.local.exs") do
+if File.exists?("config/dev.local.exs") do
   import_config "dev.local.exs"
 end
