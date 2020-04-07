@@ -9,8 +9,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1.0.0
+      - name: Recover dependency cache
+        uses: actions/cache@v1
+        with:
+          path: deps
+          key: ${{ runner.OS }}-deps-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-deps-${{ env.cache-name }}-
+            ${{ runner.OS }}-deps-
+            ${{ runner.OS }}-
+      - name: Recover build cache
+        uses: actions/cache@v1
+        with:
+          path: _build
+          key: ${{ runner.OS }}-build-${{ env.cache-name }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
       - uses: actions/setup-elixir@master
         with:
           otp-version: 22.x
           elixir-version: 1.10.x
+      - run: mix deps.get
       - run: mix format --check-formatted
