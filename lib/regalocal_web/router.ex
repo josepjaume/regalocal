@@ -18,6 +18,7 @@ defmodule RegalocalWeb.Router do
   scope "/", RegalocalWeb do
     pipe_through :browser
 
+    get "/search", SearchController, :index
     get "/", PageController, :index
     get "/terms", PageController, :terms
   end

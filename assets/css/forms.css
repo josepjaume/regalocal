@@ -1,0 +1,55 @@
+form {
+  input {
+    @apply appearance-none w-full px-5 py-3 border border-gray-300 text-base leading-6 rounded-md text-gray-900 bg-white transition duration-150 ease-in-out;
+
+    &:focus {
+      @apply border-pink-300 shadow-outline-pink outline-none;
+    }
+  }
+}
+
+.button,
+form button {
+  @apply inline-flex rounded-md shadow flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-pink-600 transition-all duration-150 ease-in-out;
+
+  &:hover {
+    @apply bg-pink-500;
+  }
+
+  &:focus {
+    @apply outline-none shadow-outline-gray;
+  }
+
+  &.button-reverse {
+    @apply text-pink-600 bg-white;
+
+    &:hover {
+      @apply text-pink-500;
+    }
+
+    &:focus {
+      @apply outline-none shadow-outline-pink;
+    }
+
+    &:active {
+      @apply bg-gray-50 text-pink-700 transition;
+    }
+  }
+
+  &.button-disabled,
+  &:disabled {
+    @apply text-gray-600 bg-white shadow-sm;
+
+    &:hover {
+      @apply text-gray-500;
+    }
+
+    &:focus {
+      @apply outline-none shadow-outline-gray;
+    }
+
+    &:active {
+      @apply bg-gray-50 text-gray-700 transition;
+    }
+  }
+}

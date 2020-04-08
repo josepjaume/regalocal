@@ -15,3 +15,7 @@ import "alpinejs"
 //
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
+
+import { geolocate } from "./geolocation"
+
+window.geolocate = geolocate

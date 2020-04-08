@@ -1,0 +1,3 @@
+<h2>Searching for results</h2>
+<div>Latitude: <%= @coordinates.latitude %></div>
+<div>Longitude: <%= @coordinates.longitude %></div>
