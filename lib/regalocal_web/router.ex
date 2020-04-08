@@ -48,6 +48,9 @@ defmodule RegalocalWeb.Router do
     get("/business", BusinessController, :show)
     get("/business/edit", BusinessController, :edit)
     put("/business", BusinessController, :update)
+    resources("/coupons", CouponController)
+    put("/coupons/:id/publish", CouponController, :publish, as: :publish_coupon)
+    put("/coupons/:id/unpublish", CouponController, :unpublish, as: :unpublish_coupon)
   end
 
   if Mix.env() == :dev do

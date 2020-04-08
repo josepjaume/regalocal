@@ -1,4 +1,6 @@
-<h1>Show Business</h1>
+<span><%= link "Edit", to: Routes.admin_business_path(@conn, :edit) %></span>
+<span><%= link "Coupons", to: Routes.admin_coupon_path(@conn, :index) %></span>
+<h1>Your Business</h1>
 <ul>
   <li>
     <strong>Email:</strong>
@@ -82,4 +84,3 @@
     <%= @business.bizum_number %>
   </li>
 </ul>
-<span><%= link "Edit", to: Routes.admin_business_path(@conn, :edit) %></span>

@@ -7,6 +7,7 @@ defmodule Regalocal.Admin do
   import Geo.PostGIS
 
   alias Regalocal.Admin.Business
+  alias Regalocal.Admin.Coupon
 
   @doc """
   Gets a single business.
@@ -77,5 +78,118 @@ defmodule Regalocal.Admin do
   """
   def change_business(%Business{} = business) do
     Business.changeset(business, %{})
+  end
+
+  @doc """
+  Returns the list of coupons.
+
+  ## Examples
+
+      iex> list_coupons()
+      [%Coupon{}, ...]
+
+  """
+  def list_coupons(business_id) do
+    Coupon |> where(business_id: ^business_id) |> Repo.all()
+  end
+
+  @doc """
+  Gets a single coupon.
+
+  Raises `Ecto.NoResultsError` if the Coupon does not exist.
+
+  ## Examples
+
+      iex> get_coupon!(123)
+      %Coupon{}
+
+      iex> get_coupon!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_coupon!(business_id, id),
+    do: Coupon |> where(business_id: ^business_id, id: ^id) |> Repo.one!()
+
+  @doc """
+  Creates a coupon.
+
+  ## Examples
+
+      iex> create_coupon(%{field: value})
+      {:ok, %Coupon{}}
+
+      iex> create_coupon(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_coupon(attrs \\ %{}) do
+    %Coupon{}
+    |> Coupon.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a coupon.
+
+  ## Examples
+
+      iex> update_coupon(coupon, %{field: new_value})
+      {:ok, %Coupon{}}
+
+      iex> update_coupon(coupon, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_coupon(%Coupon{} = coupon, attrs) do
+    coupon
+    |> Coupon.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def publish_coupon!(%Coupon{} = coupon) do
+    coupon
+    |> Coupon.changeset(%{"status" => :published})
+    |> Repo.update()
+  end
+
+  def unpublish_coupon!(%Coupon{} = coupon) do
+    coupon
+    |> Coupon.changeset(%{"status" => :draft})
+    |> Repo.update()
+  end
+
+  def archive_coupon!(%Coupon{} = coupon) do
+    coupon
+    |> Coupon.changeset(%{"status" => :archived})
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a coupon.
+
+  ## Examples
+
+      iex> delete_coupon(coupon)
+      {:ok, %Coupon{}}
+
+      iex> delete_coupon(coupon)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_coupon(%Coupon{} = coupon) do
+    Repo.delete(coupon)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking coupon changes.
+
+  ## Examples
+
+      iex> change_coupon(coupon)
+      %Ecto.Changeset{source: %Coupon{}}
+
+  """
+  def change_coupon(%Coupon{} = coupon) do
+    Coupon.changeset(coupon, %{})
   end
 end

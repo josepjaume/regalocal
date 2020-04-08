@@ -3,8 +3,19 @@
     <div class="max-w-3xl mx-auto">
       <%= form_for @changeset, @action, [multipart: true], fn f -> %>
       <%= if @changeset.action do %>
-        <div class="alert alert-danger">
-          <p>Oops, something went wrong! Please check the errors below.</p>
+        <div class="rounded-md bg-red-50 p-4">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm leading-5 font-medium text-red-800">
+                Oops, something went wrong! Please check the errors below.
+              </h3>
+            </div>
+          </div>
         </div>
       <% end %>
       <div>
@@ -22,7 +33,7 @@
               <%= label f, :name, class: "block text-sm font-medium leading-5 text-gray-700" %>
               <div class="mt-1 sm:mt-0 sm:col-span-2">
                 <div class="max-w-lg flex rounded-md shadow-sm">
-                  <%= text_input f, :name, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                  <%= text_input f, :name, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
                 </div>
                 <%= error_tag f, :name %>
               </div>
@@ -31,7 +42,7 @@
               <%= label f, :owner_name, class: "block text-sm font-medium leading-5 text-gray-700" %>
               <div class="mt-1 sm:mt-0 sm:col-span-2">
                 <div class="max-w-lg flex rounded-md shadow-sm">
-                  <%= text_input f, :owner_name, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                  <%= text_input f, :owner_name, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
                 </div>
                 <%= error_tag f, :owner_name %>
               </div>
@@ -58,7 +69,7 @@
                 <%= label f, :story %>
               </label>
               <div class="mt-1 rounded-md shadow-sm">
-                <%= textarea f, :story, class: "form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                <%= textarea f, :story, required: true, class: "form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
               </div>
               <p class="mt-2 text-sm text-gray-500">Write a few sentences about yourself.</p>
               <%= error_tag f, :story %>
@@ -67,7 +78,7 @@
               <%= label f, :address, class: "block text-sm font-medium leading-5 text-gray-700" %>
               <div class="mt-1 sm:mt-0 sm:col-span-2">
                 <div class="max-w-lg flex rounded-md shadow-sm">
-                  <%= text_input f, :address, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                  <%= text_input f, :address, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
                 </div>
                 <%= error_tag f, :address %>
               </div>
@@ -76,7 +87,7 @@
               <%= label f, :phone, class: "block text-sm font-medium leading-5 text-gray-700" %>
               <div class="mt-1 sm:mt-0 sm:col-span-2">
                 <div class="max-w-lg flex rounded-md shadow-sm">
-                  <%= text_input f, :phone, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                  <%= text_input f, :phone, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
                 </div>
                 <%= error_tag f, :phone %>
               </div>
@@ -156,7 +167,7 @@
             <%= label f, :iban, class: "block text-sm font-medium leading-5 text-gray-700" %>
             <div class="mt-1 sm:mt-0 sm:col-span-2">
               <div class="max-w-lg flex rounded-md shadow-sm">
-                <%= text_input f, :iban, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                <%= text_input f, :iban, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
               </div>
               <%= error_tag f, :iban %>
             </div>
@@ -165,7 +176,7 @@
             <%= label f, :legal_name, class: "block text-sm font-medium leading-5 text-gray-700" %>
             <div class="mt-1 sm:mt-0 sm:col-span-2">
               <div class="max-w-lg flex rounded-md shadow-sm">
-                <%= text_input f, :legal_name, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                <%= text_input f, :legal_name, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
               </div>
               <%= error_tag f, :legal_name %>
             </div>
@@ -174,7 +185,7 @@
             <%= label f, :vat_number, class: "block text-sm font-medium leading-5 text-gray-700" %>
             <div class="mt-1 sm:mt-0 sm:col-span-2">
               <div class="max-w-lg flex rounded-md shadow-sm">
-                <%= text_input f, :vat_number, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                <%= text_input f, :vat_number, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
               </div>
               <%= error_tag f, :vat_number %>
             </div>
@@ -183,7 +194,7 @@
             <%= label f, :billing_address, class: "block text-sm font-medium leading-5 text-gray-700" %>
             <div class="mt-1 sm:mt-0 sm:col-span-2">
               <div class="max-w-lg flex rounded-md shadow-sm">
-                <%= text_input f, :billing_address, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                <%= text_input f, :billing_address, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
               </div>
               <%= error_tag f, :billing_address %>
             </div>

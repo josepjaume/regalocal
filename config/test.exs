@@ -5,12 +5,14 @@ database_url = System.get_env("DATABASE_URL")
 if(database_url) do
   config :regalocal, Regalocal.Repo,
     url: System.get_env("DATABASE_URL"),
-    pool: Ecto.Adapters.SQL.Sandbox
+    pool: Ecto.Adapters.SQL.Sandbox,
+    types: PostgresTypes
 else
   config :regalocal, Regalocal.Repo,
     database: "regalocal_test",
     hostname: "localhost",
-    pool: Ecto.Adapters.SQL.Sandbox
+    pool: Ecto.Adapters.SQL.Sandbox,
+    types: PostgresTypes
 end
 
 # We don't run a server during test. If one is required,

@@ -51,7 +51,8 @@ defmodule Regalocal.MixProject do
       {:geo, "~> 3.0"},
       {:geo_postgis, "~> 3.1"},
       {:cloudex, "~> 1.3.0"},
-      {:faker, "~> 0.13"}
+      {:faker, "~> 0.13"},
+      {:ecto_enum, "~> 1.4"}
     ]
   end
 

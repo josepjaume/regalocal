@@ -1,6 +1,7 @@
 defmodule Regalocal.Seeds do
   alias Regalocal.Repo
   alias Regalocal.Admin.Business
+  alias Regalocal.Admin.Coupon
   alias Regalocal.Geolocation
 
   @addresses [
@@ -44,39 +45,62 @@ defmodule Regalocal.Seeds do
 
     name = Faker.Company.En.name()
 
-    Repo.insert!(%Business{
-      address: address,
-      coordinates: Geolocation.to_geopoint(geo),
-      billing_address: add,
-      bizum_number: "600100200",
-      email: Faker.Internet.email(),
-      facebook: Faker.Internet.user_name(),
-      google_maps_url: "https://maps.google.es",
-      iban: "ES210021002100210021" <> n,
-      instagram: Faker.Internet.user_name(),
-      legal_name: name,
-      name: name,
-      owner_name: Faker.Name.Es.name(),
-      phone: "937100200",
-      story: Faker.Util.to_sentence(Faker.Lorem.paragraphs(4)),
-      tripadvisor_url: "https://www.tripadvisor.com",
-      vat_number: "B9900" <> n,
-      website: Faker.Internet.url(),
-      whatsapp: "600100200",
-      photo_id: photo_id,
-      accepted_terms: true,
-      verified: true
+    b =
+      Repo.insert!(%Business{
+        address: address,
+        coordinates: Geolocation.to_geopoint(geo),
+        billing_address: add,
+        bizum_number: "600100200",
+        email: Faker.Internet.email(),
+        facebook: Faker.Internet.user_name(),
+        google_maps_url: "https://maps.google.es",
+        iban: "ES210021002100210021" <> n,
+        instagram: Faker.Internet.user_name(),
+        legal_name: name,
+        name: name,
+        owner_name: Faker.Name.Es.name(),
+        phone: "937100200",
+        story: Faker.Util.to_sentence(Faker.Lorem.paragraphs(4)),
+        tripadvisor_url: "https://www.tripadvisor.com",
+        vat_number: "B9900" <> n,
+        website: Faker.Internet.url(),
+        whatsapp: "600100200",
+        photo_id: photo_id,
+        accepted_terms: true,
+        verified: true
+      })
+
+    times = Faker.random_between(1, 5)
+    1..times |> Enum.each(fn _ -> insert_coupon(b.id) end)
+    b
+  end
+
+  def insert_coupon(business_id) do
+    discount = Faker.random_between(5, 25)
+    value = Faker.random_between(5, 120)
+
+    Repo.insert!(%Coupon{
+      business_id: business_id,
+      title: to_string(discount) <> "% off!",
+      value: value,
+      discount: discount,
+      amount: Float.round(value * (100 - discount) / 100, 2)
     })
   end
 
   def clear do
+    Coupon |> Repo.delete_all()
     Business |> Repo.delete_all()
   end
 
   def seed! do
     clear()
-    1..100 |> Enum.each(fn i -> insert_business(i) end)
+
+    1..100
+    |> Enum.map(fn i ->
+      insert_business(i).email
+    end)
+    |> Enum.take(5)
+    |> IO.inspect()
   end
 end
-
-Regalocal.Seeds.seed!()

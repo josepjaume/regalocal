@@ -1,0 +1,29 @@
+<h1>Show Coupon</h1>
+<ul>
+  <li>
+    <strong>Title:</strong>
+    <%= @coupon.title %>
+  </li>
+  <li>
+    <strong>Value:</strong>
+    <%= @coupon.value %>
+  </li>
+  <li>
+    <strong>Amount:</strong>
+    <%= @coupon.amount %>
+  </li>
+  <li>
+    <strong>Discount:</strong>
+    <%= @coupon.discount %>
+  </li>
+  <li>
+    <strong>Status:</strong>
+    <%= @coupon.status %>
+  </li>
+  <li>
+    <strong>Terms:</strong>
+    <%= @coupon.terms %>
+  </li>
+</ul>
+<span><%= link "Edit", to: Routes.admin_coupon_path(@conn, :edit, @coupon) %></span>
+<span><%= link "Back", to: Routes.admin_coupon_path(@conn, :index) %></span>

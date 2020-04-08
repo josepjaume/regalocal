@@ -14,7 +14,8 @@ database_url =
 config :regalocal, Regalocal.Repo,
   # ssl: true,
   url: database_url,
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  types: PostgresTypes
 
 config :regalocal, Regalocal.Veil,
   request_salt: System.get_env("VEIL_REQUEST_SALT"),
