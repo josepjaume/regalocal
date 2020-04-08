@@ -43,7 +43,7 @@ defmodule Regalocal.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_pubsub_redis, "~> 2.1.0"},
       {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0"},
+      {:jason, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},
       {:veil, "~> 0.2"},
       {:gen_smtp, "~> 0.15.0"},
@@ -52,7 +52,8 @@ defmodule Regalocal.MixProject do
       {:geo_postgis, "~> 3.1"},
       {:cloudex, "~> 1.3.0"},
       {:faker, "~> 0.13"},
-      {:ecto_enum, "~> 1.4"}
+      {:ecto_enum, "~> 1.4"},
+      {:sentry, "~> 7.0"}
     ]
   end
 

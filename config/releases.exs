@@ -80,3 +80,8 @@ config :cloudex,
   api_key: System.get_env("CLOUDEX_API_KEY"),
   secret: System.get_env("CLOUDEX_SECRET"),
   cloud_name: System.get_env("CLOUDEX_CLOUD_NAME")
+
+config :sentry,
+  dsn: System.get_env("SENTRY_DSN"),
+  environment_name: Mix.env(),
+  included_environments: [:prod]

@@ -1,5 +1,7 @@
 defmodule RegalocalWeb.Router do
   use RegalocalWeb, :router
+  use Plug.ErrorHandler
+  use Sentry.Plug
 
   pipeline :browser do
     plug :accepts, ["html"]

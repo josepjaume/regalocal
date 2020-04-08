@@ -55,3 +55,6 @@ config :veil, Veil.Scheduler,
     # Runs every midnight to delete all expired requests and sessions
     {"@daily", {Regalocal.Veil.Clean, :expired, []}}
   ]
+
+config :logger,
+  backends: [:console, Sentry.LoggerBackend]

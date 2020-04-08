@@ -1,5 +1,6 @@
 defmodule RegalocalWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :regalocal
+  use Sentry.Phoenix.Endpoint
 
   if Mix.env() === :prod do
     plug Plug.SSL, rewrite_on: [:x_forwarded_proto]
