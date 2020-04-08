@@ -21,3 +21,8 @@ config :regalocal, RegalocalWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :cloudex,
+  api_key: "my-api-key",
+  secret: "my-secret",
+  cloud_name: "my-cloud-name"

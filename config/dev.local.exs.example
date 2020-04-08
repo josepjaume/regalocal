@@ -8,6 +8,6 @@ config :geocoder, :worker,
   key: "KEY"
 
 config :cloudex,
-  api_key: ""
-  secret: ""
-  cloud_name: ""
+  api_key: "my-api-key",
+  secret: "my-secret",
+  cloud_name: "my-cloud-name"

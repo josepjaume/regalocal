@@ -33,15 +33,16 @@ defmodule Regalocal.Seeder do
   ]
 
   def insert_business(index) do
-    n = index
-      |> Integer.to_string
+    n =
+      index
+      |> Integer.to_string()
       |> String.pad_leading(4, "0")
 
     add = @addresses |> Enum.random()
     photo_id = @photos |> Enum.random()
     {:ok, %Geolocation{address: address} = geo} = Geolocation.locate(add)
 
-    Repo.insert! %Business{
+    Repo.insert!(%Business{
       address: address,
       coordinates: Geolocation.to_geopoint(geo),
       billing_address: add,
@@ -62,7 +63,7 @@ defmodule Regalocal.Seeder do
       whatsapp: "600100200",
       photo_id: photo_id,
       accepted_terms: true
-    }
+    })
   end
 
   def clear do
@@ -70,4 +71,4 @@ defmodule Regalocal.Seeder do
   end
 end
 
-(1..100) |> Enum.each(fn i -> Regalocal.Seeder.insert_business(i) end)
+1..100 |> Enum.each(fn i -> Regalocal.Seeder.insert_business(i) end)
