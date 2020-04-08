@@ -38,7 +38,14 @@ config :regalocal, RegalocalWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   url: [host: host, scheme: "https", port: 443],
-  secret_key_base: secret_key_base
+  secret_key_base: secret_key_base,
+  pubsub: [
+    name: Regalocal.PubSub,
+    adapter: Phoenix.PubSub.Redis,
+    url: System.get_env("REDIS_URL"),
+    redis_pool_size: 1,
+    node_name: :crypto.strong_rand_bytes(32)
+  ]
 
 # ## Using releases (Elixir v1.9+)
 #
