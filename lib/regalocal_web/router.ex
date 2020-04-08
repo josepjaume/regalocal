@@ -38,7 +38,7 @@ defmodule RegalocalWeb.Router do
     get("/businesses/new", BusinessController, :new, as: :veil_business)
 
     get("/sessions/new/:request_id", SessionController, :create)
-    get("/sessions/signout/:session_id", SessionController, :delete)
+    delete("/sessions/:session_id", SessionController, :delete)
   end
 
   # Add your routes that require authentication in this block.

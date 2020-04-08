@@ -12,10 +12,35 @@ h3 {
 
 a {
   @apply font-medium text-gray-500 transition duration-150 ease-in-out;
+
   &:hover {
     @apply text-gray-900;
   }
+
   &:focus {
     @apply outline-none text-gray-900;
+  }
+}
+
+.logo {
+  @apply text-3xl font-bold;
+
+  display: inline-block;
+
+  * {
+    display: inline-block;
+  }
+
+  &-r {
+    position: relative;
+    display: inline-block;
+    transform: rotateY(-180deg);
+    @apply text-primary-600;
+  }
+
+  &-l {
+    @apply text-primary-400;
+
+    margin-left: -0.09em;
   }
 }

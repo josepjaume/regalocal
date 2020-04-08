@@ -3,17 +3,17 @@ form {
     @apply appearance-none w-full px-5 py-3 border border-gray-300 text-base leading-6 rounded-md text-gray-900 bg-white transition duration-150 ease-in-out;
 
     &:focus {
-      @apply border-pink-300 shadow-outline-pink outline-none;
+      @apply border-primary-300 shadow-outline outline-none;
     }
   }
 }
 
 .button,
 form button {
-  @apply inline-flex rounded-md shadow flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-pink-600 transition-all duration-150 ease-in-out;
+  @apply inline-flex rounded-md shadow flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-primary-600 transition-all duration-150 ease-in-out;
 
   &:hover {
-    @apply bg-pink-500;
+    @apply bg-primary-500;
   }
 
   &:focus {
@@ -21,18 +21,18 @@ form button {
   }
 
   &.button-reverse {
-    @apply text-pink-600 bg-white;
+    @apply text-primary-600 bg-white;
 
     &:hover {
-      @apply text-pink-500;
+      @apply text-primary-500;
     }
 
     &:focus {
-      @apply outline-none shadow-outline-pink;
+      @apply outline-none shadow-outline;
     }
 
     &:active {
-      @apply bg-gray-50 text-pink-700 transition;
+      @apply bg-gray-50 text-primary-700 transition;
     }
   }
 

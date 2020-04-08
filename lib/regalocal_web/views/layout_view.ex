@@ -1,7 +1,7 @@
 defmodule RegalocalWeb.LayoutView do
   use RegalocalWeb, :view
 
-  def logo() do
-    "RegaLocal"
+  def logo(conn) do
+    render("logo.html", %{conn: conn})
   end
 end
