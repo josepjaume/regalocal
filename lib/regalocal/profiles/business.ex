@@ -27,6 +27,7 @@ defmodule Regalocal.Profiles.Business do
     field :photo, :any, virtual: true
     field :photo_id, :string
     field :accepted_terms, :boolean
+    field(:verified, :boolean, default: true)
     timestamps()
   end
 
@@ -65,7 +66,7 @@ defmodule Regalocal.Profiles.Business do
       :vat_number,
       :billing_address
     ])
-    |> validate_acceptance(:accepted_terms)
+    |> validate_terms(business)
     |> format_iban
     |> format_vat
     |> validate_address
@@ -74,6 +75,16 @@ defmodule Regalocal.Profiles.Business do
     |> format_phone(:bizum_number)
     |> unique_constraint(:vat_number)
     |> unique_constraint(:iban)
+  end
+
+  def validate_terms(changeset, business) do
+    if business.accepted_terms do
+      changeset
+    else
+      if !get_change(changeset, :accepted_terms) do
+        add_error(changeset, :accepted_terms, "must accept terms")
+      end
+    end
   end
 
   def validate_address(changeset) do

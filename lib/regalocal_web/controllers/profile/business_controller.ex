@@ -34,6 +34,7 @@ defmodule RegalocalWeb.Profile.BusinessController do
         |> redirect(to: Routes.profile_business_path(conn, :show))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        IO.inspect(changeset)
         render(conn, "edit.html", business: business, changeset: changeset)
     end
   end

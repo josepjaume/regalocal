@@ -14,7 +14,7 @@
   </li>
   <li>
     <strong>Photo:</strong>
-    <%= tag(:img, src: Cloudex.Url.for(@business.photo_id)) %>
+    <%= tag(:img, src: Cloudex.Url.for(@business.photo_id, %{width: 300, height: 200})) %>
   </li>
   <li>
     <strong>Story:</strong>
