@@ -1,4 +1,4 @@
-defmodule Regalocal.Profiles.Business do
+defmodule Regalocal.Admin.Business do
   use Ecto.Schema
   import Ecto.Changeset
   import Logger

@@ -1,6 +1,6 @@
 defmodule Regalocal.Seeds do
   alias Regalocal.Repo
-  alias Regalocal.Profiles.Business
+  alias Regalocal.Admin.Business
   alias Regalocal.Geolocation
 
   @addresses [
@@ -72,7 +72,11 @@ defmodule Regalocal.Seeds do
   def clear do
     Business |> Repo.delete_all()
   end
+
+  def seed! do
+    clear()
+    1..100 |> Enum.each(fn i -> insert_business(i) end)
+  end
 end
 
-Regalocal.Seeds.clear()
-1..100 |> Enum.each(fn i -> Regalocal.Seeds.insert_business(i) end)
+Regalocal.Seeds.seed!()

@@ -1,12 +1,12 @@
-defmodule Regalocal.Profiles do
+defmodule Regalocal.Admin do
   @moduledoc """
-  The Profiles context.
+  The Admin context.
   """
   import Ecto.Query, warn: false
   alias Regalocal.Repo
   import Geo.PostGIS
 
-  alias Regalocal.Profiles.Business
+  alias Regalocal.Admin.Business
 
   @doc """
   Gets a single business.

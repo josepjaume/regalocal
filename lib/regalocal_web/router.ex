@@ -41,7 +41,7 @@ defmodule RegalocalWeb.Router do
   # Add your routes that require authentication in this block.
   # Alternatively, you can use the default block and authenticate in the controllers.
   # See the Veil README for more.
-  scope "/profile", RegalocalWeb.Profile, as: :profile do
+  scope "/admin", RegalocalWeb.Admin, as: :admin do
     pipe_through([:browser, RegalocalWeb.Plugs.Veil.Authenticate])
 
     get("/business", BusinessController, :show)

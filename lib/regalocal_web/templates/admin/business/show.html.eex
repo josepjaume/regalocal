@@ -82,4 +82,4 @@
     <%= @business.bizum_number %>
   </li>
 </ul>
-<span><%= link "Edit", to: Routes.profile_business_path(@conn, :edit) %></span>
+<span><%= link "Edit", to: Routes.admin_business_path(@conn, :edit) %></span>

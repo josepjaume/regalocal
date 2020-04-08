@@ -1,5 +1,0 @@
-<h1>Edit Business</h1>
-
-<%= render "form.html", Map.put(assigns, :action, Routes.profile_business_path(@conn, :update)) %>
-
-<span><%= link "Back", to: Routes.profile_business_path(@conn, :show) %></span>

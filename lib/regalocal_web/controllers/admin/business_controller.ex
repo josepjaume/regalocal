@@ -1,9 +1,9 @@
-defmodule RegalocalWeb.Profile.BusinessController do
+defmodule RegalocalWeb.Admin.BusinessController do
   use RegalocalWeb, :controller
 
-  alias Regalocal.Profiles
+  alias Regalocal.Admin
 
-  # alias Regalocal.Profiles.Business
+  # alias Regalocal.Admin.Business
 
   def show(conn, _params) do
     business = load_business(conn)
@@ -12,7 +12,7 @@ defmodule RegalocalWeb.Profile.BusinessController do
 
   def edit(conn, _params) do
     business = load_business(conn)
-    changeset = Profiles.change_business(business)
+    changeset = Admin.change_business(business)
     render(conn, "edit.html", business: business, changeset: changeset)
   end
 
@@ -27,11 +27,11 @@ defmodule RegalocalWeb.Profile.BusinessController do
         params
       end
 
-    case Profiles.update_business(business, new_params) do
+    case Admin.update_business(business, new_params) do
       {:ok, _business} ->
         conn
         |> put_flash(:info, "Business updated successfully.")
-        |> redirect(to: Routes.profile_business_path(conn, :show))
+        |> redirect(to: Routes.admin_business_path(conn, :show))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         IO.inspect(changeset)
@@ -40,12 +40,12 @@ defmodule RegalocalWeb.Profile.BusinessController do
   end
 
   def load_business(conn) do
-    Profiles.get_business!(conn.assigns[:business_id])
+    Admin.get_business!(conn.assigns[:business_id])
   end
 
   def delete(conn) do
-    business = Profiles.get_business!(conn.assigns[:business_id])
-    {:ok, _business} = Profiles.delete_business(business)
+    business = Admin.get_business!(conn.assigns[:business_id])
+    {:ok, _business} = Admin.delete_business(business)
 
     conn
     |> put_flash(:info, "Business deleted successfully.")
