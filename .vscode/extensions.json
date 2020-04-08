@@ -2,6 +2,6 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "stylelint.vscode-stylelint",
-    "jakebecker.elixir-ls"
+    "elixir-lsp.elixir-ls"
   ]
 }

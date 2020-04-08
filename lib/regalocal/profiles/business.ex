@@ -1,8 +1,11 @@
 defmodule Regalocal.Profiles.Business do
   use Ecto.Schema
   import Ecto.Changeset
+  import Logger
+  alias Regalocal.Geolocation
 
   schema "businesses" do
+    field(:address, :string)
     field(:billing_address, :string)
     field(:bizum_number, :string)
     field(:email, :string)
@@ -20,6 +23,10 @@ defmodule Regalocal.Profiles.Business do
     field(:website, :string)
     field(:whatsapp, :string)
 
+    field :coordinates, Geo.PostGIS.Geometry
+
+    field :distance_meters, :integer, virtual: true
+
     timestamps()
   end
 
@@ -27,8 +34,10 @@ defmodule Regalocal.Profiles.Business do
   def changeset(business, attrs) do
     business
     |> cast(attrs, [
+      :name,
       :owner_name,
       :story,
+      :address,
       :phone,
       :website,
       :whatsapp,
@@ -40,12 +49,14 @@ defmodule Regalocal.Profiles.Business do
       :legal_name,
       :vat_number,
       :billing_address,
-      :bizum_number
+      :bizum_number,
+      :coordinates
     ])
     |> validate_required([
       :name,
       :owner_name,
       :story,
+      :address,
       :phone,
       :iban,
       :legal_name,
@@ -54,34 +65,31 @@ defmodule Regalocal.Profiles.Business do
     ])
     |> format_iban
     |> format_vat
+    |> validate_address
     |> format_phone(:phone)
     |> format_phone(:whatsapp)
     |> format_phone(:bizum_number)
-    # formatem
-    # validacions
-    # constraints
     |> unique_constraint(:vat_number)
     |> unique_constraint(:iban)
   end
 
-  def edit_changeset(business, attrs) do
-    business
-    |> cast(attrs, [
-      :owner_name,
-      :story,
-      :phone,
-      :website,
-      :whatsapp,
-      :google_maps_url,
-      :tripadvisor_url,
-      :instagram,
-      :facebook,
-      :iban,
-      :legal_name,
-      :vat_number,
-      :billing_address,
-      :bizum_number
-    ])
+  def validate_address(changeset) do
+    case changeset do
+      %Ecto.Changeset{changes: %{address: raw_address}} ->
+        case Geolocation.locate(raw_address) do
+          {:ok, %Geolocation{address: address} = geo} ->
+            changeset
+            |> put_change(:address, address)
+            |> put_change(:coordinates, Geolocation.to_geopoint(geo))
+
+          {:error, error} ->
+            Logger.error(error)
+            changeset |> put_change(:coordinates, nil) |> add_error(:address, error)
+        end
+
+      _ ->
+        changeset
+    end
   end
 
   defp format_iban(changeset) do

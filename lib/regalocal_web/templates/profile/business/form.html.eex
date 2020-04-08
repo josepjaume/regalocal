@@ -47,6 +47,15 @@
               <%= error_tag f, :story %>
             </div>
             <div class="sm:col-span-4">
+              <%= label f, :address, class: "block text-sm font-medium leading-5 text-gray-700" %>
+              <div class="mt-1 sm:mt-0 sm:col-span-2">
+                <div class="max-w-lg flex rounded-md shadow-sm">
+                  <%= text_input f, :address, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+                </div>
+                <%= error_tag f, :address %>
+              </div>
+            </div>
+            <div class="sm:col-span-4">
               <%= label f, :phone, class: "block text-sm font-medium leading-5 text-gray-700" %>
               <div class="mt-1 sm:mt-0 sm:col-span-2">
                 <div class="max-w-lg flex rounded-md shadow-sm">

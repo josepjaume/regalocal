@@ -45,7 +45,10 @@ defmodule Regalocal.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:veil, "~> 0.2"},
-      {:gen_smtp, "~> 0.15.0"}
+      {:gen_smtp, "~> 0.15.0"},
+      {:geocoder, "~> 1.0"},
+      {:geo, "~> 3.0"},
+      {:geo_postgis, "~> 3.1"}
     ]
   end
 

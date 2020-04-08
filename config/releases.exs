@@ -63,3 +63,7 @@ config :veil, RegalocalWeb.Veil.Mailer,
   auth: :always,
   port: 465,
   retries: 2
+
+config :geocoder, :worker,
+  provider: Geocoder.Providers.GoogleMaps,
+  key: System.get_env("GEOCODER_GOOGLE_API_KEY")

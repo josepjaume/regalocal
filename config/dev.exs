@@ -5,7 +5,8 @@ config :regalocal, Regalocal.Repo,
   database: "regalocal_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  pool_size: 10,
+  types: PostgresTypes
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -76,6 +77,8 @@ config :phoenix, :plug_init_mode, :runtime
 config :veil, RegalocalWeb.Veil.Mailer, adapter: Swoosh.Adapters.Local
 
 config :swoosh, serve_mailbox: true, preview_port: 4001
+
+config :geocoder, :worker, provider: Geocoder.Providers.GoogleMaps
 
 if File.exists?("config/dev.local.exs") do
   import_config "dev.local.exs"
