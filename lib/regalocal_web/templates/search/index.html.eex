@@ -1,3 +1,4 @@
 <h2>Searching for results</h2>
-<div>Latitude: <%= @coordinates.latitude %></div>
-<div>Longitude: <%= @coordinates.longitude %></div>
+<%= for business <- @businesses do %>
+  <p><%= business.name %> (a <%= business.distance_meters / 1000 %> km)</p>
+<% end %>

@@ -34,6 +34,10 @@ defmodule Regalocal.Seeds do
   ]
 
   def insert_business(index) do
+    insert_business(index, Faker.Internet.email())
+  end
+
+  def insert_business(index, email) do
     n =
       index
       |> Integer.to_string()
@@ -51,7 +55,7 @@ defmodule Regalocal.Seeds do
         coordinates: Geolocation.to_geopoint(geo),
         billing_address: add,
         bizum_number: "600100200",
-        email: Faker.Internet.email(),
+        email: email,
         facebook: Faker.Internet.user_name(),
         google_maps_url: "https://maps.google.es",
         iban: "ES210021002100210021" <> n,
@@ -84,6 +88,7 @@ defmodule Regalocal.Seeds do
       title: to_string(discount) <> "% off!",
       value: value,
       discount: discount,
+      status: [:published, :draft] |> Enum.random(),
       amount: Float.round(value * (100 - discount) / 100, 2)
     })
   end
@@ -95,6 +100,10 @@ defmodule Regalocal.Seeds do
 
   def seed! do
     clear()
+
+    insert_business(999, "txus@codegram.com")
+    insert_business(998, "oriol@codegram.com")
+    insert_business(997, "josepjaume@codegram.com")
 
     1..100
     |> Enum.map(fn i ->

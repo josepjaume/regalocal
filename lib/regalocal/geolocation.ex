@@ -23,7 +23,7 @@ defmodule Regalocal.Geolocation do
     end
   end
 
-  def to_geopoint(%Regalocal.Geolocation{lat: lat, lon: lon}) do
+  def to_geopoint(%{lat: lat, lon: lon}) do
     %Geo.Point{coordinates: {lat, lon}, srid: 4326}
   end
 end

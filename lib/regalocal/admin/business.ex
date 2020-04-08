@@ -83,6 +83,8 @@ defmodule Regalocal.Admin.Business do
     else
       if !get_change(changeset, :accepted_terms) do
         add_error(changeset, :accepted_terms, "must accept terms")
+      else
+        changeset
       end
     end
   end

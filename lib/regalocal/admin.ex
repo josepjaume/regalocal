@@ -4,7 +4,6 @@ defmodule Regalocal.Admin do
   """
   import Ecto.Query, warn: false
   alias Regalocal.Repo
-  import Geo.PostGIS
 
   alias Regalocal.Admin.Business
   alias Regalocal.Admin.Coupon
@@ -24,14 +23,6 @@ defmodule Regalocal.Admin do
 
   """
   def get_business!(id), do: Repo.get!(Business, id)
-
-  def find_businesses_near!(%Geo.Point{} = geom, limit_meters) do
-    Business
-    |> select([b], %{b | distance_meters: st_distance_in_meters(b.coordinates, ^geom)})
-    |> where([b], st_distance_in_meters(b.coordinates, ^geom) < ^limit_meters)
-    |> order_by([b], st_distance_in_meters(b.coordinates, ^geom))
-    |> Repo.all()
-  end
 
   @doc """
   Updates a business.
