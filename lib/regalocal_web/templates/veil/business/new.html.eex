@@ -1,7 +1,10 @@
-<div class="max-w-xl mx-auto px-6 lg:px-8 py-8">
-  <h2 class="mt-6 text-3xl leading-9 font-extrabold text-gray-900">Sign In</h2>
-  <p class="mt-2 text-sm leading-5 text-gray-600 max-w">
-    Introdueix el teu e-mail per a iniciar una sessió.
-  </p>
-  <%= render "form.html", changeset: @changeset, action: Routes.veil_business_path(@conn, :create) %>
+<div class="bg-white">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Ets un comerç local en dificultats i vols formar part de Regalocal?
+      <br class="hidden sm:inline" />
+      <span class="text-indigo-600">Comença a repartir somriures!</span>
+    </h2>
+    <%= render "form.html", changeset: @changeset, action: Routes.veil_business_path(@conn, :create) %>
+  </div>
 </div>

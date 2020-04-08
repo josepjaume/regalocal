@@ -26,6 +26,7 @@ defmodule Regalocal.Profiles.Business do
     field :distance_meters, :integer, virtual: true
     field :photo, :any, virtual: true
     field :photo_id, :string
+    field :accepted_terms, :boolean
     timestamps()
   end
 
@@ -50,7 +51,8 @@ defmodule Regalocal.Profiles.Business do
       :billing_address,
       :bizum_number,
       :coordinates,
-      :photo_id
+      :photo_id,
+      :accepted_terms
     ])
     |> validate_required([
       :name,
@@ -63,6 +65,7 @@ defmodule Regalocal.Profiles.Business do
       :vat_number,
       :billing_address
     ])
+    |> validate_acceptance(:accepted_terms)
     |> format_iban
     |> format_vat
     |> validate_address

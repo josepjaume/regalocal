@@ -193,6 +193,17 @@
               <%= error_tag f, :bizum_number %>
             </div>
           </div>
+          <div class="sm:col-span-4">
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+              <div class="max-w-lg flex rounded-md shadow-sm">
+                <%= checkbox f, :accepted_terms, class: "mr-2 leading-tight", disabled: f.data.accepted_terms %>
+                <span class="text-sm">
+                  I accept the <a href="/terms">Terms and Conditions</a>
+                </span>
+              </div>
+              <%= error_tag f, :accepted_terms %>
+            </div>
+          </div>
         </div>
       </div>
       <div>
