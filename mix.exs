@@ -48,7 +48,8 @@ defmodule Regalocal.MixProject do
       {:gen_smtp, "~> 0.15.0"},
       {:geocoder, "~> 1.0"},
       {:geo, "~> 3.0"},
-      {:geo_postgis, "~> 3.1"}
+      {:geo_postgis, "~> 3.1"},
+      {:cloudex, "~> 1.3.0"}
     ]
   end
 

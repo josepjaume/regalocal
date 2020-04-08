@@ -67,3 +67,8 @@ config :veil, RegalocalWeb.Veil.Mailer,
 config :geocoder, :worker,
   provider: Geocoder.Providers.GoogleMaps,
   key: System.get_env("GEOCODER_GOOGLE_API_KEY")
+
+config :cloudex,
+  api_key: System.get_env("CLOUDEX_API_KEY"),
+  secret: System.get_env("CLOUDEX_SECRET"),
+  cloud_name: System.get_env("CLOUDEX_CLOUD_NAME")

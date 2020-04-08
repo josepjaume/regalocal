@@ -19,7 +19,15 @@ defmodule RegalocalWeb.Profile.BusinessController do
   def update(conn, %{"business" => params}) do
     business = load_business(conn)
 
-    case Profiles.update_business(business, params) do
+    new_params =
+      if upload = params["photo"] do
+        {:ok, %Cloudex.UploadedImage{public_id: photo_id}} = Cloudex.upload(upload.path)
+        Map.put(params, "photo_id", photo_id)
+      else
+        params
+      end
+
+    case Profiles.update_business(business, new_params) do
       {:ok, _business} ->
         conn
         |> put_flash(:info, "Business updated successfully.")

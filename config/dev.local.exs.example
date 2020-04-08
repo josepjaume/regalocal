@@ -6,3 +6,8 @@ config :regalocal, Regalocal.Repo,
 
 config :geocoder, :worker,
   key: "KEY"
+
+config :cloudex,
+  api_key: ""
+  secret: ""
+  cloud_name: ""

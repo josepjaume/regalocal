@@ -22,11 +22,10 @@ defmodule Regalocal.Profiles.Business do
     field(:vat_number, :string)
     field(:website, :string)
     field(:whatsapp, :string)
-
     field :coordinates, Geo.PostGIS.Geometry
-
     field :distance_meters, :integer, virtual: true
-
+    field :photo, :any, virtual: true
+    field :photo_id, :string
     timestamps()
   end
 
@@ -50,7 +49,8 @@ defmodule Regalocal.Profiles.Business do
       :vat_number,
       :billing_address,
       :bizum_number,
-      :coordinates
+      :coordinates,
+      :photo_id
     ])
     |> validate_required([
       :name,

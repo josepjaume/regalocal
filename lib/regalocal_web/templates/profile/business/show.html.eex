@@ -13,6 +13,10 @@
     <%= @business.owner_name %>
   </li>
   <li>
+    <strong>Photo:</strong>
+    <%= tag(:img, src: Cloudex.Url.for(@business.photo_id)) %>
+  </li>
+  <li>
     <strong>Story:</strong>
     <%= @business.story %>
   </li>
