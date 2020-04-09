@@ -21,6 +21,7 @@ defmodule RegalocalWeb.Router do
     pipe_through :browser
     get "/business/:id", BusinessController, :show
 
+    resources("/faq", FaqController, only: [:index])
     get "/search", SearchController, :index
     get "/", PageController, :index
     get "/terms", PageController, :terms

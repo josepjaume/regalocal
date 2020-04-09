@@ -41,6 +41,8 @@ defmodule RegalocalWeb do
 
       import RegalocalWeb.ErrorHelpers
       import RegalocalWeb.Gettext
+      import RegalocalWeb.MenuHelpers
+
       alias RegalocalWeb.Router.Helpers, as: Routes
     end
   end

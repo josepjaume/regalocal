@@ -17,8 +17,11 @@
           </div>
         </div>
         <div class="hidden md:block">
-          <a href="#" class="mx-10">Com funciona?</a>
-          <a href="#" class="mx-10">Contacte</a>
+          <%= for item <- menu_items(@conn) do %>
+            <%= link to: item.path, class: "mx-5 #{if menu_item_active?(@conn, item), do: "text-gray-900"}" do %>
+              <%= item.title %>
+            <% end %>
+          <% end %>
         </div>
         <div class="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
           <%= if assigns[:business_id] do %>
