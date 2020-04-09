@@ -1,0 +1,92 @@
+<div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+  <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+    <%= form_for @changeset, @action, fn f -> %>
+    <%= if @changeset.action do %>
+      <div class="alert alert-danger">
+        <p>Oops, something went wrong! Please check the errors below.</p>
+      </div>
+    <% end %>
+    <div>
+      <div>
+        <fieldset>
+          <legend class="block text-sm font-medium leading-5 text-gray-700">Les teves dades</legend>
+          <div class="mt-1 bg-white rounded-md shadow-sm">
+            <div>
+              <%= text_input f, :buyer_name, required: true, "aria-label": "El teu nom", placeholder: "El teu nom", class: "form-input relative block w-full rounded-none rounded-t-md bg-transparent focus:z-10 transition ease-in-out duration-150 sm:text-sm sm:leading-5" %>
+              <%= error_tag f, :buyer_name %>
+            </div>
+            <div class="-mt-px">
+              <%= email_input f, :buyer_email, required: true, "aria-label": "elteu@email.com", placeholder: "elteu@email.com", class: "form-input relative block w-full rounded-none bg-transparent focus:z-10 transition ease-in-out duration-150 sm:text-sm sm:leading-5" %>
+              <%= error_tag f, :buyer_email %>
+            </div>
+            <div class="-mt-px">
+              <%= text_input f, :buyer_phone, required: true, "aria-label": "El teu telèfon", placeholder: "El teu telèfon", class: "form-input relative block w-full rounded-none rounded-b-md bg-transparent focus:z-10 transition ease-in-out duration-150 sm:text-sm sm:leading-5" %>
+              <%= error_tag f, :buyer_email %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="mt-6 bg-white">
+        <fieldset>
+          <legend class="block text-sm font-medium leading-5 text-gray-700">Dades de la persona a qui vols regalar-li</legend>
+          <div class="mt-1 rounded-md shadow-sm">
+            <div>
+              <%= text_input f, :recipient_name, required: true, "aria-label": "El seu nom", placeholder: "El seu nom", class: "form-input relative block w-full rounded-none rounded-t-md bg-transparent focus:z-10 transition ease-in-out duration-150 sm:text-sm sm:leading-5" %>
+              <%= error_tag f, :recipient_name %>
+            </div>
+            <div class="-mt-px">
+              <%= email_input f, :recipient_email, required: true, "aria-label": "elseu@email.com", placeholder: "elseu@email.com", class: "form-input relative block w-full rounded-none rounded-b-md bg-transparent focus:z-10 transition ease-in-out duration-150 sm:text-sm sm:leading-5" %>
+              <%= error_tag f, :recipient_email %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <div class="mt-6">
+      <%= label f, :message_for_recipient, class: "block text-sm font-medium leading-5 text-gray-700" %>
+      <div class="mt-1 rounded-md shadow-sm">
+        <%= textarea f, :message_for_recipient, required: true, rows: 5, class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+      </div>
+      <p class="mt-2 text-sm text-gray-500">Text d'explicació.</p>
+      <%= error_tag f, :message_for_recipient %>
+    </div>
+    <%= if !is_nil(@coupon.terms) && String.length(@coupon.terms) > 1 do %>
+      <div class="mt-6">
+        <div class="mt-1 rounded-md shadow-sm">
+          <%= content_tag(:textarea, @coupon.terms, rows: 5, readonly: true, class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5") %>
+        </div>
+      </div>
+      <div class="mt-6 flex items-center justify-between">
+        <div class="flex items-center">
+          <%= checkbox f, :accepted_coupon_terms, class: "form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" %>
+          <label for="gift_accepted_coupon_terms" class="ml-2 block text-sm leading-5 text-gray-900">
+            Accepto els termes del cupó
+          </label>
+          <%= error_tag f, :accepted_coupon_terms %>
+        </div>
+      </div>
+    <% end %>
+    <div class="mt-6">
+      <div class="mt-1 rounded-md shadow-sm">
+        <%= content_tag(:textarea, "1. El valor del cupó és de #{@coupon.value} EUR.\n2. El cupó no es podrà bescanviar fins que #{@business.legal_name} ho hagi notificat.\n3. Em comprometo a realitzar el pagament de #{@coupon.amount} EUR seguint les instruccions que rebré.\n4. Qualsevol reclamació o disputa haurà de resolta entre #{@business.legal_name} i el comprador, eximint a RegaLocal de qualsevol responsabilitat.", rows: 7, readonly: true, class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5") %>
+      </div>
+    </div>
+    <div class="mt-6 flex items-center justify-between">
+      <div class="flex items-center">
+        <%= checkbox f, :accepted_gift_terms, class: "form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" %>
+        <label for="gift_accepted_gift_terms" class="ml-2 block text-sm leading-5 text-gray-900">
+          Accepto les condicions de venta
+        </label>
+        <%= error_tag f, :accepted_gift_terms %>
+      </div>
+    </div>
+    <div class="mt-6">
+      <span class="block w-full rounded-md shadow-sm">
+        <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
+          Regalar
+        </button>
+      </span>
+    </div>
+  </div>
+</div>
+<% end %>

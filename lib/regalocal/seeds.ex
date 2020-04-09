@@ -2,6 +2,7 @@ defmodule Regalocal.Seeds do
   alias Regalocal.Repo
   alias Regalocal.Admin.Business
   alias Regalocal.Admin.Coupon
+  alias Regalocal.Orders.Gift
   alias Regalocal.Geolocation
 
   @addresses [
@@ -32,6 +33,23 @@ defmodule Regalocal.Seeds do
     "Regalocal/5e535b9cd8713177a910e39b_peep-85_gnafbp.png",
     "Regalocal/5e535bd3460080e5d68ef5ac_peep-87_skqd35.png"
   ]
+
+  def insert_gift(coupon) do
+    Repo.insert!(%Gift{
+      reference: String.upcase(Faker.Nato.callsign()),
+      amount: coupon.amount,
+      value: coupon.value,
+      business_id: coupon.business_id,
+      coupon_id: coupon.id,
+      buyer_email: Faker.Internet.email(),
+      buyer_name: Faker.Name.Es.name(),
+      buyer_phone: Faker.Phone.EnGb.mobile_number(),
+      recipient_name: Faker.Name.Es.name(),
+      recipient_email: Faker.Internet.email(),
+      message_for_recipient: Faker.Util.to_sentence(Faker.Lorem.paragraphs(2)),
+      status: [:pending_payment, :paid, :payment_confirmed] |> Enum.random()
+    })
+  end
 
   def insert_business(index) do
     insert_business(index, Faker.Internet.email())
@@ -83,14 +101,20 @@ defmodule Regalocal.Seeds do
     discount = Faker.random_between(5, 25)
     value = Faker.random_between(5, 120)
 
-    Repo.insert!(%Coupon{
-      business_id: business_id,
-      title: to_string(discount) <> "% off!",
-      value: value,
-      discount: discount,
-      status: [:published, :draft] |> Enum.random(),
-      amount: Float.round(value * (100 - discount) / 100, 2)
-    })
+    c =
+      Repo.insert!(%Coupon{
+        business_id: business_id,
+        title: to_string(discount) <> "% off!",
+        value: value,
+        discount: discount,
+        terms: Faker.Util.to_sentence(Faker.Lorem.paragraphs(2)),
+        status: [:published, :draft] |> Enum.random(),
+        amount: Float.round(value * (100 - discount) / 100, 2)
+      })
+
+    times = Faker.random_between(0, 9)
+    0..times |> Enum.each(fn _ -> insert_gift(c) end)
+    c
   end
 
   def clear do

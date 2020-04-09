@@ -20,6 +20,8 @@ defmodule RegalocalWeb.Router do
   scope "/", RegalocalWeb do
     pipe_through :browser
     get "/business/:id", BusinessController, :show
+    get "/coupons/:id/gifts/new", GiftController, :new
+    post "/coupons/:id/gifts", GiftController, :create
 
     resources("/faq", FaqController, only: [:index])
     get "/search", SearchController, :index
