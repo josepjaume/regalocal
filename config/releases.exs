@@ -81,7 +81,12 @@ config :cloudex,
   secret: System.get_env("CLOUDEX_SECRET"),
   cloud_name: System.get_env("CLOUDEX_CLOUD_NAME")
 
-config :sentry,
-  dsn: System.get_env("SENTRY_DSN"),
-  environment_name: :prod,
-  included_environments: [:prod]
+if System.get_env("SENTRY_DSN") do
+  config :sentry,
+    dsn: System.get_env("SENTRY_DSN"),
+    environment_name: System.get_env("HEROKU_APP_NAME") || :prod,
+    included_environments: [:prod]
+
+  config :logger,
+    backends: [:console, Sentry.LoggerBackend]
+end

@@ -25,5 +25,5 @@
     },
     "POOL_SIZE": 2
   },
-  "addons": ["heroku-postgresql", "heroku-redis", "sendgrid:starter"]
+  "addons": ["heroku-postgresql", "heroku-redis"]
 }
