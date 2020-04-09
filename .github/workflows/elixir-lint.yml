@@ -27,9 +27,9 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
-      - uses: actions/setup-elixir@master
+      - uses: actions/setup-elixir@v1.2.0
         with:
-          otp-version: 22.x
-          elixir-version: 1.10.x
+          otp-version: 22.2
+          elixir-version: 1.10.2
       - run: mix deps.get
       - run: mix format --check-formatted
