@@ -1,8 +1,8 @@
 defmodule Regalocal.Search do
   import Ecto.Query, warn: false
-  alias Regalocal.Repo
   import Geo.PostGIS
 
+  alias Regalocal.Repo
   alias Regalocal.Admin.Business
   alias Regalocal.Admin.Coupon
 
@@ -24,5 +24,14 @@ defmodule Regalocal.Search do
     |> Repo.all()
     |> Enum.map(fn c -> c.business_id end)
     |> Enum.uniq()
+  end
+
+  def get_business!(id), do: Repo.get!(Business, id)
+
+  def active_coupons_for(%Business{id: business_id}) do
+    Coupon
+    |> where(business_id: ^business_id)
+    |> where(status: "published")
+    |> Repo.all()
   end
 end

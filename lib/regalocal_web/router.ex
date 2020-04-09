@@ -19,6 +19,7 @@ defmodule RegalocalWeb.Router do
 
   scope "/", RegalocalWeb do
     pipe_through :browser
+    get "/business/:id", BusinessController, :show
 
     get "/search", SearchController, :index
     get "/", PageController, :index
