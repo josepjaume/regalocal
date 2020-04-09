@@ -1,17 +1,24 @@
 defmodule RegalocalWeb.Admin.CouponController do
   use RegalocalWeb, :controller
+  use RegalocalWeb.Admin.BaseController
 
   alias Regalocal.Admin
   alias Regalocal.Admin.Coupon
 
   def index(conn, _params) do
     coupons = Admin.list_coupons(conn.assigns[:business_id])
-    render(conn, "index.html", coupons: coupons)
+
+    conn
+    |> assign(:title, "Cupons")
+    |> render("index.html", coupons: coupons)
   end
 
   def new(conn, _params) do
     changeset = Admin.change_coupon(%Coupon{})
-    render(conn, "new.html", changeset: changeset)
+
+    conn
+    |> assign(:title, "Nou cupó")
+    |> render("new.html", changeset: changeset)
   end
 
   def create(conn, %{"coupon" => coupon_params}) do
@@ -26,7 +33,10 @@ defmodule RegalocalWeb.Admin.CouponController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         IO.inspect(changeset)
-        render(conn, "new.html", changeset: changeset)
+
+        conn
+        |> assign(:title, "Nou cupó")
+        |> render("new.html", changeset: changeset)
     end
   end
 
@@ -68,13 +78,19 @@ defmodule RegalocalWeb.Admin.CouponController do
 
   def show(conn, %{"id" => id}) do
     coupon = Admin.get_coupon!(conn.assigns[:business_id], id)
-    render(conn, "show.html", coupon: coupon)
+
+    conn
+    |> assign(:title, "Cupó")
+    |> render("show.html", coupon: coupon)
   end
 
   def edit(conn, %{"id" => id}) do
     coupon = Admin.get_coupon!(conn.assigns[:business_id], id)
     changeset = Admin.change_coupon(coupon)
-    render(conn, "edit.html", coupon: coupon, changeset: changeset)
+
+    conn
+    |> assign(:title, "Editar cupó")
+    |> render("edit.html", coupon: coupon, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "coupon" => coupon_params}) do
@@ -87,7 +103,9 @@ defmodule RegalocalWeb.Admin.CouponController do
         |> redirect(to: Routes.admin_coupon_path(conn, :show, coupon))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", coupon: coupon, changeset: changeset)
+        conn
+        |> assign(:title, "Editar cupó")
+        |> render("edit.html", coupon: coupon, changeset: changeset)
     end
   end
 

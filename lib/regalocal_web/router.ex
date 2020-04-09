@@ -47,6 +47,7 @@ defmodule RegalocalWeb.Router do
   scope "/admin", RegalocalWeb.Admin, as: :admin do
     pipe_through([:browser, RegalocalWeb.Plugs.Veil.Authenticate])
 
+    get("/", DashboardController, :show)
     get("/business", BusinessController, :show)
     get("/business/edit", BusinessController, :edit)
     put("/business", BusinessController, :update)

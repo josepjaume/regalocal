@@ -9,7 +9,7 @@
     <%= csrf_meta_tag() %>
   </head>
   <body>
-    <main role="main">
+    <main role="main" class="bg-texture">
       <%= render "header.html", assigns %>
       <%= if flash = get_flash(@conn, :info) do %>
         <div class="rounded-md bg-green-50 p-4">

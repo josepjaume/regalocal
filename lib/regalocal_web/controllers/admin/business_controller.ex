@@ -1,19 +1,27 @@
 defmodule RegalocalWeb.Admin.BusinessController do
   use RegalocalWeb, :controller
+  use RegalocalWeb.Admin.BaseController
 
   alias Regalocal.Admin
 
   # alias Regalocal.Admin.Business
 
+  @spec show(Plug.Conn.t(), any) :: Plug.Conn.t()
   def show(conn, _params) do
     business = load_business(conn)
-    render(conn, "show.html", business: business)
+
+    conn
+    |> assign(:title, "Perfil")
+    |> render("show.html", business: business)
   end
 
   def edit(conn, _params) do
     business = load_business(conn)
     changeset = Admin.change_business(business)
-    render(conn, "edit.html", business: business, changeset: changeset)
+
+    conn
+    |> assign(:title, "Editar perfil")
+    |> render("edit.html", business: business, changeset: changeset)
   end
 
   def update(conn, %{"business" => params}) do
@@ -35,12 +43,11 @@ defmodule RegalocalWeb.Admin.BusinessController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         IO.inspect(changeset)
-        render(conn, "edit.html", business: business, changeset: changeset)
-    end
-  end
 
-  def load_business(conn) do
-    Admin.get_business!(conn.assigns[:business_id])
+        conn
+        |> assign(:title, "Editar perfil")
+        |> render("edit.html", business: business, changeset: changeset)
+    end
   end
 
   def delete(conn) do
