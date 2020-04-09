@@ -52,7 +52,8 @@ defmodule Regalocal.Seeds do
   end
 
   def insert_business(index) do
-    insert_business(index, Faker.Internet.email())
+    [account, domain] = String.split(Faker.Internet.email(), "@")
+    insert_business(index, "#{account}#{index}@#{domain}")
   end
 
   def insert_business(index, email) do
