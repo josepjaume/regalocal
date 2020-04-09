@@ -1,6 +1,6 @@
-<%= container do %>
+<%= container(:padded) do %>
   <div x-data="{ openPanel: 1 }">
-    <div class="max-w-3xl mx-auto py-8">
+    <div class="max-w-3xl mx-auto pb-8">
       <h2 class="text-center text-3xl leading-9 font-extrabold text-primary-600 sm:text-4xl sm:leading-10">
         Preguntes Freqüents
       </h2>

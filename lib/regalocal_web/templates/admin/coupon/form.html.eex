@@ -1,91 +1,86 @@
-<div class="bg-white">
-  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto">
-      <%= form_for @changeset, @action, [multipart: true], fn f -> %>
-      <%= if @changeset.action do %>
-        <div class="rounded-md bg-red-50 p-4">
-          <div class="flex">
-            <div class="flex-shrink-0">
-              <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-              </svg>
-            </div>
-            <div class="ml-3">
-              <h3 class="text-sm leading-5 font-medium text-red-800">
-                Oops, something went wrong! Please check the errors below.
-              </h3>
-            </div>
-          </div>
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="rounded-md bg-red-50 p-4">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+          </svg>
         </div>
-      <% end %>
+        <div class="ml-3">
+          <h3 class="text-sm leading-5 font-medium text-red-800">
+            Oops, something went wrong! Please check the errors below.
+          </h3>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div>
+    <div>
       <div>
-        <div>
-          <div>
-            <h3 class="text-lg leading-6 font-medium text-gray-900">
-              Coupon
-            </h3>
-            <p class="mt-1 text-sm leading-5 text-gray-500">
-              Here you can create a coupon, redeemable when you reopen your business.
-            </p>
-          </div>
-          <div class="mt-6 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
-            <div class="sm:col-span-4">
-              <%= label f, :title, class: "block text-sm font-medium leading-5 text-gray-700" %>
-              <div class="mt-1 sm:mt-0 sm:col-span-2">
-                <div class="max-w-lg flex rounded-md shadow-sm">
-                  <%= text_input f, :title, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-                </div>
-                <%= error_tag f, :title %>
-              </div>
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+          Coupon
+        </h3>
+        <p class="mt-1 text-sm leading-5 text-gray-500">
+          Here you can create a coupon, redeemable when you reopen your business.
+        </p>
+      </div>
+      <div class="mt-6 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
+        <div class="sm:col-span-4">
+          <%= label f, :title, class: "block text-sm font-medium leading-5 text-gray-700" %>
+          <div class="mt-1 sm:mt-0 sm:col-span-2">
+            <div class="max-w-lg flex rounded-md shadow-sm">
+              <%= text_input f, :title, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
             </div>
-            <div class="sm:col-span-4">
-              <%= label f, :value, class: "block text-sm font-medium leading-5 text-gray-700" %>
-              <div class="mt-1 sm:mt-0 sm:col-span-2">
-                <div class="max-w-lg flex rounded-md shadow-sm">
-                  <%= number_input f, :value, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5", placeholder: "25", min: 5 %>
-                </div>
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <span class="text-gray-500 sm:text-sm sm:leading-5">
-                    €
-                  </span>
-                </div>
-                <%= error_tag f, :value %>
-              </div>
-            </div>
-            <div class="sm:col-span-4">
-              <%= label f, :discount, class: "block text-sm font-medium leading-5 text-gray-700" %>
-              <div class="mt-1 relative rounded-md shadow-sm">
-                <%= number_input f, :discount, required: true, class: "form-input block w-full pl-7 pr-12 sm:text-sm sm:leading-5", placeholder: "5", min: 5, max: 25  %>
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <span class="text-gray-500 sm:text-sm sm:leading-5">
-                    %
-                  </span>
-                </div>
-                <%= error_tag f, :discount %>
-              </div>
-            </div>
-            <div class="sm:col-span-6">
-              <label for="about" class="block text-sm font-medium leading-5 text-gray-700">
-                <%= label f, :terms %>
-              </label>
-              <div class="mt-1 rounded-md shadow-sm">
-                <%= textarea f, :terms, class: "form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-              </div>
-              <p class="mt-2 text-sm text-gray-500">Specify the terms in which the coupon is valid (only for certain products, etc)</p>
-              <%= error_tag f, :terms %>
-            </div>
+            <%= error_tag f, :title %>
           </div>
         </div>
-        <div class="mt-8 border-t border-gray-200 pt-5">
-          <div class="flex justify-end">
-            <span class="ml-3 inline-flex rounded-md shadow-sm">
-              <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
-                Save
-              </button>
-            </span>
+        <div class="sm:col-span-4">
+          <%= label f, :value, class: "block text-sm font-medium leading-5 text-gray-700" %>
+          <div class="mt-1 sm:mt-0 sm:col-span-2">
+            <div class="max-w-lg flex rounded-md shadow-sm">
+              <%= number_input f, :value, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5", placeholder: "25", min: 5 %>
+            </div>
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <span class="text-gray-500 sm:text-sm sm:leading-5">
+                €
+              </span>
+            </div>
+            <%= error_tag f, :value %>
           </div>
         </div>
-      <% end %>
+        <div class="sm:col-span-4">
+          <%= label f, :discount, class: "block text-sm font-medium leading-5 text-gray-700" %>
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <%= number_input f, :discount, required: true, class: "form-input block w-full pl-7 pr-12 sm:text-sm sm:leading-5", placeholder: "5", min: 5, max: 25  %>
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <span class="text-gray-500 sm:text-sm sm:leading-5">
+                %
+              </span>
+            </div>
+            <%= error_tag f, :discount %>
+          </div>
+        </div>
+        <div class="sm:col-span-6">
+          <label for="about" class="block text-sm font-medium leading-5 text-gray-700">
+            <%= label f, :terms %>
+          </label>
+          <div class="mt-1 rounded-md shadow-sm">
+            <%= textarea f, :terms, class: "form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
+          </div>
+          <p class="mt-2 text-sm text-gray-500">Specify the terms in which the coupon is valid (only for certain products, etc)</p>
+          <%= error_tag f, :terms %>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 border-t border-gray-200 pt-5">
+      <div class="flex justify-end">
+        <span class="ml-3 inline-flex rounded-md shadow-sm">
+          <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
+            Save
+          </button>
+        </span>
+      </div>
     </div>
   </div>
-</div>
+<% end %>

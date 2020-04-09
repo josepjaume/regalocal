@@ -1,6 +1,6 @@
 <%= container :wide do %>
   <div class="relative bg-white">
-    <div class="absolute inset-0">
+    <div class="inset-0 hidden lg:block absolute">
       <div class="absolute inset-y-0 left-0 w-1/2 bg-primary-50"></div>
     </div>
     <div class="relative max-w-7xl mx-auto lg:grid lg:grid-cols-5">

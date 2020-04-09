@@ -26,4 +26,3 @@
   </li>
 </ul>
 <span><%= link "Edit", to: Routes.admin_coupon_path(@conn, :edit, @coupon) %></span>
-<span><%= link "Back", to: Routes.admin_coupon_path(@conn, :index) %></span>

@@ -71,7 +71,7 @@
             </h1>
           </div>
         </header>
-        <main>
+        <main class="mx-auto max-w-screen-xl relative p-4 sm:p-6 lg:p-8">
           <%= render @view_module, @view_template, assigns %>
         </main>
       </div>
