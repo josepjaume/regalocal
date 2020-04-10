@@ -1,237 +1,113 @@
 <%= form_for @changeset, @action, [multipart: true], fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="rounded-md bg-red-50 p-4">
-      <div class="flex">
-        <div class="flex-shrink-0">
-          <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-          </svg>
-        </div>
-        <div class="ml-3">
-          <h3 class="text-sm leading-5 font-medium text-red-800">
-            Oops, something went wrong! Please check the errors below.
-          </h3>
-        </div>
-      </div>
-    </div>
+  <%= Form.errors(@changeset) %>
+
+  <%= Form.section("Dades públiques del teu negoci", "Les dades introduides a continuació es mostraran públicament al llistat de negocios, així com als correus electrònics enviats.") do %>
+    <%= Form.control f, :name, "Nom del negoci", [hint: "Nom públic del teu negoci. No cal que sigui el nom legal."], fn form, field -> %>
+      <%= Form.text_input form, field, required: true %>
+    <% end %>
+
+    <%= Form.control f, :address, "Adreça", [hint: "Aquesta adreça es farà servir per a ubicar el teu negoci en el mapa i trobar-hi persones a prop."], fn form, field -> %>
+      <%= Form.text_input form, field, required: true %>
+    <% end %>
+
+    <%= Form.control f, :website, "Pàgina web", [hint: "Adreça de la teva pàgina web, si en tens."], fn form, field -> %>
+      <%= Form.text_input form, field %>
+    <% end %>
   <% end %>
-  <div>
-    <div>
-      <div>
-        <h3 class="text-lg leading-6 font-medium text-gray-900">
-          Admin
-        </h3>
-        <p class="mt-1 text-sm leading-5 text-gray-500">
-          This information will be displayed publicly so be careful what you share.
-        </p>
+
+  <%= Form.section("Dades personals", "Les següents dades es mostraran públicament al llistat i la pàgina de perfil del deu negoci.") do %>
+    <%= Form.control f, :owner_name, "Nom de pila del propietari", [hint: "El teu nom es mostrarà juntament amb la teva carta de presentació."], fn form, field -> %>
+      <%= Form.text_input form, field, required: true %>
+    <% end %>
+
+    <%= Form.control f, :story, "Carta de presentació", [hint: "Unes breus paraules per conèixer la teva història i la del teu negoci."], fn form, field -> %>
+      <%= Form.textarea form, field, required: true %>
+    <% end %>
+
+    <%= Form.control f, :photo, "Fotografia", [], fn form, field -> %>
+      <div class="flex">
+        <span class="h-12 w-12 rounded-full overflow-hidden bg-gray-100">
+          <% if form.data.photo_id do %>
+            <%= tag(:img, src: Cloudex.Url.for(f.data.photo_id, %{width: 300, height: 200})) %>
+          <% else %>
+            <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          <% end %>
+        </span>
+        <span class="ml-5 rounded-md shadow-sm">
+          <%= file_input form, field %>
+        </span>
       </div>
-      <div class="mt-6 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
-        <div class="sm:col-span-4">
-          <%= label f, :name, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <div class="max-w-lg flex rounded-md shadow-sm">
-              <%= text_input f, :name, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            </div>
-            <%= error_tag f, :name %>
-          </div>
+    <% end %>
+  <% end %>
+
+  <%= Form.section("Dades de contacte", "Dades públiques per tal que els ciutadans es puguin posar en contacte amb tu, en cas que ho necessitin.") do %>
+    <%= Form.control f, :whatsapp, "WhatsApp", [], fn form, field -> %>
+      <%= Form.text_input form, field %>
+    <% end %>
+
+    <%= Form.control f, :phone, "Telèfon fix", [], fn form, field -> %>
+      <%= Form.text_input form, field, required: true %>
+    <% end %>
+  <% end %>
+
+  <%= Form.section("Xarxes Socials", "Les teves dades a les xarxes, per tal que els visitants puguin conèixer millor el teu negoci. Tots els camps són opcionals.") do %>
+    <%= Form.control f, :instagram, "Instagram", [], fn form, field -> %>
+      <%= Form.prefixed_text_input form, field, "instagram.com/" %>
+    <% end %>
+
+    <%= Form.control f, :facebook, "Facebook", [], fn form, field -> %>
+      <%= Form.prefixed_text_input form, field, "facebook.com/" %>
+    <% end %>
+
+    <%= Form.control f, :google_maps_url, "Google Maps", [], fn form, field -> %>
+      <%= Form.prefixed_text_input form, field, "maps.google.com/" %>
+    <% end %>
+
+    <%= Form.control f, :tripadvisor_url, "TripAdvisor", [], fn form, field -> %>
+      <%= Form.prefixed_text_input form, field, "tripadvisor.com/" %>
+    <% end %>
+  <% end %>
+
+  <%= Form.section("Informació de facturació", "Les dades de facturació es remetran juntament amb els correus electrònics de compra dels cupons. És important que siguin vàlides i acurades.") do %>
+    <%= Form.control f, :legal_name, "Nom legal", [], fn form, field -> %>
+      <%= Form.text_input form, field, required: true %>
+    <% end %>
+
+    <%= Form.control f, :vat_number, "NIF/NIE", [], fn form, field -> %>
+      <%= Form.text_input form, field, required: true %>
+    <% end %>
+
+    <%= Form.control f, :billing_address, "Adreça de facturació", [], fn form, field -> %>
+      <%= Form.textarea form, field, required: true %>
+    <% end %>
+  <% end %>
+
+  <%= Form.section("Mètodes de pagament", "Els usuaris realitzaran els pagaments de manera directa al teu número de compte.") do %>
+    <%= Form.control f, :iban, "IBAN", [hint: "El número del teu compte bancari per a que els usuaris puguin fer el pagament."], fn form, field -> %>
+      <%= Form.text_input form, field, required: true %>
+    <% end %>
+
+    <%= Form.control f, :bizum_number, "Número a Bizum", [hint: "Si disposes d'un compte a Bizum, introdueix el teu número de telèfon mòbil. Els pagaments a través de Bizum solen ser més ràpids i àgils."], fn form, field -> %>
+      <%= Form.text_input form, field %>
+    <% end %>
+  <% end %>
+
+  <%= Form.section("Legal") do %>
+    <%= if !f.data.accepted_terms do %>
+      <%= Form.control f, :accepted_terms, "Legal", [], fn form, field -> %>
+        <div class="absolute flex items-center h-5">
+          <%= checkbox f, field, class: "form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" %>
         </div>
-        <div class="sm:col-span-4">
-          <%= label f, :owner_name, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <div class="max-w-lg flex rounded-md shadow-sm">
-              <%= text_input f, :owner_name, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            </div>
-            <%= error_tag f, :owner_name %>
-          </div>
-        </div>
-        <div class="sm:col-span-6">
-          <%= label f, :photo, class: "block text-sm leading-5 font-medium text-gray-700" %>
-          <div class="mt-2 flex items-center">
-            <span class="h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-              <% if f.data.photo_id do %>
-                <%= tag(:img, src: Cloudex.Url.for(f.data.photo_id, %{width: 300, height: 200})) %>
-              <% else %>
-                <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              <% end %>
-            </span>
-            <span class="ml-5 rounded-md shadow-sm">
-              <%= file_input f, :photo, class: "py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out" %>
-            </span>
-          </div>
-        </div>
-        <div class="sm:col-span-6">
-          <label for="about" class="block text-sm font-medium leading-5 text-gray-700">
-            <%= label f, :story %>
+        <div class="pl-7 text-sm leading-5">
+          <label for="business_accepted_terms" class="font-medium text-gray-700">
+            Accepto els Termes i condicions [<%= link "Llegir", to: Routes.page_path(@conn, :terms), target: "_blank" %>]
           </label>
-          <div class="mt-1 rounded-md shadow-sm">
-            <%= textarea f, :story, required: true, class: "form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-          </div>
-          <p class="mt-2 text-sm text-gray-500">Write a few sentences about yourself.</p>
-          <%= error_tag f, :story %>
         </div>
-        <div class="sm:col-span-4">
-          <%= label f, :address, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <div class="max-w-lg flex rounded-md shadow-sm">
-              <%= text_input f, :address, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            </div>
-            <%= error_tag f, :address %>
-          </div>
-        </div>
-        <div class="sm:col-span-4">
-          <%= label f, :phone, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <div class="max-w-lg flex rounded-md shadow-sm">
-              <%= text_input f, :phone, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            </div>
-            <%= error_tag f, :phone %>
-          </div>
-        </div>
-        <div class="sm:col-span-4">
-          <%= label f, :website, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <div class="max-w-lg flex rounded-md shadow-sm">
-              <%= text_input f, :website, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            </div>
-            <%= error_tag f, :website %>
-          </div>
-        </div>
-        <div class="sm:col-span-4">
-          <%= label f, :whatsapp, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <div class="max-w-lg flex rounded-md shadow-sm">
-              <%= text_input f, :whatsapp, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            </div>
-            <%= error_tag f, :whatsapp %>
-          </div>
-        </div>
-        <div class="sm:col-span-4">
-          <%= label f, :google_maps_url, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 flex rounded-md shadow-sm">
-            <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
-              maps.google.com/
-            </span>
-            <%= text_input f, :google_maps_url, class: "flex-1 form-input block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            <%= error_tag f, :google_maps_url %>
-          </div>
-        </div>
-        <div class="sm:col-span-4">
-          <%= label f, :tripadvisor_url, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 flex rounded-md shadow-sm">
-            <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
-              tripadvisor.com/
-            </span>
-            <%= text_input f, :tripadvisor_url, class: "flex-1 form-input block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            <%= error_tag f, :tripadvisor_url %>
-          </div>
-        </div>
-        <div class="sm:col-span-4">
-          <%= label f, :instagram, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 flex rounded-md shadow-sm">
-            <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
-              instagram.com/
-            </span>
-            <%= text_input f, :instagram, class: "flex-1 form-input block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            <%= error_tag f, :instagram %>
-          </div>
-        </div>
-        <div class="sm:col-span-4">
-          <%= label f, :facebook, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 flex rounded-md shadow-sm">
-            <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
-              facebook.com/
-            </span>
-            <%= text_input f, :facebook, class: "flex-1 form-input block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            <%= error_tag f, :facebook %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-    <div class="mt-8 border-t border-gray-200 pt-8">
-      <div>
-        <h3 class="text-lg leading-6 font-medium text-gray-900">
-          Informació de facturació
-        </h3>
-        <p class="mt-1 text-sm leading-5 text-gray-500">
-          Explicació sobre aquestes dades
-        </p>
-      </div>
-      <div class="mt-6 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
-        <div class="sm:col-span-4">
-          <%= label f, :iban, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <div class="max-w-lg flex rounded-md shadow-sm">
-              <%= text_input f, :iban, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            </div>
-            <%= error_tag f, :iban %>
-          </div>
-        </div>
-        <div class="sm:col-span-4">
-          <%= label f, :legal_name, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <div class="max-w-lg flex rounded-md shadow-sm">
-              <%= text_input f, :legal_name, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            </div>
-            <%= error_tag f, :legal_name %>
-          </div>
-        </div>
-        <div class="sm:col-span-4">
-          <%= label f, :vat_number, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <div class="max-w-lg flex rounded-md shadow-sm">
-              <%= text_input f, :vat_number, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            </div>
-            <%= error_tag f, :vat_number %>
-          </div>
-        </div>
-        <div class="sm:col-span-4">
-          <%= label f, :billing_address, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <div class="max-w-lg flex rounded-md shadow-sm">
-              <%= text_input f, :billing_address, required: true, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            </div>
-            <%= error_tag f, :billing_address %>
-          </div>
-        </div>
-        <div class="sm:col-span-4">
-          <%= label f, :bizum_number, class: "block text-sm font-medium leading-5 text-gray-700" %>
-          <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <div class="max-w-lg flex rounded-md shadow-sm">
-              <%= text_input f, :bizum_number, class: "form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" %>
-            </div>
-            <%= error_tag f, :bizum_number %>
-          </div>
-        </div>
-        <%= if !f.data.accepted_terms do %>
-          <div class="sm:col-span-4">
-            <div class="max-w-lg">
-              <div class="relative flex items-start">
-                <div class="absolute flex items-center h-5">
-                  <%= checkbox f, :accepted_terms, class: "form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" %>
-                </div>
-                <div class="pl-7 text-sm leading-5">
-                  <label for="business_accepted_terms" class="font-medium text-gray-700">
-                    I accept the <a href="/terms">Terms and Conditions</a>
-                  </label>
-                </div>
-                <%= error_tag f, :accepted_terms %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-      <div class="mt-8 border-t border-gray-200 pt-5">
-        <div class="flex justify-end">
-          <span class="ml-3 inline-flex rounded-md shadow-sm">
-            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
-              Save
-            </button>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= Form.buttons("Desar dades") %>
 <% end %>

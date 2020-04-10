@@ -1,1 +1,1 @@
-<%= render "form.html", Map.put(assigns, :action, Routes.admin_coupon_path(@conn, :update, @coupon)) %>
+<%= render "form.html", Map.merge(assigns, %{action: Routes.admin_coupon_path(@conn, :update, @coupon), submit_title: "Actualitzar cupó"}) %>

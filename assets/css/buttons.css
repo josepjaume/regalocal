@@ -1,13 +1,3 @@
-form {
-  input {
-    @apply appearance-none w-full px-5 py-3 border border-gray-300 text-base leading-6 rounded-md text-gray-900 bg-white transition duration-150 ease-in-out;
-
-    &:focus {
-      @apply border-primary-300 shadow-outline outline-none;
-    }
-  }
-}
-
 .button,
 form button {
   @apply inline-flex rounded-md shadow flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-primary-600 transition-all duration-150 ease-in-out;
