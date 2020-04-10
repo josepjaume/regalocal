@@ -46,6 +46,10 @@ defmodule Regalocal.Orders do
   """
   def get_gift!(id), do: Repo.get!(Gift, id)
 
+  def get_gift_by_reference!(reference) do
+    Gift |> where(reference: ^reference) |> Repo.one()
+  end
+
   @doc """
   Creates a gift.
 
@@ -83,22 +87,6 @@ defmodule Regalocal.Orders do
   end
 
   @doc """
-  Deletes a gift.
-
-  ## Examples
-
-      iex> delete_gift(gift)
-      {:ok, %Gift{}}
-
-      iex> delete_gift(gift)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_gift(%Gift{} = gift) do
-    Repo.delete(gift)
-  end
-
-  @doc """
   Returns an `%Ecto.Changeset{}` for tracking gift changes.
 
   ## Examples
@@ -109,5 +97,27 @@ defmodule Regalocal.Orders do
   """
   def change_gift(%Gift{} = gift) do
     Gift.changeset(gift, %{})
+  end
+
+  defp generate_reference() do
+    1..9
+    |> Enum.map(fn _ -> String.downcase(Faker.Util.letter()) end)
+    |> Enum.chunk_every(3)
+    |> Enum.map(fn letters -> Enum.join(letters) end)
+    |> Enum.join("-")
+  end
+
+  defp reference_exists?(reference) do
+    Gift |> where(reference: ^reference) |> Repo.exists?()
+  end
+
+  def generate_unique_reference() do
+    ref = generate_reference()
+
+    if !reference_exists?(ref) do
+      ref
+    else
+      generate_unique_reference()
+    end
   end
 end

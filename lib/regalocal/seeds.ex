@@ -3,6 +3,7 @@ defmodule Regalocal.Seeds do
   alias Regalocal.Admin.Business
   alias Regalocal.Admin.Coupon
   alias Regalocal.Orders.Gift
+  alias Regalocal.Orders
   alias Regalocal.Geolocation
 
   @addresses [
@@ -36,7 +37,7 @@ defmodule Regalocal.Seeds do
 
   def insert_gift(coupon) do
     Repo.insert!(%Gift{
-      reference: String.upcase(Faker.Nato.callsign()),
+      reference: Orders.generate_unique_reference(),
       amount: coupon.amount,
       value: coupon.value,
       business_id: coupon.business_id,

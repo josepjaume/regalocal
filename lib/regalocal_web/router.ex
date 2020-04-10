@@ -22,6 +22,7 @@ defmodule RegalocalWeb.Router do
     get "/business/:id", BusinessController, :show
     get "/coupons/:id/gifts/new", GiftController, :new
     post "/coupons/:id/gifts", GiftController, :create
+    get "/gifts/:reference/payment_sent", GiftController, :payment_sent, as: :payment_sent
 
     resources("/faq", FaqController, only: [:index])
     get "/search", SearchController, :index

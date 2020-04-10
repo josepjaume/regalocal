@@ -1,1 +1,18 @@
-<h1>thx bra</h1>
+<div class="bg-white">
+  <div class="max-w-screen-xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Moltes gràcies pel teu suport!
+    </h2>
+    <br/>
+    <h3 class="text-l leading-9 font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Comprova el teu email i segueix les instruccions de pagament.
+    </h3>
+    <div class="mt-8 flex justify-center">
+      <div class="inline-flex rounded-md shadow">
+        <a href="<%= Routes.page_path(@conn, :index)%>" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+          Continua fent més regals
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

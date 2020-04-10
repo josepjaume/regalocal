@@ -29,6 +29,7 @@ defmodule Regalocal.Orders.Gift do
   def changeset(gift, attrs) do
     gift
     |> cast(attrs, [
+      :reference,
       :buyer_name,
       :buyer_email,
       :buyer_phone,
@@ -44,6 +45,7 @@ defmodule Regalocal.Orders.Gift do
       :business_id
     ])
     |> validate_required([
+      :reference,
       :buyer_name,
       :buyer_email,
       :buyer_phone,
@@ -60,6 +62,7 @@ defmodule Regalocal.Orders.Gift do
     |> validate_acceptance(:accepted_gift_terms)
     |> validate_format(:buyer_email, @email_regex)
     |> validate_format(:recipient_email, @email_regex)
+    |> unique_constraint(:reference)
   end
 
   def validate_terms(changeset) do

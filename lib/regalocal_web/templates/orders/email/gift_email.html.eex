@@ -1,0 +1,16 @@
+<html>
+  <body>
+    <p><strong><%= @gift.buyer_name %></strong> t'ha fet un regal de <strong><%= @gift.value %> EUR</strong> per gaudir-lo a <strong><%= @business.name %></strong></strong>!</p>
+  <p>A més, també ens ha dit que et diguem el següent:</p>
+  <pre><%= @gift.message_for_recipient %></pre>
+  <br/>
+  <p><strong>Com puc fer-lo servir?</strong></p>
+  <p>Ara mateix, <%= @business.name %> està tancat degut al confinament. Tan bon punt obrin, t'enviarem un mail indicant que ja pots anar al comerç a fer servir el teu cupó.</p>
+  <p>El codi del cupó és <strong><%= @gift.reference %></strong>. No et preocupis, te'l recordarem en el proper mail.</p>
+  <br/>
+  <p><strong>Vols fer un regal a algú tú també?</strong></p>
+  <p><%= @gift.buyer_name %> t'ha fet el regal a través de <a href="https://regalocal.com">Regalocal</a>, el servei gratuït que et permet regalar somriures als teus tot i ajudant al comerç local.</p>
+  <p>Cerca comerços en dificultats per la crisi del COVID-19 i regala un somriure de proximitat :)</p>
+  <p><a href="https://regalocal.com">regalocal.com</a></p>
+</body>
+</html>

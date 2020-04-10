@@ -1,0 +1,48 @@
+<html>
+  <body>
+    <p><strong>Instruccions de pagament</strong></p>
+    <p>Per finalitzar el procés de compra fes una transferència bancària amb aquestes dades:</p>
+    <dl>
+      <dt>Nom del beneficiari</dt>
+      <dd><%=@business.owner_name%></dd>
+      <dt>Número IBAN</dt>
+      <dd><%= Regex.scan(~r/..../, @business.iban) |> List.flatten |> Enum.join(" ") %></dd>
+      <dt>Import a transferir</dt>
+      <dd><strong><%=@gift.amount%> EUR</strong></dd>
+      <dt>Concepte de la transferència</dt>
+      <dd><%=@gift.reference%></dd>
+    </dl>
+    <%= if @business.bizum_number do %>
+      <p>Si ho prefereixes, també pots enviar els <strong><%=@gift.amount %> EUR</strong> per Bizum al número <strong><%= Regex.scan(~r/.../, @business.bizum_number) |> List.flatten |> Enum.join(" ") %></strong>, especificant <strong><%= @gift.reference %></strong> com a concepte.</p>
+    <% end %>
+    <br />
+    <p><strong>Notificació de pagament</strong></p>
+    <p>Una vegada hagis realitzat el pagament, fes-ho saber a <%= @business.owner_name %> seguint el següent enllaç:</p>
+    <a href="<%= Routes.payment_sent_url(@conn, :payment_sent, @gift.reference, token: @token) %>">Confirmar pagament</a>
+    <br />
+    <p><strong>Gaudir del regal</strong></p>
+    <p>Quan <%= @business.name %> torni a obrir tant tu com <%= @gift.recipient_name %> rebreu un correu electrònic avisant-vos que ja podeu bescanviar el cupó!</p>
+    <p>Per si és del teu interès, aquí tens les dades de contacte i facturació de <%= @business.name %>:</p>
+    <dl>
+      <dt>Nom del comerç</dt>
+      <dd><%= @business.legal_name %></dd>
+      <dt>CIF/NIF</dt>
+      <dd><%= @business.vat_number %></dd>
+      <dt>Adreça</dt>
+      <dd><%= @business.billing_address %></dd>
+      <dt>Nom del/la propietari/a</dt>
+      <dd><%= @business.owner_name %></dd>
+      <dt>Telèfon</dt>
+      <dd><%= @business.phone %></dd>
+      <%= if @business.whatsapp do %>
+        <dt>WhatsApp</dt>
+        <dd><a href="https://wa.me/34<%= @business.whatsapp %>" class="ml-3" rel="no-follow">
+            <%= @business.whatsapp %>
+          </a></dd>
+      <% end %>
+    </dl>
+    <br />
+    <p>Moltes gràcies per ajudar a <%= @business.name %> comprant un cupó!</p>
+    <p>PD: En/na <%= @business.owner_name %> està en còpia en aquest email, per si li vols preguntar qualsevol cosa.</p>
+  </body>
+</html>

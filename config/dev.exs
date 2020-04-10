@@ -75,6 +75,7 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :veil, RegalocalWeb.Veil.Mailer, adapter: Swoosh.Adapters.Local
+config :regalocal, RegalocalWeb.Orders.Mailer, adapter: Swoosh.Adapters.Local
 
 config :swoosh, serve_mailbox: true, preview_port: 4001
 
