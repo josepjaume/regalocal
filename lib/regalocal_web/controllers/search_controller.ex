@@ -8,8 +8,6 @@ defmodule RegalocalWeb.SearchController do
     geo =
       Geolocation.to_geopoint(%{lat: String.to_float(latitude), lon: String.to_float(longitude)})
 
-    coordinates = %{latitude: String.to_float(latitude), longitude: String.to_float(longitude)}
-
     businesses = Search.find_businesses_near!(geo, 25)
 
     conn

@@ -12,6 +12,7 @@ defmodule Regalocal.Search do
     Business
     |> select([b], %{b | distance_meters: st_distance_in_meters(b.coordinates, ^geom)})
     |> where([b], b.id in ^bids)
+    |> where(accepted_terms: true)
     |> order_by([b], st_distance_in_meters(b.coordinates, ^geom))
     |> limit(^limit)
     |> Repo.all()
@@ -26,7 +27,7 @@ defmodule Regalocal.Search do
     |> Enum.uniq()
   end
 
-  def get_business!(id), do: Repo.get!(Business, id)
+  def get_business!(id), do: Business |> where(accepted_terms: true) |> Repo.one!()
 
   def active_coupons_for(%Business{id: business_id}) do
     Coupon

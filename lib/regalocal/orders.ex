@@ -13,9 +13,7 @@ defmodule Regalocal.Orders do
     Repo.get!(Coupon, id)
   end
 
-  def get_business!(id) do
-    Repo.get!(Business, id)
-  end
+  def get_business!(id), do: Business |> where(accepted_terms: true) |> Repo.one!()
 
   @doc """
   Returns the list of gifts.

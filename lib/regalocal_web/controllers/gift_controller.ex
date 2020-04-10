@@ -39,6 +39,7 @@ defmodule RegalocalWeb.GiftController do
         |> render("thanks.html", gift: gift)
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        business = Orders.get_business!(coupon.business_id)
         render(conn, "new.html", changeset: changeset, coupon: coupon, business: business)
     end
   end
