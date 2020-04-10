@@ -184,6 +184,8 @@ defmodule Regalocal.Admin do
     Coupon |> where(id: ^coupon_id, archived: true) |> Repo.exists?()
   end
 
+  def redeemable?(%Gift{status: :redeemed}), do: false
+
   def redeemable?(%Gift{coupon_id: coupon_id}) do
     Coupon |> where(id: ^coupon_id, status: ^:redeemable) |> Repo.exists?()
   end
