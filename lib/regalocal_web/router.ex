@@ -53,6 +53,9 @@ defmodule RegalocalWeb.Router do
     pipe_through([:browser, RegalocalWeb.Plugs.Veil.Authenticate])
 
     get("/", DashboardController, :show)
+    get("/orders", OrderController, :index)
+    get("/orders/:id", OrderController, :show)
+    put("/orders/:id/payment_received", OrderController, :payment_received, as: :payment_received)
     get("/business", BusinessController, :show)
     get("/business/edit", BusinessController, :edit)
     put("/business", BusinessController, :update)

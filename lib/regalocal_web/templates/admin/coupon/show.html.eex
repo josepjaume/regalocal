@@ -25,4 +25,9 @@
     <%= @coupon.terms %>
   </li>
 </ul>
-<span><%= link "Edit", to: Routes.admin_coupon_path(@conn, :edit, @coupon) %></span>
+<%= if Admin.updatable?(@coupon.id) do %>
+  <span><%= link "Edit", to: Routes.admin_coupon_path(@conn, :edit, @coupon) %></span>
+<% else %>
+  <br/>
+  <span><i>El cupó no es pot editar, ja que té compres associades.</i></span>
+<% end %>

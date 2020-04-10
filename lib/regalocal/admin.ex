@@ -7,6 +7,7 @@ defmodule Regalocal.Admin do
 
   alias Regalocal.Admin.Business
   alias Regalocal.Admin.Coupon
+  alias Regalocal.Orders.Gift
 
   @doc """
   Gets a single business.
@@ -84,6 +85,10 @@ defmodule Regalocal.Admin do
     Coupon |> where(business_id: ^business_id) |> Repo.all()
   end
 
+  def list_orders(business_id) do
+    Gift |> where(business_id: ^business_id) |> Repo.all()
+  end
+
   @doc """
   Gets a single coupon.
 
@@ -132,21 +137,33 @@ defmodule Regalocal.Admin do
 
   """
   def update_coupon(%Coupon{} = coupon, attrs) do
-    coupon
-    |> Coupon.changeset(attrs)
-    |> Repo.update()
+    if updatable?(coupon.id) do
+      coupon
+      |> Coupon.changeset(attrs)
+      |> Repo.update()
+    else
+      {:error, :has_orders}
+    end
   end
 
   def publish_coupon!(%Coupon{} = coupon) do
-    coupon
-    |> Coupon.changeset(%{"status" => :published})
-    |> Repo.update()
+    if publishable?(coupon.id) do
+      coupon
+      |> Coupon.changeset(%{"status" => :published})
+      |> Repo.update()
+    else
+      {:error, :unpublishable}
+    end
   end
 
   def unpublish_coupon!(%Coupon{} = coupon) do
-    coupon
-    |> Coupon.changeset(%{"status" => :draft})
-    |> Repo.update()
+    if unpublishable?(coupon.id) do
+      coupon
+      |> Coupon.changeset(%{"status" => :draft})
+      |> Repo.update()
+    else
+      {:error, :has_orders}
+    end
   end
 
   def archive_coupon!(%Coupon{} = coupon) do
@@ -182,5 +199,38 @@ defmodule Regalocal.Admin do
   """
   def change_coupon(%Coupon{} = coupon) do
     Coupon.changeset(coupon, %{})
+  end
+
+  def publishable?(coupon_id) do
+    Repo.get!(Coupon, coupon_id).status == :draft
+  end
+
+  def updatable?(coupon_id), do: !has_gifts?(coupon_id)
+  def unpublishable?(coupon_id), do: !has_gifts?(coupon_id)
+
+  defp has_gifts?(coupon_id) do
+    Gift |> where(coupon_id: ^coupon_id) |> Repo.exists?()
+  end
+
+  def pending_payment_confirmation?(gift) do
+    gift.status == :pending_payment || gift.status == :paid
+  end
+
+  def get_order!(business_id, gift_id) do
+    Gift |> where(business_id: ^business_id, id: ^gift_id) |> Repo.one!()
+  end
+
+  def payment_received!(%Gift{} = gift) do
+    if pending_payment_confirmation?(gift) do
+      gift
+      |> Gift.changeset(%{
+        "status" => :payment_confirmed,
+        "accepted_gift_terms" => true,
+        "accepted_coupon_terms" => true
+      })
+      |> Repo.update()
+    else
+      {:error, :cannot_confirm_payment}
+    end
   end
 end

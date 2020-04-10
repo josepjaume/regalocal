@@ -1,0 +1,9 @@
+<html>
+  <body>
+    <p>En/na <%= @business.owner_name %> ens ha notificat que ja ha rebut el teu pagament amb la referència <%= @gift.reference %>!</p>
+    <p><strong>Properes passes</strong></p>
+    <p>Tan bon punt reobri <%= @business.name %>, t'avisarem tant a tu com a <%= @gift.recipient_name %> per fer-vos saber que el cupó ja pot ser bescanviat.</p>
+    <br />
+    <p>Moltes gràcies!</p>
+  </body>
+</html>

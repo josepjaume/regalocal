@@ -49,9 +49,15 @@ defmodule RegalocalWeb.Admin.CouponController do
         |> put_flash(:info, "Coupon published successfully.")
         |> redirect(to: Routes.admin_coupon_path(conn, :index))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        IO.inspect(changeset)
+      {:error, :unpublishable} ->
+        conn
+        |> put_flash(
+          :error,
+          "El cupó no està en estat d'esborrany"
+        )
+        |> redirect(to: Routes.admin_coupon_path(conn, :index))
 
+      {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> put_flash(:error, "Coupon could not be published.")
         |> redirect(to: Routes.admin_coupon_path(conn, :index))
@@ -65,6 +71,14 @@ defmodule RegalocalWeb.Admin.CouponController do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Coupon unpublished successfully.")
+        |> redirect(to: Routes.admin_coupon_path(conn, :index))
+
+      {:error, :has_orders} ->
+        conn
+        |> put_flash(
+          :error,
+          "El cupó ja ha sigut comprat almenys un cop, per tant no es pot despublicar. Si vols que ningú més el pugui comprar, arxiva'l."
+        )
         |> redirect(to: Routes.admin_coupon_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -101,6 +115,14 @@ defmodule RegalocalWeb.Admin.CouponController do
         conn
         |> put_flash(:info, "Coupon updated successfully.")
         |> redirect(to: Routes.admin_coupon_path(conn, :show, coupon))
+
+      {:error, :has_orders} ->
+        conn
+        |> put_flash(
+          :error,
+          "El cupó ja ha sigut comprat almenys un cop, per tant no es pot modificar. Si vols canviar les condicions, arxiva'l i crea'n un de nou."
+        )
+        |> redirect(to: Routes.admin_coupon_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn

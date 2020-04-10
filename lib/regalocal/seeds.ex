@@ -114,8 +114,11 @@ defmodule Regalocal.Seeds do
         amount: Float.round(value * (100 - discount) / 100, 2)
       })
 
-    times = Faker.random_between(0, 9)
-    0..times |> Enum.each(fn _ -> insert_gift(c) end)
+    if c.status == :published do
+      times = Faker.random_between(0, 9)
+      0..times |> Enum.each(fn _ -> insert_gift(c) end)
+    end
+
     c
   end
 

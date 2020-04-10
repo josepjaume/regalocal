@@ -3,7 +3,7 @@
     <p>En/na <%= @gift.buyer_name %> ens ha notificat que ja ha realitzat el pagament de la compra amb la referència <%= @gift.reference %>!</p>
     <p><strong>Properes passes</strong></p>
     <p>Si us plau, comprova que has rebut el pagament i una vegada l'hagis rebut notifica-ho a través del teu panell:</p>
-    <a href="#">El meu panell</a>
+    <a href="<%=Routes.admin_order_url(@conn, :show, @gift)%>">Les meves comandes</a>
     <br />
     <p>Com a recordatori, una vegada hagis obert i els compradors puguin començar a disfrutar dels cupons no t'oblidis d'activar els cupons, d'aquesta manera es notificarà automàticament als interessats.</p>
     <p>Per si és del teu interès, aquí tens les dades de contacte de <%= @gift.buyer_name %>:</p>
