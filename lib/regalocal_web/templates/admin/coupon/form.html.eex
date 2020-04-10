@@ -1,23 +1,18 @@
 <%= form_for @changeset, @action, [multipart: true], fn f -> %>
-  <%= Form.errors(@changeset) %>
-
-  <%= Form.section("Dades del cupó") do %>
-    <%= Form.control f, :title, "Títol del cupó", [], fn form, field -> %>
-      <%= Form.text_input form, field, required: true %>
-    <% end %>
-
-    <%= Form.control f, :value, "Valor real del cupó", [], fn form, field -> %>
-      <%= Form.currency_input form, field, required: true %>
-    <% end %>
-
-    <%= Form.control f, :discount, "Descompte", [], fn form, field -> %>
-      <%= Form.select form, field, ["0% (sense descompte)": 0, "5%": 5, "10%": 10, "15%": 15, "20%": 20, "25%": 25], required: true, prompt: "Selecciona el descompte d'aquest cupó" %>
-    <% end %>
-
-    <%= Form.control f, :terms, "Termes i condicions", [hint: "Termes i condicions aplicables al cupó"], fn form, field -> %>
-      <%= Form.textarea form, field, required: true %>
-    <% end %>
-  <% end %>
-
-  <%= Form.buttons(@submit_title) %>
+<%= Form.errors(@changeset) %>
+<%= Form.section("Dades del cupó") do %>
+  <%= Form.control f, :title, "Títol del cupó", [], fn form, field -> %>
+  <%= Form.text_input form, field, required: true %>
+<% end %>
+<%= Form.control f, :value, "Valor real del cupó", [], fn form, field -> %>
+<%= Form.currency_input form, field, required: true %>
+<% end %>
+<%= Form.control f, :discount, "Descompte", [], fn form, field -> %>
+<%= Form.select form, field, ["5%": 5, "10%": 10, "15%": 15, "20%": 20, "25%": 25], required: true, prompt: "Selecciona el descompte d'aquest cupó" %>
+<% end %>
+<%= Form.control f, :terms, "Termes i condicions", [hint: "Termes i condicions aplicables al cupó"], fn form, field -> %>
+<%= Form.textarea form, field, required: true %>
+<% end %>
+<% end %>
+<%= Form.buttons(@submit_title) %>
 <% end %>

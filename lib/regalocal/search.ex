@@ -21,7 +21,11 @@ defmodule Regalocal.Search do
   defp business_ids_with_coupons() do
     Coupon
     |> select([:business_id])
-    |> where([c], c.status == "published" and not is_nil(c.business_id))
+    |> where(
+      [c],
+      c.status in ["published", "redeemable"] and c.archived == false and
+        not is_nil(c.business_id)
+    )
     |> Repo.all()
     |> Enum.map(fn c -> c.business_id end)
     |> Enum.uniq()
@@ -32,7 +36,7 @@ defmodule Regalocal.Search do
   def active_coupons_for(%Business{id: business_id}) do
     Coupon
     |> where(business_id: ^business_id)
-    |> where(status: "published")
+    |> where([c], c.status in ["published", "redeemable"] and c.archived == false)
     |> Repo.all()
   end
 end

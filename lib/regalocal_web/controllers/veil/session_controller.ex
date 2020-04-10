@@ -26,7 +26,7 @@ defmodule RegalocalWeb.Veil.SessionController do
 
       conn
       |> put_resp_cookie("session_unique_id", session.unique_id, max_age: 60 * 60 * 24 * 365)
-      |> redirect(to: Routes.admin_business_path(conn, :edit))
+      |> redirect(to: redirect_to)
     else
       error ->
         error

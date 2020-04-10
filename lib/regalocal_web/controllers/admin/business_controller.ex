@@ -4,17 +4,6 @@ defmodule RegalocalWeb.Admin.BusinessController do
 
   alias Regalocal.Admin
 
-  # alias Regalocal.Admin.Business
-
-  @spec show(Plug.Conn.t(), any) :: Plug.Conn.t()
-  def show(conn, _params) do
-    business = load_business(conn)
-
-    conn
-    |> assign(:title, "Perfil")
-    |> render("show.html", business: business)
-  end
-
   def edit(conn, _params) do
     business = load_business(conn)
     changeset = Admin.change_business(business)
@@ -39,7 +28,7 @@ defmodule RegalocalWeb.Admin.BusinessController do
       {:ok, _business} ->
         conn
         |> put_flash(:info, "Business updated successfully.")
-        |> redirect(to: Routes.admin_business_path(conn, :show))
+        |> redirect(to: Routes.admin_dashboard_path(conn, :show))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         IO.inspect(changeset)
