@@ -49,7 +49,7 @@
                       <span><%= link "Editar", to: Routes.admin_coupon_path(@conn, :edit, coupon), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
                       <span><%= link "Eliminar", to: Routes.admin_coupon_path(@conn, :delete, coupon), method: :delete, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
                     <% else %>
-                      <%= if coupon.status != :archived do %>
+                      <%= unless coupon.archived do %>
                         <span><%= link "Arxivar", to: Routes.admin_archive_coupon_path(@conn, :archive, coupon), method: :put, data: [confirm: "Els cupons que ja s'han comprat seguiran sent bescanviables, però ja no se'n podran fer més comandes. Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
                       <% end %>
                     <% end %>

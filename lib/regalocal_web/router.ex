@@ -56,6 +56,7 @@ defmodule RegalocalWeb.Router do
     get("/orders", OrderController, :index)
     get("/orders/:id", OrderController, :show)
     put("/orders/:id/payment_received", OrderController, :payment_received, as: :payment_received)
+    put("/orders/:id/redeem", OrderController, :redeem, as: :order_redeemed)
     get("/business", BusinessController, :show)
     get("/business/edit", BusinessController, :edit)
     put("/business", BusinessController, :update)

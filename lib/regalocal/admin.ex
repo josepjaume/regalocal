@@ -72,15 +72,6 @@ defmodule Regalocal.Admin do
     Business.changeset(business, %{})
   end
 
-  @doc """
-  Returns the list of coupons.
-
-  ## Examples
-
-      iex> list_coupons()
-      [%Coupon{}, ...]
-
-  """
   def list_coupons(business_id) do
     Coupon |> where(business_id: ^business_id) |> Repo.all()
   end
@@ -89,53 +80,15 @@ defmodule Regalocal.Admin do
     Gift |> where(business_id: ^business_id) |> Repo.all()
   end
 
-  @doc """
-  Gets a single coupon.
-
-  Raises `Ecto.NoResultsError` if the Coupon does not exist.
-
-  ## Examples
-
-      iex> get_coupon!(123)
-      %Coupon{}
-
-      iex> get_coupon!(456)
-      ** (Ecto.NoResultsError)
-
-  """
   def get_coupon!(business_id, id),
     do: Coupon |> where(business_id: ^business_id, id: ^id) |> Repo.one!()
 
-  @doc """
-  Creates a coupon.
-
-  ## Examples
-
-      iex> create_coupon(%{field: value})
-      {:ok, %Coupon{}}
-
-      iex> create_coupon(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def create_coupon(attrs \\ %{}) do
     %Coupon{}
     |> Coupon.changeset(attrs)
     |> Repo.insert()
   end
 
-  @doc """
-  Updates a coupon.
-
-  ## Examples
-
-      iex> update_coupon(coupon, %{field: new_value})
-      {:ok, %Coupon{}}
-
-      iex> update_coupon(coupon, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def update_coupon(%Coupon{} = coupon, attrs) do
     if updatable?(coupon.id) do
       coupon
@@ -176,35 +129,41 @@ defmodule Regalocal.Admin do
 
   def archive_coupon(%Coupon{} = coupon) do
     coupon
-    |> Coupon.changeset(%{"status" => :archived})
+    |> Coupon.changeset(%{"archived" => true})
     |> Repo.update()
   end
 
-  def activate_coupon(%Coupon{} = coupon) do
-    if ready_to_redeem?(coupon) do
-      coupon
-      |> Coupon.changeset(%{"status" => :redeemable})
-      |> Repo.update()
-    else
-      {:error, :is_not_published}
-    end
-  end
-
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking coupon changes.
+  Updates a coupon.
 
   ## Examples
 
-      iex> change_coupon(coupon)
-      %Ecto.Changeset{source: %Coupon{}}
+      iex> update_coupon(coupon, %{field: new_value})
+      {:ok, %Coupon{}}
+
+      iex> update_coupon(coupon, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
 
   """
+
   def change_coupon(%Coupon{} = coupon) do
     Coupon.changeset(coupon, %{})
   end
 
+  def get_gifts!(coupon_id) do
+    Gift |> where(coupon_id: ^coupon_id) |> Repo.all()
+  end
+
+  def get_order!(business_id, gift_id) do
+    Gift |> where(business_id: ^business_id, id: ^gift_id) |> Repo.one!()
+  end
+
+  def accepted_terms?(business_id) do
+    Business |> where(id: ^business_id, accepted_terms: true) |> Repo.exists?()
+  end
+
   def publishable?(coupon_id) do
-    Repo.get!(Coupon, coupon_id).status == :draft
+    Coupon |> where(id: ^coupon_id, status: ^:draft, archived: false) |> Repo.exists?()
   end
 
   def updatable?(coupon_id), do: !has_gifts?(coupon_id) and !archived?(coupon_id)
@@ -214,16 +173,19 @@ defmodule Regalocal.Admin do
     Gift |> where(coupon_id: ^coupon_id) |> Repo.exists?()
   end
 
-  def get_gifts!(coupon_id) do
-    Gift |> where(coupon_id: ^coupon_id) |> Repo.all()
-  end
-
   def pending_payment_confirmation?(gift) do
     gift.status == :pending_payment || gift.status == :paid
   end
 
-  def get_order!(business_id, gift_id) do
-    Gift |> where(business_id: ^business_id, id: ^gift_id) |> Repo.one!()
+  def ready_to_redeem?(%Coupon{status: :published}), do: true
+  def ready_to_redeem?(%Coupon{}), do: false
+
+  def archived?(coupon_id) do
+    Coupon |> where(id: ^coupon_id, archived: true) |> Repo.exists?()
+  end
+
+  def redeemable?(%Gift{coupon_id: coupon_id}) do
+    Coupon |> where(id: ^coupon_id, status: ^:redeemable) |> Repo.exists?()
   end
 
   def payment_received!(%Gift{} = gift) do
@@ -240,11 +202,27 @@ defmodule Regalocal.Admin do
     end
   end
 
-  def ready_to_redeem?(%Coupon{} = coupon) do
-    coupon.status == :published
+  def activate_coupon(%Coupon{} = coupon) do
+    if ready_to_redeem?(coupon) do
+      coupon
+      |> Coupon.changeset(%{"status" => :redeemable})
+      |> Repo.update()
+    else
+      {:error, :is_not_published}
+    end
   end
 
-  def archived?(coupon_id) do
-    Repo.get!(Coupon, coupon_id).status == :archived
+  def redeem!(%Gift{} = gift) do
+    if redeemable?(gift) do
+      gift
+      |> Gift.changeset(%{
+        "status" => :redeemed,
+        "accepted_gift_terms" => true,
+        "accepted_coupon_terms" => true
+      })
+      |> Repo.update()
+    else
+      {:error, :cannot_redeem}
+    end
   end
 end

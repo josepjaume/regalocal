@@ -1,0 +1,6 @@
+<html>
+  <body>
+    <p>En/na <%= @gift.recipient_name %> acaba de fer servir el cupó que li vas regalar!</p>
+    <p>Moltes gràcies per crear nous somriures de proximitat!</p>
+  </body>
+</html>

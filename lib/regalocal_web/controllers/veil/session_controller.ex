@@ -2,6 +2,8 @@ defmodule RegalocalWeb.Veil.SessionController do
   use RegalocalWeb, :controller
   alias Regalocal.Veil
 
+  alias Regalocal.Admin
+
   action_fallback(RegalocalWeb.Veil.FallbackController)
 
   @doc """
@@ -14,6 +16,13 @@ defmodule RegalocalWeb.Veil.SessionController do
          {:ok, session} <- Veil.create_session(conn, business_id) do
       Task.start(fn -> Veil.verify_business(business_id) end)
       Task.start(fn -> Veil.delete(request) end)
+
+      redirect_to =
+        if Admin.accepted_terms?(business_id) do
+          Routes.admin_dashboard_path(conn, :show)
+        else
+          Routes.admin_business_path(conn, :edit)
+        end
 
       conn
       |> put_resp_cookie("session_unique_id", session.unique_id, max_age: 60 * 60 * 24 * 365)

@@ -58,7 +58,7 @@ defmodule RegalocalWeb.Admin.CouponController do
         )
         |> redirect(to: Routes.admin_coupon_path(conn, :index))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, %Ecto.Changeset{}} ->
         conn
         |> put_flash(:error, "Coupon could not be published.")
         |> redirect(to: Routes.admin_coupon_path(conn, :index))
