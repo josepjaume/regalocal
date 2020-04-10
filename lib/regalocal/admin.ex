@@ -166,26 +166,28 @@ defmodule Regalocal.Admin do
     end
   end
 
-  def archive_coupon!(%Coupon{} = coupon) do
+  def delete_coupon(%Coupon{} = coupon) do
+    if updatable?(coupon.id) do
+      Repo.delete(coupon)
+    else
+      {:error, :has_orders}
+    end
+  end
+
+  def archive_coupon(%Coupon{} = coupon) do
     coupon
     |> Coupon.changeset(%{"status" => :archived})
     |> Repo.update()
   end
 
-  @doc """
-  Deletes a coupon.
-
-  ## Examples
-
-      iex> delete_coupon(coupon)
-      {:ok, %Coupon{}}
-
-      iex> delete_coupon(coupon)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_coupon(%Coupon{} = coupon) do
-    Repo.delete(coupon)
+  def activate_coupon(%Coupon{} = coupon) do
+    if ready_to_redeem?(coupon) do
+      coupon
+      |> Coupon.changeset(%{"status" => :redeemable})
+      |> Repo.update()
+    else
+      {:error, :is_not_published}
+    end
   end
 
   @doc """
@@ -205,11 +207,15 @@ defmodule Regalocal.Admin do
     Repo.get!(Coupon, coupon_id).status == :draft
   end
 
-  def updatable?(coupon_id), do: !has_gifts?(coupon_id)
-  def unpublishable?(coupon_id), do: !has_gifts?(coupon_id)
+  def updatable?(coupon_id), do: !has_gifts?(coupon_id) and !archived?(coupon_id)
+  def unpublishable?(coupon_id), do: !has_gifts?(coupon_id) and !archived?(coupon_id)
 
   defp has_gifts?(coupon_id) do
     Gift |> where(coupon_id: ^coupon_id) |> Repo.exists?()
+  end
+
+  def get_gifts!(coupon_id) do
+    Gift |> where(coupon_id: ^coupon_id) |> Repo.all()
   end
 
   def pending_payment_confirmation?(gift) do
@@ -232,5 +238,13 @@ defmodule Regalocal.Admin do
     else
       {:error, :cannot_confirm_payment}
     end
+  end
+
+  def ready_to_redeem?(%Coupon{} = coupon) do
+    coupon.status == :published
+  end
+
+  def archived?(coupon_id) do
+    Repo.get!(Coupon, coupon_id).status == :archived
   end
 end

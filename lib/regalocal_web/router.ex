@@ -62,6 +62,8 @@ defmodule RegalocalWeb.Router do
     resources("/coupons", CouponController)
     put("/coupons/:id/publish", CouponController, :publish, as: :publish_coupon)
     put("/coupons/:id/unpublish", CouponController, :unpublish, as: :unpublish_coupon)
+    put("/coupons/:id/archive", CouponController, :archive, as: :archive_coupon)
+    put("/coupons/:id/activate", CouponController, :activate, as: :activate_coupon)
   end
 
   if Mix.env() == :dev do

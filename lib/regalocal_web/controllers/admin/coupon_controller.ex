@@ -4,6 +4,7 @@ defmodule RegalocalWeb.Admin.CouponController do
 
   alias Regalocal.Admin
   alias Regalocal.Admin.Coupon
+  alias RegalocalWeb.Orders.{Mailer, GiftIsReadyEmail}
 
   def index(conn, _params) do
     coupons = Admin.list_coupons(conn.assigns[:business_id])
@@ -136,7 +137,32 @@ defmodule RegalocalWeb.Admin.CouponController do
     {:ok, _coupon} = Admin.delete_coupon(coupon)
 
     conn
-    |> put_flash(:info, "Coupon deleted successfully.")
+    |> put_flash(:info, "El cupó s'ha eliminat correctament.")
+    |> redirect(to: Routes.admin_coupon_path(conn, :index))
+  end
+
+  def archive(conn, %{"id" => id}) do
+    coupon = Admin.get_coupon!(conn.assigns[:business_id], id)
+    {:ok, _coupon} = Admin.archive_coupon(coupon)
+
+    conn
+    |> put_flash(:info, "El cupó s'ha arxivat correctament.")
+    |> redirect(to: Routes.admin_coupon_path(conn, :index))
+  end
+
+  def activate(conn, %{"id" => id}) do
+    business = Admin.get_business!(conn.assigns[:business_id])
+    coupon = Admin.get_coupon!(business.id, id)
+    {:ok, _coupon} = Admin.activate_coupon(coupon)
+    gifts = Admin.get_gifts!(coupon.id)
+
+    Enum.each(gifts, fn gift ->
+      GiftIsReadyEmail.generate(gift, business)
+      |> Mailer.deliver()
+    end)
+
+    conn
+    |> put_flash(:info, "El cupó s'ha activat correctament.")
     |> redirect(to: Routes.admin_coupon_path(conn, :index))
   end
 end

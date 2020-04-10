@@ -1,0 +1,22 @@
+<html>
+  <body>
+    <p><strong>El teu cupó de <%= @gift.value %> EUR ja es pot fer servir a <%= @business.name %>!</strong></p>
+    <p>Quan arribis al local, informa'ls que tens un cupó de Regalocal amb referència <strong><%= @gift.reference %></strong></p>
+    <dl>
+      <dt>Adreça</dt>
+      <dd><%= @business.address %></dd>
+      <dt>Nom del/la propietari/a</dt>
+      <dd><%= @business.owner_name %></dd>
+      <dt>Telèfon</dt>
+      <dd><%= @business.phone %></dd>
+      <%= if @business.whatsapp do %>
+        <dt>WhatsApp</dt>
+        <dd><a href="https://wa.me/34<%= @business.whatsapp %>" class="ml-3" rel="no-follow">
+            <%= @business.whatsapp %>
+          </a></dd>
+      <% end %>
+    </dl>
+    <p>Esperem que gaudeixis del regal!</p>
+    <p><a href="https://regalocal.com">regalocal.com</a></p>
+  </body>
+</html>
