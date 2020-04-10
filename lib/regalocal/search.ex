@@ -27,7 +27,7 @@ defmodule Regalocal.Search do
     |> Enum.uniq()
   end
 
-  def get_business!(id), do: Business |> where(accepted_terms: true) |> Repo.one!()
+  def get_business!(id), do: Business |> where(id: ^id, accepted_terms: true) |> Repo.one!()
 
   def active_coupons_for(%Business{id: business_id}) do
     Coupon
