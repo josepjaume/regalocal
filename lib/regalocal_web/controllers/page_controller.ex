@@ -8,4 +8,12 @@ defmodule RegalocalWeb.PageController do
   def terms(conn, _params) do
     render(conn, "terms.html")
   end
+
+  def privacy(conn, _params) do
+    render(conn, "privacy.html")
+  end
+
+  def cookies(conn, _params) do
+    render(conn, "cookies.html")
+  end
 end

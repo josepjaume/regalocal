@@ -27,6 +27,8 @@ defmodule RegalocalWeb.Router do
     get "/search", SearchController, :index
     get "/", PageController, :index
     get "/terms", PageController, :terms
+    get "/privacy", PageController, :privacy
+    get "/cookies", PageController, :cookies
   end
 
   # Other scopes may use custom stacks.

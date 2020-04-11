@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title><%= assigns[:page_title] || "Regalocal" %></title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <script type="text/javascript">
+      window.$crisp=[];window.CRISP_WEBSITE_ID="4c5c0f55-3698-46e2-8e30-5fac344bfe95";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
+    </script>
+    <%= if @conn.assigns[:current_business] != nil do %>
+      <script>
+        $crisp.push(["set", "user:email", "<%= @conn.assigns[:current_business].email %>"]);
+      </script>
+    <% end %>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <%= csrf_meta_tag() %>
   </head>
   <body>
