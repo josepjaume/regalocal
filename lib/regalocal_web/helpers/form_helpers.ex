@@ -74,7 +74,7 @@ defmodule RegalocalWeb.FormHelpers do
     )
   end
 
-  def prefixed_text_input(form, field, prefix, options \\ []) do
+  def prefixed_text_input(form, field, prefix, _options \\ []) do
     HTML.Tag.content_tag :div, class: "mt-1 flex rounded-md shadow-sm max-w-lg" do
       [
         HTML.Tag.content_tag(:span, prefix,
@@ -117,7 +117,7 @@ defmodule RegalocalWeb.FormHelpers do
     end
   end
 
-  def currency_input(form, field, items, options \\ []) do
+  def currency_input(form, field, _items, options \\ []) do
     HTML.Tag.content_tag :div, class: "relative max-w-xs rounded-md shadow-sm" do
       [
         HTML.Form.text_input(

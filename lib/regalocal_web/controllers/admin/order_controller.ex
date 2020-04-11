@@ -5,6 +5,17 @@ defmodule RegalocalWeb.Admin.OrderController do
   alias Regalocal.Admin
   alias RegalocalWeb.Orders.{Mailer, PaymentReceivedEmail, OrderRedeemedEmail}
 
+  def search(conn, %{"reference" => ref}) do
+    if order = Admin.find_order(conn.assigns[:business_id], ref) do
+      conn
+      |> redirect(to: Routes.admin_order_path(conn, :show, order))
+    else
+      conn
+      |> put_flash(:error, "No s'ha pogut trobar cap comanda amb referència #{ref}")
+      |> redirect(to: Routes.admin_order_path(conn, :index))
+    end
+  end
+
   def index(conn, _params) do
     orders = Admin.list_orders(conn.assigns[:business_id])
 

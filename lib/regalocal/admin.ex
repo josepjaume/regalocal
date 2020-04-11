@@ -158,6 +158,12 @@ defmodule Regalocal.Admin do
     Gift |> where(business_id: ^business_id, id: ^gift_id) |> Repo.one!()
   end
 
+  def find_order(business_id, reference) do
+    clean = reference |> String.strip() |> String.downcase() |> String.replace(~r/[^a-z]/, "")
+    ref = Regex.scan(~r/.../, clean) |> List.flatten() |> Enum.join("-")
+    Gift |> where(business_id: ^business_id, reference: ^ref) |> Repo.one()
+  end
+
   def accepted_terms?(business_id) do
     Business |> where(id: ^business_id, accepted_terms: true) |> Repo.exists?()
   end

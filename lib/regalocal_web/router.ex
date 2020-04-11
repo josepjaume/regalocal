@@ -29,6 +29,7 @@ defmodule RegalocalWeb.Router do
     get "/terms", PageController, :terms
     get "/privacy", PageController, :privacy
     get "/cookies", PageController, :cookies
+    get "/about", PageController, :about
   end
 
   # Other scopes may use custom stacks.
@@ -52,6 +53,7 @@ defmodule RegalocalWeb.Router do
 
     get("/", DashboardController, :show)
     get("/orders", OrderController, :index)
+    get("/orders/search", OrderController, :search)
     get("/orders/:id", OrderController, :show)
     put("/orders/:id/payment_received", OrderController, :payment_received, as: :payment_received)
     put("/orders/:id/redeem", OrderController, :redeem, as: :order_redeemed)
