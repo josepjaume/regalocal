@@ -4,10 +4,14 @@
       <h2 class="text-center text-3xl leading-9 font-extrabold text-primary-600 sm:text-4xl sm:leading-10">
         Preguntes Freqüents
       </h2>
-      <div class="mt-6 pt-6">
+      <div class="mt-6 border-t-2 border-gray-200 pt-6">
         <dl>
           <%= for {item, index} <- Enum.with_index(@items) do %>
-            <div>
+            <%= if index == 0 do %>
+              <div>
+            <%= else %>
+              <div class="mt-6 border-t border-gray-200 pt-6">
+            <% end %>
               <dt class="text-lg leading-7">
                 <button @click="openPanel = (openPanel === <%= index + 1 %> ? null : <%= index + 1 %>)" class="text-left w-full flex justify-between items-start text-gray-400 focus:outline-none focus:text-gray-900">
                   <span class="font-medium text-gray-900">
