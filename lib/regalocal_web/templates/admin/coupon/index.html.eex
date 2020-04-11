@@ -41,7 +41,7 @@
                   <%= if Admin.publishable?(coupon.id) do %>
                     <span><%= link "Publicar", to: Routes.admin_publish_coupon_path(@conn, :publish, coupon), method: :put, data: [confirm: "Are you sure?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
                   <% end %>
-                  <%= if Admin.unpublishable?(coupon.id) and coupon.status != :published do %>
+                  <%= if Admin.unpublishable?(coupon.id) and coupon.status == :published do %>
                     <span><%= link "Despublicar", to: Routes.admin_unpublish_coupon_path(@conn, :unpublish, coupon), method: :put, class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
                   <% end %>
                   <%= if Admin.updatable?(coupon.id) do %>
