@@ -1,5 +1,5 @@
 <div class="bg-white border-t border-primary-100">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+  <div class="max-w-screen-xl mx-auto py-12 px-6 sm:px-8 lg:py-16 lg:px-8">
     <div class="lg:grid lg:grid-cols-2 lg:gap-8">
       <div class="xl:col-span-1 mb-8">
         <%= link(to: Routes.page_path(@conn, :index)) do %>
@@ -17,8 +17,8 @@
           </a>
         </div>
       </div>
-      <div class="grid grid-cols-2">
-        <div>
+      <div class="flex justify-between">
+        <div class="flex-grow lg:flex-initial">
           <h4 class="text-sm leading-5 font-semibold tracking-wider text-gray-400 uppercase">
             Sobre Regalocal
           </h4>
@@ -35,7 +35,7 @@
             </li>
           </ul>
         </div>
-        <div class="mt-12 md:mt-0">
+        <div class="flex-grow lg:flex-initial">
           <h4 class="text-sm leading-5 font-semibold tracking-wider text-gray-400 uppercase">
             Legal
           </h4>

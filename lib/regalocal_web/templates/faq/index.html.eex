@@ -9,7 +9,7 @@
           <%= for {item, index} <- Enum.with_index(@items) do %>
             <%= if index == 0 do %>
               <div>
-            <%= else %>
+            <% else %>
               <div class="mt-6 border-t border-gray-200 pt-6">
             <% end %>
               <dt class="text-lg leading-7">

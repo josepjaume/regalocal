@@ -1,3 +1,5 @@
+const { colors } = require("tailwindcss/defaultTheme")
+
 module.exports = {
   important: true,
   theme: {
@@ -14,6 +16,9 @@ module.exports = {
           700: "#bf125d",
           800: "#99154b",
           900: "#751a3d",
+        },
+        secondary: {
+          ...colors.indigo,
         },
       },
     },
