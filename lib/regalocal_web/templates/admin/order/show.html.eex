@@ -1,42 +1,79 @@
-<%= AdminHelpers.layout "Mostrar comanda" do %>
-  <ul>
-    <li>
-      <strong>Referència:</strong>
-      <%= @order.reference %>
-    </li>
-    <li>
-      <strong>Comprador:</strong>
-      <%= @order.buyer_name %>
-    </li>
-    <li>
-      <strong>Telèfon:</strong>
-      <%= @order.buyer_phone %>
-    </li>
-    <li>
-      <strong>Email:</strong>
-      <%= @order.buyer_email %>
-    </li>
-    <li>
-      <strong>Valor del cupó:</strong>
-      <%= @order.value %> EUR
-    </li>
-    <li>
-      <strong>Quantitat a cobrar:</strong>
-      <%= @order.amount %> EUR
-    </li>
-    <li>
-      <strong>Data de compra:</strong>
-      <%= @order.inserted_at %>
-    </li>
-    <li>
-      <strong>Estat:</strong>
-      <%= @order.status %>
-    </li>
-  </ul>
-  <%= if Admin.pending_payment_confirmation?(@order) do %>
-    <span><%= link "He rebut el pagament", to: Routes.admin_payment_received_path(@conn, :payment_received, @order), method: :put, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-  <% end %>
-  <%= if Admin.redeemable?(@order) do %>
-    <span><%= link "Marcar com a utilitzada", to: Routes.admin_order_redeemed_path(@conn, :redeem, @order), method: :put, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-  <% end %>
+<%= AdminHelpers.layout "Detall de comanda", fn -> %>
+<%= if Admin.pending_payment_confirmation?(@order) do %>
+  <%= AdminHelpers.primary_layout_button "He rebut el pagament", to: Routes.admin_payment_received_path(@conn, :payment_received, @order), method: :put, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %>
+<% end %>
+<%= if Admin.redeemable?(@order) do %>
+  <%= AdminHelpers.primary_layout_button "Marcar com a bescanviat", to: Routes.admin_order_redeemed_path(@conn, :redeem, @order), method: :put, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %>
+<% end %>
+<% end do %>
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div class="px-4 py-5 sm:p-0">
+      <dl>
+        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Referència
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @order.reference %>
+          </dd>
+        </div>
+        <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Comprador
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @order.buyer_name %>
+          </dd>
+        </div>
+        <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Telèfon
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @order.buyer_phone %>
+          </dd>
+        </div>
+        <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Email
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= link @order.buyer_email, to: "mailto:" <> @order.buyer_email %>
+          </dd>
+        </div>
+        <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Valor del cupó
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @order.value %> EUR
+          </dd>
+        </div>
+        <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Quantitat a cobrar
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @order.amount %> EUR
+          </dd>
+        </div>
+        <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Data de compra
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @order.inserted_at %>
+          </dd>
+        </div>
+        <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Estat
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= status_pill(@order) %>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
 <% end %>

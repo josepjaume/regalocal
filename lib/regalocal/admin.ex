@@ -73,11 +73,11 @@ defmodule Regalocal.Admin do
   end
 
   def list_coupons(business_id) do
-    Coupon |> where(business_id: ^business_id) |> Repo.all()
+    Coupon |> where(business_id: ^business_id) |> order_by(desc: :inserted_at) |> Repo.all()
   end
 
   def list_orders(business_id) do
-    Gift |> where(business_id: ^business_id) |> Repo.all()
+    Gift |> where(business_id: ^business_id) |> order_by(desc: :inserted_at) |> Repo.all()
   end
 
   def get_coupon!(business_id, id),
@@ -151,7 +151,7 @@ defmodule Regalocal.Admin do
   end
 
   def get_gifts!(coupon_id) do
-    Gift |> where(coupon_id: ^coupon_id) |> Repo.all()
+    Gift |> where(coupon_id: ^coupon_id) |> order_by(desc: :inserted_at) |> Repo.all()
   end
 
   def get_order!(business_id, gift_id) do

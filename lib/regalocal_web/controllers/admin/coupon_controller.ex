@@ -31,8 +31,6 @@ defmodule RegalocalWeb.Admin.CouponController do
         |> redirect(to: Routes.admin_coupon_path(conn, :show, coupon))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        IO.inspect(changeset)
-
         conn
         |> render("new.html", changeset: changeset)
     end
@@ -79,9 +77,7 @@ defmodule RegalocalWeb.Admin.CouponController do
         )
         |> redirect(to: Routes.admin_coupon_path(conn, :index))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        IO.inspect(changeset)
-
+      {:error, %Ecto.Changeset{} = _changeset} ->
         conn
         |> put_flash(:error, "Coupon could not be unpublished.")
         |> redirect(to: Routes.admin_coupon_path(conn, :index))
@@ -90,9 +86,10 @@ defmodule RegalocalWeb.Admin.CouponController do
 
   def show(conn, %{"id" => id}) do
     coupon = Admin.get_coupon!(conn.assigns[:business_id], id)
+    orders = Admin.get_gifts!(coupon.id)
 
     conn
-    |> render("show.html", coupon: coupon)
+    |> render("show.html", coupon: coupon, orders: orders)
   end
 
   def edit(conn, %{"id" => id}) do

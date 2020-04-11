@@ -1,5 +1,5 @@
-<%= AdminHelpers.layout "Llistat de cupons", fn -> %>
-  <%= AdminHelpers.primary_layout_button "Crear cupó", to: Routes.admin_coupon_path(@conn, :new) %>
+<%= AdminHelpers.layout "Els meus cupons", fn -> %>
+<%= AdminHelpers.primary_layout_button "Crear cupó", to: Routes.admin_coupon_path(@conn, :new) %>
 <% end do %>
   <div class="flex flex-col">
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -26,36 +26,19 @@
             <%= for coupon <- @coupons do %>
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900">
-                  <%= coupon.title %>
+                  <%= title(coupon) %>
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                  <%= coupon.value %>
+                  <strong><%= coupon.value %></strong> EUR
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                  <%= coupon.discount %>
+                  <strong><%= coupon.discount %></strong>%
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                  <%= coupon.status %>
+                  <%= status_pill(coupon) %>
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                  <span><%= link "Detall", to: Routes.admin_coupon_path(@conn, :show, coupon), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                  <%= if Admin.publishable?(coupon.id) do %>
-                    <span><%= link "Publicar", to: Routes.admin_publish_coupon_path(@conn, :publish, coupon), method: :put, data: [confirm: "Are you sure?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                  <% end %>
-                  <%= if Admin.unpublishable?(coupon.id) and coupon.status == :published do %>
-                    <span><%= link "Despublicar", to: Routes.admin_unpublish_coupon_path(@conn, :unpublish, coupon), method: :put, class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                  <% end %>
-                  <%= if Admin.updatable?(coupon.id) do %>
-                    <span><%= link "Editar", to: Routes.admin_coupon_path(@conn, :edit, coupon), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                    <span><%= link "Eliminar", to: Routes.admin_coupon_path(@conn, :delete, coupon), method: :delete, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                  <% else %>
-                    <%= unless coupon.archived do %>
-                      <span><%= link "Arxivar", to: Routes.admin_archive_coupon_path(@conn, :archive, coupon), method: :put, data: [confirm: "Els cupons que ja s'han comprat seguiran sent bescanviables, però ja no se'n podran fer més comandes. Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                    <% end %>
-                  <% end %>
-                  <%= if Admin.ready_to_redeem?(coupon) do %>
-                    <span><%= link "Activar", to: Routes.admin_activate_coupon_path(@conn, :activate, coupon), method: :put, data: [confirm: "Es notificarà als compradors del cupó que ja es poden bescanviar. Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                  <% end %>
+                  <span><%= link "Veure detall", to: Routes.admin_coupon_path(@conn, :show, coupon), class: "inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150" %></span>
                 </td>
               </tr>
             <% end %>

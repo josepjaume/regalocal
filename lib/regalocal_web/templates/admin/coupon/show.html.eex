@@ -1,35 +1,114 @@
-<%= AdminHelpers.layout "Mostrant cupó" do %>
-  <h1>Show Coupon</h1>
-  <ul>
-    <li>
-      <strong>Title:</strong>
-      <%= @coupon.title %>
-    </li>
-    <li>
-      <strong>Value:</strong>
-      <%= @coupon.value %>
-    </li>
-    <li>
-      <strong>Amount:</strong>
-      <%= @coupon.amount %>
-    </li>
-    <li>
-      <strong>Discount:</strong>
-      <%= @coupon.discount %>
-    </li>
-    <li>
-      <strong>Status:</strong>
-      <%= @coupon.status %>
-    </li>
-    <li>
-      <strong>Terms:</strong>
-      <%= @coupon.terms %>
-    </li>
-  </ul>
-  <%= if Admin.updatable?(@coupon.id) do %>
-    <span><%= link "Edit", to: Routes.admin_coupon_path(@conn, :edit, @coupon) %></span>
-  <% else %>
-    <br/>
-    <span><i>El cupó no es pot editar, ja que té compres associades.</i></span>
+<%= AdminHelpers.layout @coupon.title, fn -> %>
+<%= if Admin.publishable?(@coupon.id) do %>
+  <%= AdminHelpers.primary_layout_button "Publicar", to: Routes.admin_coupon_path(@conn, :new), to: Routes.admin_publish_coupon_path(@conn, :publish, @coupon), method: :put %>
+<% end %>
+<%= if Admin.unpublishable?(@coupon.id) and @coupon.status == :published do %>
+  <%= AdminHelpers.primary_layout_button "Despublicar", to: Routes.admin_unpublish_coupon_path(@conn, :unpublish, @coupon), method: :put %>
+<% end %>
+<%= if Admin.ready_to_redeem?(@coupon) do %>
+  <%= AdminHelpers.primary_layout_button "Activar per bescanvi", to: Routes.admin_activate_coupon_path(@conn, :activate, @coupon), method: :put, data: [confirm: "Es notificarà als compradors del cupó que ja es poden bescanviar. Estàs segur/a?"] %>
+<% end %>
+<%= if Admin.updatable?(@coupon.id) do %>
+  <%= AdminHelpers.secondary_layout_button "Editar",to: Routes.admin_coupon_path(@conn, :edit, @coupon) %>
+  <%= AdminHelpers.secondary_layout_button "Eliminar",to: Routes.admin_coupon_path(@conn, :delete, @coupon), method: :delete, data: [confirm: "Estàs segur/a?"]%>
+<% else %>
+  <%= unless @coupon.archived do %>
+    <%= AdminHelpers.secondary_layout_button "Arxivar",to: Routes.admin_archive_coupon_path(@conn, :archive, @coupon), method: :put, data: [confirm: "Els cupons que ja s'han comprat seguiran sent bescanviables, però ja no se'n podran fer més comandes. Estàs segur/a?"]%>
+  <% end %>
+<% end %>
+<% end do %>
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div class="px-4 py-5 sm:p-0">
+      <dl>
+        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Valor
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @coupon.value %> EUR
+          </dd>
+        </div>
+        <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Preu de venda
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @coupon.amount %> EUR
+          </dd>
+        </div>
+        <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Estat
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= status_pill(@coupon) %>
+          </dd>
+        </div>
+        <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Termes d'ús
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @coupon.terms %>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+  <%= if Enum.count(@orders) > 0 do %>
+    <div class="mt-10 bg-white shadow overflow-hidden sm:rounded-lg">
+      <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
+        <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-no-wrap">
+          <div class="ml-4 mt-2 flex-shrink-0">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+              Comandes d'aquest cupó
+            </h3>
+            <p class="mt-1 text-sm leading-5 text-gray-500">
+              També pots veure totes les teves comandes des de la secció "Comandes" del menú superior.
+            </p>
+          </div>
+          <div class="ml-4 mt-2 flex-shrink-0">
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-5 sm:p-0">
+        <ul>
+          <%= for order <- @orders do %>
+            <li>
+              <a href="<%= Routes.admin_order_path(@conn, :show, order) %>" class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
+                <div class="px-4 py-4 sm:px-6">
+                  <div class="flex items-center justify-between">
+                    <div class="text-sm leading-5 font-medium text-indigo-600 truncate">
+                      <%= order.reference %>
+                    </div>
+                    <div class="ml-2 flex-shrink-0 flex">
+                      <%= Order.status_pill(order) %>
+                    </div>
+                  </div>
+                  <div class="mt-2 sm:flex sm:justify-between">
+                    <div class="sm:flex">
+                      <div class="mr-6 flex items-center text-sm leading-5 text-gray-500">
+                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                        </svg>
+                        <%= order.buyer_name %>
+                      </div>
+                    </div>
+                    <div class="mt-2 flex items-center text-sm leading-5 text-gray-500 sm:mt-0">
+                      <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>
+                        <time datetime="<%= order.inserted_at %>"><%= order.inserted_at %></time>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   <% end %>
 <% end %>
