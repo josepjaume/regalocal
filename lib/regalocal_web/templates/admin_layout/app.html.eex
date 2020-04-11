@@ -36,7 +36,7 @@
                     <button @click="open = !open" class="p-2 flex items-end text-sm rounded text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true" x-bind:aria-expanded="open">
                       <div class="mr-3 text-right">
                         <div class="text-base font-medium leading-none text-white"><%= RegalocalWeb.ProfileHelpers.name(@conn) %></div>
-                        <div class="mt-1 text-sm font-medium leading-none text-primary-300">tom@example.com</div>
+                        <div class="mt-1 text-sm font-medium leading-none text-primary-300"><%= RegalocalWeb.ProfileHelpers.email(@conn) %></div>
                       </div>
                       <%= RegalocalWeb.ProfileHelpers.picture(@conn, 100, 100, class: "bg-white h-8 w-8 rounded-full") %>
                     </button>
@@ -74,7 +74,7 @@
               </div>
               <div class="ml-3">
                 <div class="text-base font-medium leading-none text-white"><%= RegalocalWeb.ProfileHelpers.name(@conn) %></div>
-                <div class="mt-1 text-sm font-medium leading-none text-primary-300">tom@example.com</div>
+                <div class="mt-1 text-sm font-medium leading-none text-primary-300"><%= RegalocalWeb.ProfileHelpers.email(@conn) %></div>
               </div>
             </div>
             <div class="mt-3 px-2" role="menu" aria-orientation="vertical" aria-labelledby="user-menu" role="menuitem">
