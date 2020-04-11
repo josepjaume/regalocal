@@ -94,8 +94,8 @@ config :cloudex,
 if System.get_env("SENTRY_DSN") do
   config :sentry,
     dsn: System.get_env("SENTRY_DSN"),
-    environment_name: System.get_env("HEROKU_APP_NAME") || :prod,
-    included_environments: [:prod]
+    environment_name: System.get_env("HEROKU_BRANCH") || :prod,
+    included_environments: Enum.filter([:prod, System.get_env("HEROKU_BRANCH")], &(!is_nil(&1)))
 
   config :logger,
     backends: [:console, Sentry.LoggerBackend]
