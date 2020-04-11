@@ -43,10 +43,10 @@
                   <div>
                     <button @click="open = !open" class="p-2 flex items-end text-sm rounded text-white focus:outline-none focus:shadow-solid" id="user-menu" aria-label="User menu" aria-haspopup="true" x-bind:aria-expanded="open">
                       <div class="mr-3 text-right">
-                        <div class="text-base font-medium leading-none text-white"><%= RegalocalWeb.ProfileHelpers.name(@conn) %></div>
-                        <div class="mt-1 text-sm font-medium leading-none text-primary-300"><%= RegalocalWeb.ProfileHelpers.email(@conn) %></div>
+                        <div class="text-base font-medium leading-none text-white"><%= Business.owner_name(current_business(@conn)) %></div>
+                        <div class="mt-1 text-sm font-medium leading-none text-primary-300"><%= Business.email(current_business(@conn)) %></div>
                       </div>
-                      <%= RegalocalWeb.ProfileHelpers.picture(@conn, 100, 100, class: "bg-white h-8 w-8 rounded-full") %>
+                      <%= Business.picture(current_business(@conn), 8) %>
                     </button>
                   </div>
                   <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
@@ -78,11 +78,11 @@
           <div class="pt-4 pb-3 border-t border-primary-800">
             <div class="flex items-center px-5">
               <div class="flex-shrink-0">
-                <%= RegalocalWeb.ProfileHelpers.picture(@conn, 100, 100, class: "bg-white h-10 w-10 rounded-full") %>
+                <%= Business.picture(current_business(@conn), 8) %>
               </div>
               <div class="ml-3">
-                <div class="text-base font-medium leading-none text-white"><%= RegalocalWeb.ProfileHelpers.name(@conn) %></div>
-                <div class="mt-1 text-sm font-medium leading-none text-primary-300"><%= RegalocalWeb.ProfileHelpers.email(@conn) %></div>
+                <div class="text-base font-medium leading-none text-white"><%= Business.name(current_business(@conn)) %></div>
+                <div class="mt-1 text-sm font-medium leading-none text-primary-300"><%= Business.email(current_business(@conn)) %></div>
               </div>
             </div>
             <div class="mt-3 px-2" role="menu" aria-orientation="vertical" aria-labelledby="user-menu" role="menuitem">

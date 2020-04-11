@@ -64,7 +64,7 @@ defmodule Regalocal.Seeds do
       |> String.pad_leading(4, "0")
 
     add = @addresses |> Enum.random()
-    photo_id = @photos |> Enum.random()
+    photo_id = Enum.random([nil, Enum.random(@photos)])
     {:ok, %Geolocation{address: address} = geo} = Geolocation.locate(add)
 
     name = Faker.Company.En.name()

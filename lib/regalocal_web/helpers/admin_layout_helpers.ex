@@ -18,7 +18,7 @@ defmodule RegalocalWeb.AdminLayoutHelpers do
     primary_layout_button(content, options)
   end
 
-  def primary_layout_button(content, options \\ []) do
+  def primary_layout_button(content, options) do
     link(
       content,
       options ++
@@ -33,7 +33,7 @@ defmodule RegalocalWeb.AdminLayoutHelpers do
     secondary_layout_button(content, options)
   end
 
-  def secondary_layout_button(content, options \\ []) do
+  def secondary_layout_button(content, options) do
     link(
       content,
       options ++

@@ -1,6 +1,8 @@
 defmodule RegalocalWeb.AdminLayoutView do
   use RegalocalWeb, :view
 
+  alias RegalocalWeb.BusinessHelpers, as: Business
+
   def logo(conn) do
     render("logo.html", %{conn: conn})
   end

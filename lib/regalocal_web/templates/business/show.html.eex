@@ -14,7 +14,7 @@
           </p>
           <div class="mt-6 flex items-center">
             <div class="flex-shrink-0">
-              <img class="h-14 w-14 rounded-full" src="<%= Cloudex.Url.for(@business.photo_id, %{width: 256, height: 256}) %>" alt="" />
+              <%= Business.picture(@business, 16) %>
             </div>
             <div class="ml-3">
               <p class="text-sm leading-5 font-medium text-gray-900">
