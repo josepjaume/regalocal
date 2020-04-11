@@ -20,7 +20,7 @@ defmodule Regalocal.MixProject do
   def application do
     [
       mod: {Regalocal.Application, []},
-      extra_applications: [:logger, :runtime_tools, :phoenix_pubsub_redis]
+      extra_applications: [:logger, :runtime_tools, :phoenix_pubsub_redis, :inets]
     ]
   end
 
