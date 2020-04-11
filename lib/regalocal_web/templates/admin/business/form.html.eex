@@ -2,38 +2,39 @@
 <%= Form.errors(@changeset) %>
 <%= Form.section("Dades públiques del teu negoci", "Les dades introduides a continuació es mostraran públicament al llistat de negocios, així com als correus electrònics enviats.") do %>
   <%= Form.control f, :name, "Nom del negoci", [hint: "Nom públic del teu negoci. No cal que sigui el nom legal."], fn form, field -> %>
-  <%= Form.text_input form, field, required: true %>
+    <%= Form.text_input form, field, required: true %>
+  <% end %>
+  <%= Form.control f, :address, "Adreça", [hint: "Aquesta adreça es farà servir per a ubicar el teu negoci en el mapa i trobar-hi persones a prop."], fn form, field -> %>
+    <%= Form.text_input form, field, required: true %>
+  <% end %>
+  <%= Form.control f, :website, "Pàgina web", [hint: "Adreça de la teva pàgina web, si en tens."], fn form, field -> %>
+    <%= Form.text_input form, field %>
+  <% end %>
 <% end %>
-<%= Form.control f, :address, "Adreça", [hint: "Aquesta adreça es farà servir per a ubicar el teu negoci en el mapa i trobar-hi persones a prop."], fn form, field -> %>
-<%= Form.text_input form, field, required: true %>
-<% end %>
-<%= Form.control f, :website, "Pàgina web", [hint: "Adreça de la teva pàgina web, si en tens."], fn form, field -> %>
-<%= Form.text_input form, field %>
-<% end %>
-<% end %>
+
 <%= Form.section("Dades personals", "Les següents dades es mostraran públicament al llistat i la pàgina de perfil del deu negoci.") do %>
   <%= Form.control f, :owner_name, "Nom de pila del propietari", [hint: "El teu nom es mostrarà juntament amb la teva carta de presentació."], fn form, field -> %>
-  <%= Form.text_input form, field, required: true %>
-<% end %>
-<%= Form.control f, :story, "Carta de presentació", [hint: "Unes breus paraules per conèixer la teva història i la del teu negoci."], fn form, field -> %>
-<%= Form.textarea form, field, required: true %>
-<% end %>
-<%= Form.control f, :photo, "Fotografia", [], fn form, field -> %>
-<div class="flex">
-  <span class="h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-    <% if form.data.photo_id do %>
-      <%= tag(:img, src: Cloudex.Url.for(f.data.photo_id, %{width: 300, height: 200})) %>
-    <% else %>
-      <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-      </svg>
-    <% end %>
-  </span>
-  <span class="ml-5 rounded-md shadow-sm">
-    <%= file_input form, field %>
-  </span>
-</div>
-<% end %>
+    <%= Form.text_input form, field, required: true %>
+  <% end %>
+  <%= Form.control f, :story, "Carta de presentació", [hint: "Unes breus paraules per conèixer la teva història i la del teu negoci."], fn form, field -> %>
+    <%= Form.textarea form, field, required: true %>
+  <% end %>
+  <%= Form.control f, :photo, "Fotografia", [], fn form, field -> %>
+    <div class="flex">
+      <span class="h-12 w-12 rounded-full overflow-hidden bg-gray-100">
+        <% if form.data.photo_id do %>
+          <%= tag(:img, src: Cloudex.Url.for(f.data.photo_id, %{width: 300, height: 200})) %>
+        <% else %>
+          <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        <% end %>
+      </span>
+      <span class="ml-5 rounded-md shadow-sm">
+        <%= file_input form, field %>
+      </span>
+    </div>
+  <% end %>
 <% end %>
 <%= Form.section("Dades de contacte", "Dades públiques per tal que els ciutadans es puguin posar en contacte amb tu, en cas que ho necessitin.") do %>
   <%= Form.control f, :whatsapp, "WhatsApp", [], fn form, field -> %>
@@ -48,13 +49,7 @@
   <%= Form.prefixed_text_input form, field, "instagram.com/" %>
 <% end %>
 <%= Form.control f, :facebook, "Facebook", [], fn form, field -> %>
-<%= Form.prefixed_text_input form, field, "facebook.com/" %>
-<% end %>
-<%= Form.control f, :google_maps_url, "Google Maps", [], fn form, field -> %>
-<%= Form.prefixed_text_input form, field, "maps.google.com/" %>
-<% end %>
-<%= Form.control f, :tripadvisor_url, "TripAdvisor", [], fn form, field -> %>
-<%= Form.prefixed_text_input form, field, "tripadvisor.com/" %>
+  <%= Form.prefixed_text_input form, field, "facebook.com/" %>
 <% end %>
 <% end %>
 <%= Form.section("Informació de facturació", "Les dades de facturació es remetran juntament amb els correus electrònics de compra dels cupons. És important que siguin vàlides i acurades.") do %>

@@ -3,12 +3,20 @@ defmodule RegalocalWeb.EmailHelpers do
 
   use Phoenix.Template, root: "lib/regalocal_web/templates/helpers/email"
 
-  def layout(alert, do: content) do
-    render_template("layout.html", %{alert: alert, content: content})
+  def layout(title, do: content) do
+    layout(title, nil) do
+      content
+    end
+  end
+
+  def layout(title, subtitle, do: content) do
+    render_template("layout.html", %{title: title, subtitle: subtitle, content: content})
   end
 
   def layout(do: content) do
-    render_template("layout.html", %{content: content})
+    layout(nil, nil) do
+      content
+    end
   end
 
   def content_block(do: content) do
