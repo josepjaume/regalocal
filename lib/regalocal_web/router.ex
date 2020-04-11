@@ -46,11 +46,8 @@ defmodule RegalocalWeb.Router do
     delete("/sessions/:session_id", SessionController, :delete)
   end
 
-  # Add your routes that require authentication in this block.
-  # Alternatively, you can use the default block and authenticate in the controllers.
-  # See the Veil README for more.
   scope "/admin", RegalocalWeb.Admin, as: :admin do
-    pipe_through([:browser, RegalocalWeb.Plugs.Veil.Authenticate])
+    pipe_through([:browser, RegalocalWeb.Plugs.Veil.Authenticate, RegalocalWeb.Plugs.Acceptance])
 
     get("/", DashboardController, :show)
     get("/orders", OrderController, :index)
@@ -58,13 +55,14 @@ defmodule RegalocalWeb.Router do
     put("/orders/:id/payment_received", OrderController, :payment_received, as: :payment_received)
     put("/orders/:id/redeem", OrderController, :redeem, as: :order_redeemed)
     get("/business", BusinessController, :show)
-    get("/business/edit", BusinessController, :edit)
-    put("/business", BusinessController, :update)
     resources("/coupons", CouponController)
     put("/coupons/:id/publish", CouponController, :publish, as: :publish_coupon)
     put("/coupons/:id/unpublish", CouponController, :unpublish, as: :unpublish_coupon)
     put("/coupons/:id/archive", CouponController, :archive, as: :archive_coupon)
     put("/coupons/:id/activate", CouponController, :activate, as: :activate_coupon)
+
+    get("/business/edit", BusinessController, :edit)
+    put("/business", BusinessController, :update)
   end
 
   if Mix.env() == :dev do

@@ -8,8 +8,15 @@ defmodule RegalocalWeb.Admin.BusinessController do
     business = load_business(conn)
     changeset = Admin.change_business(business)
 
+    title =
+      if conn.assigns[:acceptance] do
+        "Editar perfil"
+      else
+        "Completar perfil"
+      end
+
     conn
-    |> assign(:title, "Editar perfil")
+    |> assign(:title, title)
     |> render("edit.html", business: business, changeset: changeset)
   end
 
