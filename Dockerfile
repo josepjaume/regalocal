@@ -1,7 +1,7 @@
 FROM elixir:1.10.2-alpine as build
 
 # install build dependencies
-RUN apk add --update git build-base nodejs npm python
+RUN apk add --update git build-base nodejs npm python erlang-inets
 
 # prepare build dir
 RUN mkdir /app

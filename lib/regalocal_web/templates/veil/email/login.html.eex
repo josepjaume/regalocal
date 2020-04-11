@@ -1,4 +1,4 @@
-<%= EmailHelpers.layout("Has rebut un regal a través de RegaLocal!") do %>
+<%= EmailHelpers.layout do %>
   <%= EmailHelpers.content_block do %>
     Hola! 🤗
   <% end %>
