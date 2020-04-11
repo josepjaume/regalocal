@@ -1,5 +1,9 @@
 defmodule RegalocalWeb.Orders.PaymentSentEmail do
-  use Phoenix.Swoosh, view: RegalocalWeb.Orders.EmailView
+  use Phoenix.Swoosh,
+    view: RegalocalWeb.Orders.EmailView,
+    layout: {RegalocalWeb.LayoutView, :email}
+
+  import RegalocalWeb.PremailHelper
 
   def generate(conn, gift, business) do
     new()
@@ -7,6 +11,7 @@ defmodule RegalocalWeb.Orders.PaymentSentEmail do
     |> from(from_email())
     |> subject("Pagament realitzat - #{gift.reference}")
     |> render_body("payment_sent.html", %{conn: conn, gift: gift, business: business})
+    |> premail
   end
 
   defp from_email do

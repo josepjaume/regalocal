@@ -1,7 +1,7 @@
 <%
    classes = "px-2 inline-flex text-xs leading-5 font-semibold rounded-full " <> case @coupon.status do
   :draft -> "bg-yellow-100 text-yellow-800"
-  :published -> "bg-indigo-100 text-indigo-800"
+  :published -> "bg-secondary-100 text-secondary-800"
   _ -> "bg-green-100 text-green-800"
   end
 %>

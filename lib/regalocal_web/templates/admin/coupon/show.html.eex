@@ -78,7 +78,7 @@
               <a href="<%= Routes.admin_order_path(@conn, :show, order) %>" class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                 <div class="px-4 py-4 sm:px-6">
                   <div class="flex items-center justify-between">
-                    <div class="text-sm leading-5 font-medium text-indigo-600 truncate">
+                    <div class="text-sm leading-5 font-medium text-secondary-600 truncate">
                       <%= order.reference %>
                     </div>
                     <div class="ml-2 flex-shrink-0 flex">

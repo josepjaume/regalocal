@@ -1,7 +1,13 @@
-<html>
-  <body>
-    <p><strong>El teu cupó de <%= @gift.value %> EUR ja es pot fer servir a <%= @business.name %>!</strong></p>
-    <p>Quan arribis al local, informa'ls que tens un cupó de Regalocal amb referència <strong><%= @gift.reference %></strong></p>
+<%= EmailHelpers.layout("Ja pots fer servir el teu cupó!") do %>
+  <%= EmailHelpers.content_block do %>
+    <strong>El teu cupó de <%= @gift.value %> EUR ja es pot fer servir a <%= @business.name %>!</strong>
+  <% end %>
+
+  <%= EmailHelpers.content_block do %>
+    Quan arribis al local, informa'ls que tens un cupó de Regalocal amb referència <strong><%= @gift.reference %></strong>
+  <% end %>
+
+  <%= EmailHelpers.content_block do %>
     <dl>
       <dt>Adreça</dt>
       <dd><%= @business.address %></dd>
@@ -16,7 +22,9 @@
           </a></dd>
       <% end %>
     </dl>
-    <p>Esperem que gaudeixis del regal!</p>
-    <p><a href="https://regalocal.com">regalocal.com</a></p>
-  </body>
-</html>
+  <% end %>
+
+  <%= EmailHelpers.content_block do %>
+    Esperem que gaudeixis del regal!
+  <% end %>
+<% end %>

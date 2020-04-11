@@ -107,7 +107,7 @@
             <a href="<%= Routes.gift_path(@conn, :new, coupon) %>" class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
               <div class="px-4 py-4 sm:px-6">
                 <div class="flex items-center justify-between">
-                  <div class="text-sm leading-5 font-medium text-indigo-600 truncate">
+                  <div class="text-sm leading-5 font-medium text-secondary-600 truncate">
                     <%= if coupon.title do %>
                       <%= coupon.title %>
                     <% else %>
@@ -145,7 +145,7 @@
                   </div>
                   <div class="mt-2 flex items-center text-sm leading-5 text-gray-500 sm:mt-0">
                     <span class="inline-flex rounded-md shadow-sm">
-                      <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                      <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-secondary-600 hover:bg-secondary-500 focus:outline-none focus:border-secondary-700 focus:shadow-outline-secondary active:bg-secondary-700 transition ease-in-out duration-150">
                         M'interessa
                         <svg class="ml-2 -mr-0.5 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>

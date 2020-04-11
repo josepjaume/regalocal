@@ -1,6 +1,9 @@
-<html>
-  <body>
-    <p>En/na <%= @gift.recipient_name %> acaba de fer servir el cupó que li vas regalar!</p>
+<%= EmailHelpers.layout do %>
+  <%= EmailHelpers.content_block do %>
+    En/na <%= @gift.recipient_name %> acaba de fer servir el cupó que li vas regalar!
+  <% end %>
+
+  <%= EmailHelpers.content_block do %>
     <p>Moltes gràcies per crear nous somriures de proximitat!</p>
-  </body>
-</html>
+  <% end %>
+<% end %>

@@ -1,5 +1,9 @@
 defmodule RegalocalWeb.Orders.OrderRedeemedEmail do
-  use Phoenix.Swoosh, view: RegalocalWeb.Orders.EmailView
+  use Phoenix.Swoosh,
+    view: RegalocalWeb.Orders.EmailView,
+    layout: {RegalocalWeb.LayoutView, :email}
+
+  import RegalocalWeb.PremailHelper
 
   def generate(gift, business) do
     new()
@@ -8,6 +12,7 @@ defmodule RegalocalWeb.Orders.OrderRedeemedEmail do
     |> from(from_email())
     |> subject("El cupó que vas regalar ha sigut utilitzat - #{gift.reference}")
     |> render_body("order_redeemed.html", %{gift: gift, business: business})
+    |> premail
   end
 
   defp from_email do

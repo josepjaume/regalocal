@@ -80,7 +80,7 @@
   <%= Form.section("Legal") do %>
     <%= Form.control f, :accepted_terms, "Legal", [], fn f, field -> %>
     <div class="absolute flex items-center h-5">
-      <%= checkbox f, field, class: "form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" %>
+      <%= checkbox f, field, class: "form-checkbox h-4 w-4 text-secondary-600 transition duration-150 ease-in-out" %>
     </div>
     <div class="pl-7 text-sm leading-5">
       <label for="business_accepted_terms" class="font-medium text-gray-700">

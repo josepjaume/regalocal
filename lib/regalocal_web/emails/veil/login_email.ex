@@ -1,5 +1,7 @@
 defmodule RegalocalWeb.Veil.LoginEmail do
-  use Phoenix.Swoosh, view: RegalocalWeb.Veil.EmailView
+  use Phoenix.Swoosh, view: RegalocalWeb.Veil.EmailView, layout: {RegalocalWeb.LayoutView, :email}
+
+  import RegalocalWeb.PremailHelper
 
   @doc """
   Generates an email using the login template.
@@ -12,6 +14,7 @@ defmodule RegalocalWeb.Veil.LoginEmail do
     |> from(from_email())
     |> subject("Benvingut a #{site}!")
     |> render_body("login.html", %{url: url, site_name: site})
+    |> premail
   end
 
   defp from_email do

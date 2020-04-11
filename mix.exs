@@ -53,7 +53,8 @@ defmodule Regalocal.MixProject do
       {:cloudex, "~> 1.4.1"},
       {:faker, "~> 0.13"},
       {:ecto_enum, "~> 1.4"},
-      {:sentry, "~> 7.0"}
+      {:sentry, "~> 7.0"},
+      {:premailex, "~> 0.3.0"}
     ]
   end
 

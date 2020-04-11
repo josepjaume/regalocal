@@ -1,5 +1,9 @@
 defmodule RegalocalWeb.Orders.GiftIsReadyEmail do
-  use Phoenix.Swoosh, view: RegalocalWeb.Orders.EmailView
+  use Phoenix.Swoosh,
+    view: RegalocalWeb.Orders.EmailView,
+    layout: {RegalocalWeb.LayoutView, :email}
+
+  import RegalocalWeb.PremailHelper
 
   def generate(gift, business) do
     new()
@@ -9,6 +13,7 @@ defmodule RegalocalWeb.Orders.GiftIsReadyEmail do
     |> from(from_email())
     |> subject("Ja pots gaudir del regal que t'ha fet #{gift.buyer_name}!")
     |> render_body("gift_is_ready.html", %{gift: gift, business: business})
+    |> premail
   end
 
   defp from_email do

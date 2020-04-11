@@ -16,11 +16,12 @@ defmodule Regalocal.Orders.Gift do
     field :redeemed_at, :time
     field :status, GiftStatusEnum
     field :value, :integer
-    field :coupon_id, :id
     field :business_id, :id
 
     field :accepted_coupon_terms, :boolean, virtual: true
     field :accepted_gift_terms, :boolean, virtual: true
+
+    belongs_to :coupon, Regalocal.Admin.Coupon
 
     timestamps()
   end

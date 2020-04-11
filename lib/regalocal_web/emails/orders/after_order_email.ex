@@ -1,5 +1,9 @@
 defmodule RegalocalWeb.Orders.AfterOrderEmail do
-  use Phoenix.Swoosh, view: RegalocalWeb.Orders.EmailView
+  use Phoenix.Swoosh,
+    view: RegalocalWeb.Orders.EmailView,
+    layout: {RegalocalWeb.LayoutView, :email}
+
+  import RegalocalWeb.PremailHelper
 
   def generate(conn, gift, business, token) do
     new()
@@ -9,6 +13,7 @@ defmodule RegalocalWeb.Orders.AfterOrderEmail do
     |> from(from_email())
     |> subject("Instruccions de pagament compra - #{gift.reference}")
     |> render_body("after_order.html", %{conn: conn, gift: gift, business: business, token: token})
+    |> premail
   end
 
   defp from_email do

@@ -73,7 +73,7 @@ defmodule RegalocalWeb.GiftController do
           )
           |> redirect(to: Routes.page_path(conn, :index))
 
-        {:error, %Ecto.Changeset{} = changeset} ->
+        {:error, %Ecto.Changeset{} = _changeset} ->
           conn
           |> redirect(to: Routes.page_path(conn, :index))
       end
