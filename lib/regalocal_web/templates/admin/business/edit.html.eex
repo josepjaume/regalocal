@@ -1,1 +1,3 @@
-<%= render "form.html", Map.put(assigns, :action, Routes.admin_business_path(@conn, :update)) %>
+<%= AdminHelpers.layout if @conn.assigns[:acceptance], do: "Editar perfil", else: "Completar perfil" do %>
+  <%= render "form.html", Map.put(assigns, :action, Routes.admin_business_path(@conn, :update)) %>
+<% end %>

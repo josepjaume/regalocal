@@ -9,7 +9,6 @@ defmodule RegalocalWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug RegalocalWeb.Plugs.Veil.BusinessId
     plug RegalocalWeb.Plugs.Veil.Business
   end
 

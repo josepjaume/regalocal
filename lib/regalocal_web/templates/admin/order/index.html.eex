@@ -1,63 +1,61 @@
-<div class="py-6">
-  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-    <div class="flex flex-col">
-      <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-        <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-          <table class="min-w-full">
-            <thead>
-              <tr>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                  Referència
-                </th>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                  Comprador
-                </th>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                  Cupó
-                </th>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                  Data
-                </th>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                  Estat
-                </th>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+<%= AdminHelpers.layout "Comandes" do %>
+  <div class="flex flex-col">
+    <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+        <table class="min-w-full">
+          <thead>
+            <tr>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Referència
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Comprador
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Cupó
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Data
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Estat
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= for order <- @orders do %>
+              <tr class="bg-white">
+                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900">
+                  <%= order.reference %>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900">
+                  <%= order.buyer_name %>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                  <% coupon = Admin.get_coupon!(order.business_id, order.coupon_id) %>
+                  <a href="<%= Routes.admin_coupon_path(@conn, :show, coupon) %>"><%= (coupon.title || "") <> " " <> to_string(coupon.amount) <> " EUR (per valor de " <> to_string(coupon.value) <> " EUR)" %></a>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                  <%= order.inserted_at %>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                  <%= order.status %>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                  <span><%= link "Detall", to: Routes.admin_order_path(@conn, :show, order), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
+                  <%= if Admin.pending_payment_confirmation?(order) do %>
+                    <span><%= link "He rebut el pagament", to: Routes.admin_payment_received_path(@conn, :payment_received, order), method: :put, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
+                  <% end %>
+                  <%= if Admin.redeemable?(order) do %>
+                    <span><%= link "Marcar com a utilitzada", to: Routes.admin_order_redeemed_path(@conn, :redeem, order), method: :put, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
+                  <% end %>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              <%= for order <- @orders do %>
-                <tr class="bg-white">
-                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900">
-                    <%= order.reference %>
-                  </td>
-                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900">
-                    <%= order.buyer_name %>
-                  </td>
-                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                    <% coupon = Admin.get_coupon!(order.business_id, order.coupon_id) %>
-                    <a href="<%= Routes.admin_coupon_path(@conn, :show, coupon) %>"><%= (coupon.title || "") <> " " <> to_string(coupon.amount) <> " EUR (per valor de " <> to_string(coupon.value) <> " EUR)" %></a>
-                  </td>
-                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                    <%= order.inserted_at %>
-                  </td>
-                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                    <%= order.status %>
-                  </td>
-                  <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                    <span><%= link "Detall", to: Routes.admin_order_path(@conn, :show, order), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                    <%= if Admin.pending_payment_confirmation?(order) do %>
-                      <span><%= link "He rebut el pagament", to: Routes.admin_payment_received_path(@conn, :payment_received, order), method: :put, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                    <% end %>
-                    <%= if Admin.redeemable?(order) do %>
-                      <span><%= link "Marcar com a utilitzada", to: Routes.admin_order_redeemed_path(@conn, :redeem, order), method: :put, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-</div>
+<% end %>

@@ -2,7 +2,7 @@ defmodule RegalocalWeb.AdminLayoutView do
   use RegalocalWeb, :view
 
   def logo(conn) do
-    RegalocalWeb.LayoutView.render("logo.html", %{conn: conn})
+    render("logo.html", %{conn: conn})
   end
 
   def menu_items(%{assigns: %{acceptance: true}} = conn) do

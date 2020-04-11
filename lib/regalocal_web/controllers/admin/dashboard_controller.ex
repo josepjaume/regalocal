@@ -9,15 +9,14 @@ defmodule RegalocalWeb.Admin.DashboardController do
 
   @spec show(Plug.Conn.t(), any) :: Plug.Conn.t()
   def show(conn, _params) do
-    business = load_business(conn)
+    business = current_business(conn)
 
     conn
-    |> assign(:title, "Panell")
     |> assign(:orders, orders(business.id))
     |> assign(:has_active_coupons, has_active_coupons?(business.id))
     |> assign(:sales, sales(business.id))
     |> assign(:revenue, revenue(business.id))
-    |> render("show.html", business: business)
+    |> render("show.html")
   end
 
   def has_active_coupons?(business_id) do

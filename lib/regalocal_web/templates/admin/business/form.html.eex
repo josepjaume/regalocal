@@ -93,10 +93,9 @@
       <%= Form.text_input form, field %>
     <% end %>
   <% end %>
-
-  <%= Form.section("Legal") do %>
-    <%= if !f.data.accepted_terms do %>
-      <%= Form.control f, :accepted_terms, "Legal", [], fn form, field -> %>
+  <%= if !f.data.accepted_terms do %>
+    <%= Form.section("Legal") do %>
+      <%= Form.control f, :accepted_terms, "Legal", [], fn f, field -> %>
         <div class="absolute flex items-center h-5">
           <%= checkbox f, field, class: "form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" %>
         </div>

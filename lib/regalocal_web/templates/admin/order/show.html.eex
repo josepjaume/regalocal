@@ -1,40 +1,42 @@
-<ul>
-  <li>
-    <strong>Referència:</strong>
-    <%= @order.reference %>
-  </li>
-  <li>
-    <strong>Comprador:</strong>
-    <%= @order.buyer_name %>
-  </li>
-  <li>
-    <strong>Telèfon:</strong>
-    <%= @order.buyer_phone %>
-  </li>
-  <li>
-    <strong>Email:</strong>
-    <%= @order.buyer_email %>
-  </li>
-  <li>
-    <strong>Valor del cupó:</strong>
-    <%= @order.value %> EUR
-  </li>
-  <li>
-    <strong>Quantitat a cobrar:</strong>
-    <%= @order.amount %> EUR
-  </li>
-  <li>
-    <strong>Data de compra:</strong>
-    <%= @order.inserted_at %>
-  </li>
-  <li>
-    <strong>Estat:</strong>
-    <%= @order.status %>
-  </li>
-</ul>
-<%= if Admin.pending_payment_confirmation?(@order) do %>
-  <span><%= link "He rebut el pagament", to: Routes.admin_payment_received_path(@conn, :payment_received, @order), method: :put, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-<% end %>
-<%= if Admin.redeemable?(@order) do %>
-  <span><%= link "Marcar com a utilitzada", to: Routes.admin_order_redeemed_path(@conn, :redeem, @order), method: :put, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
+<%= AdminHelpers.layout "Mostrar comanda" do %>
+  <ul>
+    <li>
+      <strong>Referència:</strong>
+      <%= @order.reference %>
+    </li>
+    <li>
+      <strong>Comprador:</strong>
+      <%= @order.buyer_name %>
+    </li>
+    <li>
+      <strong>Telèfon:</strong>
+      <%= @order.buyer_phone %>
+    </li>
+    <li>
+      <strong>Email:</strong>
+      <%= @order.buyer_email %>
+    </li>
+    <li>
+      <strong>Valor del cupó:</strong>
+      <%= @order.value %> EUR
+    </li>
+    <li>
+      <strong>Quantitat a cobrar:</strong>
+      <%= @order.amount %> EUR
+    </li>
+    <li>
+      <strong>Data de compra:</strong>
+      <%= @order.inserted_at %>
+    </li>
+    <li>
+      <strong>Estat:</strong>
+      <%= @order.status %>
+    </li>
+  </ul>
+  <%= if Admin.pending_payment_confirmation?(@order) do %>
+    <span><%= link "He rebut el pagament", to: Routes.admin_payment_received_path(@conn, :payment_received, @order), method: :put, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
+  <% end %>
+  <%= if Admin.redeemable?(@order) do %>
+    <span><%= link "Marcar com a utilitzada", to: Routes.admin_order_redeemed_path(@conn, :redeem, @order), method: :put, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
+  <% end %>
 <% end %>

@@ -1,68 +1,66 @@
-<div class="py-6">
-  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-    <div class="flex flex-col">
-      <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-        <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-          <span><%= link "Crear cupó", to: Routes.admin_coupon_path(@conn, :new) %></span>
-          <table class="min-w-full">
-            <thead>
-              <tr>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                  Nom
-                </th>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                  Valor en EUR
-                </th>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                  % de descompte
-                </th>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                  Estat
-                </th>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+<%= AdminHelpers.layout "Llistat de cupons" do %>
+  <div class="flex flex-col">
+    <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+        <span><%= link "Crear cupó", to: Routes.admin_coupon_path(@conn, :new) %></span>
+        <table class="min-w-full">
+          <thead>
+            <tr>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Nom
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Valor en EUR
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                % de descompte
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Estat
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= for coupon <- @coupons do %>
+              <tr class="bg-white">
+                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900">
+                  <%= coupon.title %>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                  <%= coupon.value %>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                  <%= coupon.discount %>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                  <%= coupon.status %>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                  <span><%= link "Detall", to: Routes.admin_coupon_path(@conn, :show, coupon), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
+                  <%= if Admin.publishable?(coupon.id) do %>
+                    <span><%= link "Publicar", to: Routes.admin_publish_coupon_path(@conn, :publish, coupon), method: :put, data: [confirm: "Are you sure?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
+                  <% end %>
+                  <%= if Admin.unpublishable?(coupon.id) and coupon.status != :published do %>
+                    <span><%= link "Despublicar", to: Routes.admin_unpublish_coupon_path(@conn, :unpublish, coupon), method: :put, class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
+                  <% end %>
+                  <%= if Admin.updatable?(coupon.id) do %>
+                    <span><%= link "Editar", to: Routes.admin_coupon_path(@conn, :edit, coupon), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
+                    <span><%= link "Eliminar", to: Routes.admin_coupon_path(@conn, :delete, coupon), method: :delete, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
+                  <% else %>
+                    <%= unless coupon.archived do %>
+                      <span><%= link "Arxivar", to: Routes.admin_archive_coupon_path(@conn, :archive, coupon), method: :put, data: [confirm: "Els cupons que ja s'han comprat seguiran sent bescanviables, però ja no se'n podran fer més comandes. Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
+                    <% end %>
+                  <% end %>
+                  <%= if Admin.ready_to_redeem?(coupon) do %>
+                    <span><%= link "Activar", to: Routes.admin_activate_coupon_path(@conn, :activate, coupon), method: :put, data: [confirm: "Es notificarà als compradors del cupó que ja es poden bescanviar. Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
+                  <% end %>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              <%= for coupon <- @coupons do %>
-                <tr class="bg-white">
-                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900">
-                    <%= coupon.title %>
-                  </td>
-                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                    <%= coupon.value %>
-                  </td>
-                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                    <%= coupon.discount %>
-                  </td>
-                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                    <%= coupon.status %>
-                  </td>
-                  <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                    <span><%= link "Detall", to: Routes.admin_coupon_path(@conn, :show, coupon), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                    <%= if Admin.publishable?(coupon.id) do %>
-                      <span><%= link "Publicar", to: Routes.admin_publish_coupon_path(@conn, :publish, coupon), method: :put, data: [confirm: "Are you sure?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                    <% end %>
-                    <%= if Admin.unpublishable?(coupon.id) and coupon.status != :published do %>
-                      <span><%= link "Despublicar", to: Routes.admin_unpublish_coupon_path(@conn, :unpublish, coupon), method: :put, class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                    <% end %>
-                    <%= if Admin.updatable?(coupon.id) do %>
-                      <span><%= link "Editar", to: Routes.admin_coupon_path(@conn, :edit, coupon), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                      <span><%= link "Eliminar", to: Routes.admin_coupon_path(@conn, :delete, coupon), method: :delete, data: [confirm: "Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                    <% else %>
-                      <%= unless coupon.archived do %>
-                        <span><%= link "Arxivar", to: Routes.admin_archive_coupon_path(@conn, :archive, coupon), method: :put, data: [confirm: "Els cupons que ja s'han comprat seguiran sent bescanviables, però ja no se'n podran fer més comandes. Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                      <% end %>
-                    <% end %>
-                    <%= if Admin.ready_to_redeem?(coupon) do %>
-                      <span><%= link "Activar", to: Routes.admin_activate_coupon_path(@conn, :activate, coupon), method: :put, data: [confirm: "Es notificarà als compradors del cupó que ja es poden bescanviar. Estàs segur/a?"], class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></span>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-</div>
+<% end %>

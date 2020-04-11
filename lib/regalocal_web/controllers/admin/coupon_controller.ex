@@ -10,7 +10,6 @@ defmodule RegalocalWeb.Admin.CouponController do
     coupons = Admin.list_coupons(conn.assigns[:business_id])
 
     conn
-    |> assign(:title, "Cupons")
     |> render("index.html", coupons: coupons)
   end
 
@@ -18,7 +17,6 @@ defmodule RegalocalWeb.Admin.CouponController do
     changeset = Admin.change_coupon(%Coupon{})
 
     conn
-    |> assign(:title, "Nou cupó")
     |> render("new.html", changeset: changeset)
   end
 
@@ -36,7 +34,6 @@ defmodule RegalocalWeb.Admin.CouponController do
         IO.inspect(changeset)
 
         conn
-        |> assign(:title, "Nou cupó")
         |> render("new.html", changeset: changeset)
     end
   end
@@ -95,7 +92,6 @@ defmodule RegalocalWeb.Admin.CouponController do
     coupon = Admin.get_coupon!(conn.assigns[:business_id], id)
 
     conn
-    |> assign(:title, "Cupó")
     |> render("show.html", coupon: coupon)
   end
 
@@ -104,7 +100,6 @@ defmodule RegalocalWeb.Admin.CouponController do
     changeset = Admin.change_coupon(coupon)
 
     conn
-    |> assign(:title, "Editar cupó")
     |> render("edit.html", coupon: coupon, changeset: changeset)
   end
 
@@ -127,7 +122,6 @@ defmodule RegalocalWeb.Admin.CouponController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> assign(:title, "Editar cupó")
         |> render("edit.html", coupon: coupon, changeset: changeset)
     end
   end

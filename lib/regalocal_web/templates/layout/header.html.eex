@@ -24,7 +24,7 @@
           <% end %>
         </div>
         <div class="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
-          <%= if assigns[:business_id] do %>
+          <%= if assigns[:current_business] do %>
             <%= link "Accedir al panell", to: Routes.admin_dashboard_path(@conn, :show), class: "button button-reverse" %>
           <% else %>
             <%= link "Sóc un comerç", to: Routes.veil_business_path(@conn, :new), class: "button button-reverse" %>
@@ -57,7 +57,7 @@
             <% end %>
           </div>
           <div>
-            <%= if assigns[:business_id] do %>
+            <%= if assigns[:current_business] do %>
               <%= link "Accedir al panell", to: Routes.admin_dashboard_path(@conn, :show), class: "block w-full px-5 py-3 text-center font-medium text-primary-600 bg-gray-50 hover:bg-gray-100 hover:text-primary-700 focus:outline-none focus:bg-gray-100 focus:text-primary-700 transition duration-150 ease-in-out" %>
             <% else %>
               <%= link "Sóc un comerç", to: Routes.veil_business_path(@conn, :new), class: "block w-full px-5 py-3 text-center font-medium text-primary-600 bg-gray-50 hover:bg-gray-100 hover:text-primary-700 focus:outline-none focus:bg-gray-100 focus:text-primary-700 transition duration-150 ease-in-out" %>

@@ -6,9 +6,7 @@ defmodule RegalocalWeb.Admin.BaseController do
     end
   end
 
-  alias Regalocal.Admin
-
-  def load_business(conn) do
-    Admin.get_business!(conn.assigns[:business_id])
+  def current_business(conn) do
+    conn.assigns[:current_business]
   end
 end

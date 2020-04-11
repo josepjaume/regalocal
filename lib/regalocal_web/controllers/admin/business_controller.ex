@@ -5,23 +5,15 @@ defmodule RegalocalWeb.Admin.BusinessController do
   alias Regalocal.Admin
 
   def edit(conn, _params) do
-    business = load_business(conn)
+    business = current_business(conn)
     changeset = Admin.change_business(business)
 
-    title =
-      if conn.assigns[:acceptance] do
-        "Editar perfil"
-      else
-        "Completar perfil"
-      end
-
     conn
-    |> assign(:title, title)
     |> render("edit.html", business: business, changeset: changeset)
   end
 
   def update(conn, %{"business" => params}) do
-    business = load_business(conn)
+    business = current_business(conn)
 
     new_params =
       if upload = params["photo"] do
@@ -41,13 +33,12 @@ defmodule RegalocalWeb.Admin.BusinessController do
         IO.inspect(changeset)
 
         conn
-        |> assign(:title, "Editar perfil")
         |> render("edit.html", business: business, changeset: changeset)
     end
   end
 
   def delete(conn) do
-    business = Admin.get_business!(conn.assigns[:business_id])
+    business = current_business(conn)
     {:ok, _business} = Admin.delete_business(business)
 
     conn

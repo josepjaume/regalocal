@@ -9,7 +9,6 @@ defmodule RegalocalWeb.Admin.OrderController do
     orders = Admin.list_orders(conn.assigns[:business_id])
 
     conn
-    |> assign(:title, "Comandes")
     |> render("index.html", orders: orders)
   end
 
@@ -17,7 +16,6 @@ defmodule RegalocalWeb.Admin.OrderController do
     order = Admin.get_order!(conn.assigns[:business_id], id)
 
     conn
-    |> assign(:title, "Comanda")
     |> render("show.html", order: order)
   end
 
