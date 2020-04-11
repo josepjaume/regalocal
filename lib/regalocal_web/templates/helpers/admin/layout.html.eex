@@ -1,11 +1,16 @@
 <%= if @title do %>
-  <header class="bg-white shadow-sm">
-    <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-      <h1 class="text-lg leading-6 font-semibold text-gray-900">
-        <%= @title %>
-      </h1>
-    </div>
-  </header>
+  <div class="bg-gray-50 shadow-sm">
+    <header class="max-w-screen-xl mx-auto flex flex-wrap items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div>
+        <h1 class="py-4 text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:leading-9 sm:truncate">
+          <%= @title %>
+        </h1>
+      </div>
+      <div class="sm:flex py-2">
+        <%= @actions %>
+      </div>
+    </header>
+  </div>
 <% end%>
 <main>
   <div class="max-w-7xl mx-auto py-6 px-2 sm:px-6 lg:px-8">
