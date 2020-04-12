@@ -3,8 +3,8 @@
     <div class="inset-0 hidden lg:block absolute">
       <div class="absolute inset-y-0 left-0 w-1/2 bg-primary-50"></div>
     </div>
-    <div class="relative max-w-7xl mx-auto lg:grid lg:grid-cols-5">
-      <div class="py-16 px-4 sm:px-6 lg:col-span-2 lg:px-8 lg:py-24 xl:pr-12 border-r border-primary-100">
+    <div class="relative max-w-screen-xl mx-auto flex flex-col lg:flex-row">
+      <div class="py-16 px-6 sm:px-6 lg:w-2/5 lg:px-8 lg:py-24 xl:pr-12 border-r border-primary-100 order-last lg:order-first">
         <div class="max-w-lg mx-auto">
           <h2 class="text-2xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-3xl sm:leading-9">
             <%=@business.name%>
@@ -17,148 +17,85 @@
               <%= Business.picture(@business, 16) %>
             </div>
             <div class="ml-3">
-              <p class="text-sm leading-5 font-medium text-gray-900">
+              <p class="text-sm leading-5 font-medium text-gray-900 text-lg">
                 <a href="<%=Routes.business_path(@conn, :show, @business)%>" class="hover:underline">
                   <%= @business.owner_name %>
                 </a>
               </p>
             </div>
           </div>
-        </p>
-        <dl class="mt-8 text-base leading-6 text-gray-500">
-          <div>
-            <dt class="sr-only">Adreça</dt>
-            <dd>
-              <%= @business.billing_address %>
-            </dd>
-          </div>
-          <div class="mt-6">
-            <dt class="sr-only">Phone number</dt>
-            <dd class="flex">
-              <svg class="flex-shrink-0 h-6 w-6 text-gray-400" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-              </svg>
-              <a href="tel:<%= @business.phone %>" class="ml-3">
-                <%= @business.phone %>
-              </a>
-            </dd>
-          </div>
-          <div class="mt-3">
-            <dt class="sr-only">WhatsApp</dt>
-            <dd class="flex">
-              <svg class="flex-shrink-0 h-6 w-6 text-gray-400" fill="none" stroke="currentcolor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path></svg>
-              <a href="https://wa.me/34<%= @business.whatsapp %>" class="ml-3" rel="no-follow">
-                <%= @business.whatsapp %>
-              </a>
-            </dd>
-          </div>
-          <div class="mt-3">
-            <dt class="sr-only">Email</dt>
-            <dd class="flex">
-              <svg class="flex-shrink-0 h-6 w-6 text-gray-400" fill="none" stroke="currentcolor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z" clip-rule="evenodd"></path>
-              </svg>
-              <a href="mailto:<%= @business.email %>" class="ml-3" rel="no-follow">
-                <%= @business.email %>
-              </a>
-            </dd>
-          </div>
-          <div class="mt-3 text-sm text-gray-500 flex">
-            <%= if @business.website do %>
-              <a href="<%=@business.website %>" rel="no-follow">Web</a>
-            <% end %>
-            <%= if @business.facebook do %>
-              <a href="https://facebook.com/<%=@business.facebook %>" class="ml-6 text-gray-400 hover:text-gray-500" rel="no-follow">
-                <span class="sr-only">Facebook</span>
-                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"/>
-                </svg>
-              </a>
-            <% end %>
-            <%= if @business.instagram do %>
-              <a href="https://instagram.com/<%=@business.instagram %>" class="ml-6 text-gray-400 hover:text-gray-500" rel="no-follow">
-                <span class="sr-only">Instagram</span>
-                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"/>
-                </svg>
-              </a>
-            <% end %>
-          </div>
-        </dl>
-      </div>
-    </div>
-    <div class="bg-white py-16 px-4 sm:px-6 lg:col-span-3 lg:py-24 lg:px-8 xl:pl-12">
-      <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto text-center">
-          <div class="text-base leading-6 font-semibold uppercase tracking-wider text-gray-600">
-            Cupons disponibles
-          </div>
-          <h2 class="text-3xl leading-9 font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
-            Regala cupons als teus éssers estimats
-          </h2>
-          <p class="mt-3 text-xl leading-7 text-gray-500 sm:mt-4">
-            Gaudeix de temps amb els teus després del confinament i ajuda a <%= @business.owner_name %> a superar la crisi del COVID-19.
-          </p>
+          <dl class="mt-8 text-base leading-6 text-gray-500">
+            <div>
+              <dt class="sr-only">Adreça</dt>
+              <dd>
+                <%= @business.billing_address %>
+              </dd>
+            </div>
+            <div class="mt-6">
+              <dt class="sr-only">Phone number</dt>
+              <dd class="flex">
+                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 22.621l-3.521-6.795c-.008.004-1.974.97-2.064 1.011-2.24 1.086-6.799-7.82-4.609-8.994l2.083-1.026-3.493-6.817-2.106 1.039c-7.202 3.755 4.233 25.982 11.6 22.615.121-.055 2.102-1.029 2.11-1.033z"/></svg>
+                <a href="tel:<%= @business.phone %>" class="ml-3">
+                  <%= @business.phone %>
+                </a>
+              </dd>
+            </div>
+            <div class="mt-3">
+              <dt class="sr-only">WhatsApp</dt>
+              <dd class="flex">
+                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                <a href="https://wa.me/34<%= @business.whatsapp %>" class="ml-3" rel="no-follow">
+                  <%= @business.whatsapp %>
+                </a>
+              </dd>
+            </div>
+            <div class="mt-3">
+              <dt class="sr-only">Email</dt>
+              <dd class="flex">
+                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z"/></svg>
+                <a href="mailto:<%= @business.email %>" class="ml-3" rel="no-follow">
+                  <%= @business.email %>
+                </a>
+              </dd>
+            </div>
+            <div class="mt-10 text-sm text-gray-500 flex items-center justify-center">
+              <%= if @business.website do %>
+                <a href="<%=@business.website %>" rel="no-follow">
+                  <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.144 8.171c-.035-.066.342-.102.409-.102.074.009-.196.452-.409.102zm-2.152-3.072l.108-.031c.064.055-.072.095-.051.136.086.155.021.248.008.332-.014.085-.104.048-.149.093-.053.066.258.075.262.085.011.033-.375.089-.304.171.096.136.824-.195.708-.176.225-.113.029-.125-.097-.19-.043-.215-.079-.547-.213-.68l.088-.102c-.206-.299-.36.362-.36.362zm13.008 6.901c0 6.627-5.373 12-12 12-6.628 0-12-5.373-12-12s5.372-12 12-12c6.627 0 12 5.373 12 12zm-8.31-5.371c-.006-.146-.19-.284-.382-.031-.135.174-.111.439-.184.557-.104.175.567.339.567.174.025-.277.732-.063.87-.025.248.069.643-.226.211-.381-.355-.13-.542-.269-.574-.523 0 0 .188-.176.106-.166-.218.027-.614.786-.614.395zm6.296 5.371c0-1.035-.177-2.08-.357-2.632-.058-.174-.189-.312-.359-.378-.256-.1-1.337.597-1.5.254-.107-.229-.324.146-.572.008-.12-.066-.454-.515-.605-.46-.309.111.474.964.688 1.076.201-.152.852-.465.992-.038.268.804-.737 1.685-1.251 2.149-.768.694-.624-.449-1.147-.852-.275-.211-.272-.66-.55-.815-.124-.07-.693-.725-.688-.813l-.017.166c-.094.071-.294-.268-.315-.321 0 .295.48.765.639 1.001.271.405.416.995.748 1.326.178.178.858.914 1.035.898.193-.017.803-.458.911-.433.644.152-1.516 3.205-1.721 3.583-.169.317.138 1.101.113 1.476-.029.433-.37.573-.693.809-.346.253-.265.745-.556.925-.517.318-.889 1.353-1.623 1.348-.216-.001-1.14.36-1.261.007-.094-.256-.22-.45-.353-.703-.13-.248-.015-.505-.173-.724-.109-.152-.475-.497-.508-.677-.002-.155.117-.626.28-.708.229-.117.044-.458.016-.656-.048-.354-.267-.646-.53-.851-.389-.299-.188-.537-.097-.964 0-.204-.124-.472-.398-.392-.564.164-.393-.44-.804-.413-.296.021-.538.209-.813.292-.346.104-.7-.082-1.042-.125-1.407-.178-1.866-1.786-1.499-2.946.037-.19-.114-.542-.048-.689.158-.352.48-.747.762-1.014.158-.15.361-.112.547-.229.287-.181.291-.553.572-.781.4-.325.946-.318 1.468-.388.278-.037 1.336-.266 1.503-.06 0 .038.191.604-.019.572.433.023 1.05.749 1.461.579.211-.088.134-.736.567-.423.262.188 1.436.272 1.68.069.15-.124.234-.93.052-1.021.116.115-.611.124-.679.098-.12-.044-.232.114-.425.025.116.055-.646-.354-.218-.667-.179.131-.346-.037-.539.107-.133.108.062.18-.128.274-.302.153-.53-.525-.644-.602-.116-.076-1.014-.706-.77-.295l.789.785c-.039.025-.207-.286-.207-.059.053-.135.02.579-.104.347-.055-.089.09-.139.006-.268 0-.085-.228-.168-.272-.226-.125-.155-.457-.497-.637-.579-.05-.023-.764.087-.824.11-.07.098-.13.201-.179.311-.148.055-.287.126-.419.214l-.157.353c-.068.061-.765.291-.769.3.029-.075-.487-.171-.453-.321.038-.165.213-.68.168-.868-.048-.197 1.074.284 1.146-.235.029-.225.046-.487-.313-.525.068.008.695-.246.799-.36.146-.168.481-.442.724-.442.284 0 .223-.413.354-.615.131.053-.07.376.087.507-.01-.103.445.057.489.033.104-.054.684-.022.594-.294-.1-.277.051-.195.181-.253-.022.009.34-.619.402-.413-.043-.212-.421.074-.553.063-.305-.024-.176-.52-.061-.665.089-.115-.243-.256-.247-.036-.006.329-.312.627-.241 1.064.108.659-.735-.159-.809-.114-.28.17-.509-.214-.364-.444.148-.235.505-.224.652-.476.104-.178.225-.385.385-.52.535-.449.683-.09 1.216-.041.521.048.176.124.104.324-.069.19.286.258.409.099.07-.092.229-.323.298-.494.089-.222.901-.197.334-.536-.374-.223-2.004-.672-3.096-.672-.236 0-.401.263-.581.412-.356.295-1.268.874-1.775.698-.519-.179-1.63.66-1.808.666-.065.004.004-.634.358-.681-.153.023 1.247-.707 1.209-.859-.046-.18-2.799.822-2.676 1.023.059.092.299.092-.016.294-.18.109-.372.801-.541.801-.505.221-.537-.435-1.099.409l-.894.36c-1.328 1.411-2.247 3.198-2.58 5.183-.013.079.334.226.379.28.112.134.112.712.167.901.138.478.479.744.74 1.179.154.259.41.914.329 1.186.108-.178 1.07.815 1.246 1.022.414.487.733 1.077.061 1.559-.217.156.33 1.129.048 1.368l-.361.093c-.356.219-.195.756.021.982 1.818 1.901 4.38 3.087 7.22 3.087 5.517 0 9.989-4.472 9.989-9.989zm-11.507-6.357c.125-.055.293-.053.311-.22.015-.148.044-.046.08-.1.035-.053-.067-.138-.11-.146-.064-.014-.108.069-.149.104l-.072.019-.068.087.008.048-.087.106c-.085.084.002.139.087.102z"/></svg>
+                </a>
+              <% end %>
+              <%= if @business.facebook do %>
+                <a href="https://facebook.com/<%=@business.facebook %>" class="ml-6 text-gray-400 hover:text-gray-500" rel="no-follow">
+                  <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z"/></svg>
+                </a>
+              <% end %>
+              <%= if @business.instagram do %>
+                <a href="https://instagram.com/<%=@business.instagram %>" class="ml-6 text-gray-400 hover:text-gray-500" rel="no-follow">
+                  <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M17.25 7.288v1.269c0 .297-.241.539-.538.539h-1.269c-.299 0-.538-.242-.538-.539v-1.269c0-.297.239-.538.538-.538h1.269c.297 0 .538.241.538.538zm-5.25 7.403c1.486 0 2.693-1.205 2.693-2.692s-1.207-2.69-2.693-2.69c-1.487 0-2.691 1.204-2.691 2.691s1.204 2.691 2.691 2.691zm4.261-3.291c.028.196.046.396.046.599 0 2.38-1.928 4.308-4.307 4.308s-4.307-1.928-4.307-4.307c0-.204.018-.403.046-.599.027-.194.066-.383.118-.567h-1.107v5.879c0 .297.241.538.538.538h9.424c.297 0 .538-.241.538-.538v-5.879h-1.107c.05.184.09.373.118.566zm7.739.6c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12zm-5-5.385c0-.892-.723-1.615-1.615-1.615h-10.77c-.892 0-1.615.723-1.615 1.615v10.769c0 .893.723 1.616 1.615 1.616h10.77c.892 0 1.615-.723 1.615-1.616v-10.769z"/></svg>
+                </a>
+              <% end %>
+            </div>
+          </dl>
         </div>
       </div>
-      <ul>
-        <%= for coupon <- @coupons do %>
-          <li>
-            <a href="<%= Routes.gift_path(@conn, :new, coupon) %>" class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
-              <div class="px-4 py-4 sm:px-6">
-                <div class="flex items-center justify-between">
-                  <div class="text-sm leading-5 font-medium text-secondary-600 truncate">
-                    <%= if coupon.title do %>
-                      <%= coupon.title %>
-                    <% else %>
-                      <%= "Cupó de " <>to_string(coupon.value) <> " EUR " %>
-                    <% end %>
-                  </div>
-                  <div class="ml-2 flex-shrink-0 flex">
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      <%= coupon.discount %>% de descompte
-                    </span>
-                  </div>
-                </div>
-                <div class="mt-2 sm:flex sm:justify-between">
-                  <div class="sm:flex">
-                    <div class="mr-6 flex items-center text-sm leading-5 text-gray-500">
-                      <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"></path>
-                      </svg>
-                      <span>Regales
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                          <%= coupon.value %> EUR
-                        </span>
-                      </span>
-                    </div>
-                    <div class="mt-2 flex items-center text-sm leading-5 text-gray-500 sm:mt-0">
-                      <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
-                      </svg>
-                      <span>Pagues
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                          <%= coupon.amount %> EUR
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="mt-2 flex items-center text-sm leading-5 text-gray-500 sm:mt-0">
-                    <span class="inline-flex rounded-md shadow-sm">
-                      <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-secondary-600 hover:bg-secondary-500 focus:outline-none focus:border-secondary-700 focus:shadow-outline-secondary active:bg-secondary-700 transition ease-in-out duration-150">
-                        M'interessa
-                        <svg class="ml-2 -mr-0.5 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </li>
-        <% end %>
-      </ul>
+      <div class="bg-white py-16 px-6 sm:px-6 lg:w-3/5 lg:py-24 lg:px-8 xl:pl-12">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+          <div class="max-w-4xl mx-auto text-center">
+            <div class="inline lg:hidden text-base leading-6 font-semibold uppercase tracking-wider text-gray-600">
+              <%= @business.name %></span>
+            </div>
+            <h2 class="text-3xl leading-9 font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
+              Cupons disponibles
+            </h2>
+            <p class="mt-3 text-xl leading-7 text-gray-500 sm:mt-4">
+              Gaudeix de temps amb els teus després del confinament i ajuda a <%= @business.owner_name %> a superar la crisi del COVID-19.
+            </p>
+          </div>
+        </div>
+        <ul>
+          <%= render "coupons.html", conn: @conn, coupons: @coupons %>
+        </ul>
+      </div>
     </div>
   </div>
 <% end %>

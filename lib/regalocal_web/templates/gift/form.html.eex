@@ -52,7 +52,9 @@
   <%= if !is_nil(@coupon.terms) && String.length(@coupon.terms) > 1 do %>
     <div class="mt-6">
       <div class="mt-1 rounded-md shadow-sm">
-        <%= content_tag(:textarea, @coupon.terms, rows: 5, readonly: true, class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5") %>
+        <div class="appearance-none bg-gray-50 block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+          <%= raw @coupon.terms |> html_escape |> safe_to_string |> String.split("\n") |> Enum.join("<br />") %>
+        </div>
       </div>
     </div>
     <div class="mt-6 flex items-center justify-between">
@@ -67,7 +69,14 @@
   <% end %>
   <div class="mt-6">
     <div class="mt-1 rounded-md shadow-sm">
-      <%= content_tag(:textarea, "1. El valor del cupó és de #{@coupon.value} EUR.\n2. El cupó no es podrà bescanviar fins que #{@business.legal_name} ho hagi notificat.\n3. Em comprometo a realitzar el pagament de #{@coupon.amount} EUR seguint les instruccions que rebré.\n4. Qualsevol reclamació o disputa haurà de resolta entre #{@business.legal_name} i el comprador, eximint a RegaLocal de qualsevol responsabilitat.", rows: 7, readonly: true, class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5") %>
+      <div class="appearance-none bg-gray-50 block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+        <ol class="list-decimal list-inside">
+          <li>El valor del cupó és de <%= @coupon.value %> EUR.</li>
+          <li>El cupó no es podrà bescanviar fins que <%= @business.legal_name %> ho hagi notificat.</li>
+          <li>Em comprometo a realitzar el pagament de <%= @coupon.amount %> EUR seguint les instruccions que rebré per correu electrònic.</li>
+          <li>Qualsevol reclamació o disputa haurà de resolta entre <%= @business.legal_name %> i el comprador, eximint a RegaLocal de qualsevol responsabilitat.</li>
+        </ol>
+      </div>
     </div>
   </div>
   <div class="mt-6 flex items-center justify-between">
@@ -81,7 +90,7 @@
   </div>
   <div class="mt-6">
     <span class="block w-full rounded-md shadow-sm">
-      <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
+      <button type="submit" class="w-full flex justify-center button">
         Regalar
       </button>
     </span>

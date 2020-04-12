@@ -1,12 +1,15 @@
 <%= container do %>
-  <div class="relative mt-12 lg:mt-24 ">
-    <h3 class="text-center text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Regala un cupó per a <%= @business.name%>: <%= @coupon.title %>
+  <div class="relative mt-12 lg:mt-24 text-center">
+    <h2 class="text-base leading-6 font-semibold uppercase tracking-wider text-gray-600">
+      <%= @business.name %></span>
+    </h2>
+    <h3 class="text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      <%= @coupon.title %>
     </h3>
-    <p class="mt-4 max-w-3xl mx-auto text-center text-xl leading-7 text-gray-500">
+    <p class="mt-4 max-w-3xl mx-auto text-xl leading-7 text-gray-500">
       El cupó té un <strong>valor de <%=@coupon.value %> EUR</strong>, però a tu et costarà <strong>només <%= @coupon.amount %> EUR</strong>.
     </p>
-    <p class="mt-4 max-w-3xl mx-auto text-center text-l leading-7 text-gray-500">
+    <p class="mt-4 max-w-3xl mx-auto text-l leading-7 text-gray-500">
       Fes un regal als els teus tot i recolzant <strong><%= @business.owner_name %></strong>.
     </p>
   </div>
