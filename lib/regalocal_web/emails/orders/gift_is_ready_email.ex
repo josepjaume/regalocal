@@ -11,7 +11,7 @@ defmodule RegalocalWeb.Orders.GiftIsReadyEmail do
     |> cc({gift.buyer_name, gift.buyer_email})
     |> reply_to({gift.buyer_name, gift.buyer_email})
     |> from(from_email())
-    |> subject("Ja pots gaudir del regal que t'ha fet #{gift.buyer_name}!")
+    |> subject("🎉 Ja pots gaudir del regal que et va fer #{gift.buyer_name}!")
     |> render_body("gift_is_ready.html", %{gift: gift, business: business})
     |> premail
   end

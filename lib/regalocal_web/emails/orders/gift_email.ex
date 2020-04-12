@@ -12,7 +12,7 @@ defmodule RegalocalWeb.Orders.GiftEmail do
     |> to({gift.recipient_name, gift.recipient_email})
     |> reply_to({gift.buyer_name, gift.buyer_email})
     |> from(from_email())
-    |> subject("#{gift.buyer_name} t'ha fet un regal per anar a #{business.name}!")
+    |> subject("🎁 Has rebut un regal de part de #{gift.buyer_name}!")
     |> render_body("gift_email.html", %{gift: gift, business: business})
     |> premail
   end

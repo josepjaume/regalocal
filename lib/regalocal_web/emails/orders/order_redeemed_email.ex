@@ -10,7 +10,7 @@ defmodule RegalocalWeb.Orders.OrderRedeemedEmail do
     |> to({gift.buyer_name, gift.buyer_email})
     |> reply_to({business.owner_name, business.email})
     |> from(from_email())
-    |> subject("El cupó que vas regalar ha sigut utilitzat - #{gift.reference}")
+    |> subject("👍 El cupó que vas regalar s'ha utilitzat: \"#{gift.reference}\"")
     |> render_body("order_redeemed.html", %{gift: gift, business: business})
     |> premail
   end

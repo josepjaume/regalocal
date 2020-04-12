@@ -11,7 +11,7 @@ defmodule RegalocalWeb.Orders.AfterOrderEmail do
     |> cc({business.owner_name, business.email})
     |> reply_to({business.owner_name, business.email})
     |> from(from_email())
-    |> subject("Instruccions de pagament compra - #{gift.reference}")
+    |> subject("💳 Instruccions de pagament de la comanda \"#{gift.reference}\"")
     |> render_body("after_order.html", %{conn: conn, gift: gift, business: business, token: token})
     |> premail
   end

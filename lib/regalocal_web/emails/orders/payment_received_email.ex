@@ -10,7 +10,7 @@ defmodule RegalocalWeb.Orders.PaymentReceivedEmail do
     |> to({gift.buyer_name, gift.buyer_email})
     |> reply_to({business.owner_name, business.email})
     |> from(from_email())
-    |> subject("Pagament rebut - #{gift.reference}")
+    |> subject("👍 Pagament rebut: \"#{gift.reference}\"")
     |> render_body("payment_received.html", %{conn: conn, gift: gift, business: business})
     |> premail
   end
