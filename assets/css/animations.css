@@ -6,6 +6,17 @@
   }
 }
 
+.animate-gift {
+  path {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: dash 5s linear forwards;
+    fill: transparent;
+    stroke: currentColor;
+    stroke-width: 0.5em;
+  }
+}
+
 @keyframes dash {
   to {
     stroke-dashoffset: 0;
