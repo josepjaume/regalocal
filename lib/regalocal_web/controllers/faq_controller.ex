@@ -35,7 +35,7 @@ defmodule RegalocalWeb.FaqController do
     %{
       question: "Com puc posar-me en contacte amb RegaLocal?",
       answer:
-        "Pots obrir un chat amb la icona de suport d'abaix a la dreta d'aquest pàgina, o bé enviar-nos un correu electrònic a regalocal@codegram.com."
+        "Pots obrir un chat amb <a href=\"#\" @click.prevent=\"$crisp.push(['do', 'chat:open'])\"/>suport tècnic</a>, o bé enviar-nos un correu electrònic a <a href=\"mailto:regalocal@codegram.com\">regalocal@codegram.com</a>."
     }
   ]
 

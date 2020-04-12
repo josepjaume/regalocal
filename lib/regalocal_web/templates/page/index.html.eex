@@ -1,6 +1,6 @@
 <div class="relative overflow-hidden">
   <div class="relative pb-12 sm:pb-16 md:pb-20 lg:pb-28 xl:pb-32">
-    <div class="mt-6 mx-auto max-w-screen-xl px-6 sm:mt-8 sm:px-8 md:mt-6 lg:mt-8 xl:mt-12">
+    <div class="mt-6 mx-auto max-w-screen-xl px-6 sm:mt-8 sm:px-8 md:mt-12 lg:mt-16 xl:mt-20">
       <div class="text-center">
         <h2 class="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
           Regala <span class="text-primary-600">somriures</span>

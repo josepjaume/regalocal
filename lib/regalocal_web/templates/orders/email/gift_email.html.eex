@@ -1,4 +1,4 @@
-<%= EmailHelpers.layout("🎁 Felicitats 🎁", "Has rebut un regal") do %>
+<%= EmailHelpers.layout("Felicitats", "Has rebut un regal 🎁") do %>
   <%= EmailHelpers.content_block do %>
     Has rebut un regal de part de <strong><%= @gift.buyer_name %></strong>:
   <% end %>

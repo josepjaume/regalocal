@@ -1,10 +1,10 @@
 <%= container(:padded) do %>
   <div x-data="{ openPanel: 1 }">
     <div class="max-w-3xl mx-auto pb-8">
-      <h2 class="text-center text-3xl leading-9 font-extrabold text-primary-600 sm:text-4xl sm:leading-10">
+      <h2 class="text-center text-3xl leading-9 font-extrabold text-primary-600 sm:text-4xl sm:leading-10 mb-6 border-b-2 border-gray-200 pb-6">
         Preguntes Freqüents
       </h2>
-      <div class="mt-6 border-t-2 border-gray-200 pt-6">
+      <div class="">
         <dl>
           <%= for {item, index} <- Enum.with_index(@items) do %>
             <%= if index == 0 do %>
@@ -18,7 +18,7 @@
                     <%= item.question %>
                   </span>
                   <span class="ml-6 h-7 flex items-center">
-                    <svg class="h-6 w-6 transform" :class="{ '-rotate-180': openPanel === 1 }" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                    <svg class="h-6 w-6 transform" :class="{ '-rotate-180': openPanel === <%= index + 1 %> }" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                     </svg>
                   </span>
@@ -26,7 +26,7 @@
               </dt>
               <dd class="mt-2 pr-12" x-show="openPanel === <%= index + 1 %>">
                 <p class="text-base leading-6 text-gray-500">
-                  <%= item.answer %>
+                  <%=raw item.answer %>
                 </p>
               </dd>
             </div>

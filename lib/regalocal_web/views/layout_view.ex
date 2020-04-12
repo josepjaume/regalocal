@@ -7,6 +7,7 @@ defmodule RegalocalWeb.LayoutView do
 
   def menu_items(conn) do
     [
+      %{title: "Sobre nosaltres", path: Routes.page_path(conn, :about)},
       %{title: "Preguntes Freqüents", path: Routes.faq_path(conn, :index)}
     ]
   end
