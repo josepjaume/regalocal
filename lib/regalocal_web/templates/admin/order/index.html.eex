@@ -50,7 +50,7 @@
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
                   <% coupon = Admin.get_coupon!(order.business_id, order.coupon_id) %>
-                  <a href="<%= Routes.admin_coupon_path(@conn, :show, coupon) %>"><%= (coupon.title || "") <> " " <> to_string(coupon.amount) <> " EUR (per valor de " <> to_string(coupon.value) <> " EUR)" %></a>
+                  <a href="<%= Routes.admin_coupon_path(@conn, :show, coupon) %>"><%= coupon.title %></a>
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
                   <%= order.inserted_at %>

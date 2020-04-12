@@ -26,7 +26,14 @@ defmodule RegalocalWeb.BusinessHelpers do
 
   def picture(%{photo_id: photo_id}, size) do
     img_tag(
-      Cloudex.Url.for(photo_id, %{width: size * 15, height: size * 15}),
+      Cloudex.Url.for(photo_id, %{
+        width: size * 15,
+        height: size * 15,
+        crop: "thumb",
+        face: true,
+        radius: "max"
+      })
+      |> String.replace(~r/g_face/, "g_faces"),
       class: "object-cover #{picture_classes(size)}"
     )
   end

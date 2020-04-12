@@ -2,42 +2,33 @@
   <%= EmailHelpers.content_block do %>
     Has rebut un regal de part de <strong><%= @gift.buyer_name %></strong>:
   <% end %>
-
   <%= EmailHelpers.content_block do %>
     <div class="gift">
       <strong><%= @gift.coupon.title %></strong> a <strong><%= @business.name %></strong>.
     </div>
   <% end %>
-
   <%= EmailHelpers.content_block do %>
     Aquí tens un missatge de part seva:
   <% end %>
-
   <%= EmailHelpers.content_block do %>
     <div class="message"><%= @gift.message_for_recipient %></div>
   <% end  %>
-
   <%= EmailHelpers.content_block do %>
     <strong>Com puc fer-lo servir?</strong>
   <% end %>
-
   <%= EmailHelpers.content_block do %>
     Ara mateix, <%= @business.name %> està tancat degut al confinament. Tan bon punt obrin, t'enviarem un mail indicant que ja pots anar al comerç a fer servir el teu cupó.
   <% end %>
-
   <%= EmailHelpers.content_block do %>
     El codi del cupó és <strong><%= @gift.reference %></strong>. No et preocupis, te'l recordarem en el proper mail.
   <% end %>
-
   <%= EmailHelpers.content_block do %>
     <strong>Vols fer un regal a algú tú també?</strong>
   <% end %>
-
   <%= EmailHelpers.content_block do %>
     <%= @gift.buyer_name %> t'ha fet el regal a través de <a href="https://regalocal.com">Regalocal</a>, el servei gratuït que et permet regalar afecte als teus tot i ajudant el comerç local.
   <% end %>
-
   <%= EmailHelpers.content_block do %>
-  Cerca comerços en dificultats per la crisi del COVID-19 i regala solidaritat :)
+    Cerca comerços en dificultats per la crisi del COVID-19 i regala solidaritat :)
   <% end %>
 <% end %>
