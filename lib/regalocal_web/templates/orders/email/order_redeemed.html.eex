@@ -4,6 +4,6 @@
   <% end %>
 
   <%= EmailHelpers.content_block do %>
-    <p>Moltes gràcies per crear nous somriures de proximitat!</p>
+    <p>Moltes gràcies per la teva solidaritat!</p>
   <% end %>
 <% end %>

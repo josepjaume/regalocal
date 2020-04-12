@@ -7,7 +7,7 @@
       El cupó té un <strong>valor de <%=@coupon.value %> EUR</strong>, però a tu et costarà <strong>només <%= @coupon.amount %> EUR</strong>.
     </p>
     <p class="mt-4 max-w-3xl mx-auto text-center text-l leading-7 text-gray-500">
-      Comparteix somriures de proximitat amb els teus tot i recolzant <strong><%= @business.owner_name %></strong>.
+      Fes un regal als els teus tot i recolzant <strong><%= @business.owner_name %></strong>.
     </p>
   </div>
   <div class="relative mt-6 lg:mt-12 lg:flex">
@@ -27,7 +27,7 @@
               </div>
             </div>
             <div class="ml-4">
-              <h5 class="text-lg leading-6 font-medium text-gray-900">Regales un somriure avui</h5>
+              <h5 class="text-lg leading-6 font-medium text-gray-900">Regales solidaritat avui</h5>
               <p class="mt-2 text-base leading-6 text-gray-500">
                 La persona a qui li regales el cupó <strong>el rebrà immediatament</strong>, incloent el teu missatge personalitzat.
               </p>

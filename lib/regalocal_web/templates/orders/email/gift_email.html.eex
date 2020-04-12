@@ -34,10 +34,10 @@
   <% end %>
 
   <%= EmailHelpers.content_block do %>
-    <%= @gift.buyer_name %> t'ha fet el regal a través de <a href="https://regalocal.com">Regalocal</a>, el servei gratuït que et permet regalar somriures als teus tot i ajudant al comerç local.
+    <%= @gift.buyer_name %> t'ha fet el regal a través de <a href="https://regalocal.com">Regalocal</a>, el servei gratuït que et permet regalar afecte als teus tot i ajudant el comerç local.
   <% end %>
 
   <%= EmailHelpers.content_block do %>
-  Cerca comerços en dificultats per la crisi del COVID-19 i regala un somriure de proximitat :)
+  Cerca comerços en dificultats per la crisi del COVID-19 i regala solidaritat :)
   <% end %>
 <% end %>

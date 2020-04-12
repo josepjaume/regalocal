@@ -6,7 +6,7 @@
           <%= logo(@conn) %>
         <% end %>
         <p class="mt-8 text-gray-500 text-base leading-6 max-w-md">
-          Ajudem a la recuperació de l'economia local, de somriure en somriure.
+          Ajudem a la recuperació de l'economia local, sense oblidar-nos dels qui estimem.
         </p>
         <div class="mt-8 flex">
           <a href="https://github.com/codegram/regalocal" class="text-gray-400 hover:text-gray-500">
