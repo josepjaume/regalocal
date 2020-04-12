@@ -4,7 +4,11 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title><%= assigns[:page_title] || "Regalocal" %></title>
+    <title><%= assigns[:page_title] || "Panell d'administració - Regalocal" %></title>
+
+    <meta name="theme-color" content="#d61f69" />
+    <link rel="icon" type="image/png" href="<%= Routes.static_path(@conn, "/images/favicon.png") %>">
+
     <script type="text/javascript">
       window.$crisp=[];window.CRISP_WEBSITE_ID="4c5c0f55-3698-46e2-8e30-5fac344bfe95";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
     </script>
