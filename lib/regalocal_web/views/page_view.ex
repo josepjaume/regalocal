@@ -1,6 +1,7 @@
 defmodule RegalocalWeb.PageView do
   use RegalocalWeb, :view
   import RegalocalWeb.PublicLayoutHelpers
+  import RegalocalWeb.Gettext
 
   def title(:index, _assigns) do
     gettext("Regala solidaritat al comerç local")
